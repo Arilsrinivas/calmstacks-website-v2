@@ -1,0 +1,258 @@
+@import "tailwindcss";
+
+/* ===== Design Tokens — Apple-Inspired ===== */
+:root {
+  --background: #000000;
+  --foreground: #f5f5f7;
+  --surface: #1d1d1f;
+  --surface-elevated: #2d2d2f;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+
+  /* Brand — One accent only */
+  --primary: #2997ff;
+  --primary-hover: #0071e3;
+
+  /* Typography */
+  --text-primary: #f5f5f7;
+  --text-secondary: #86868b;
+  --text-muted: #6e6e73;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-border-subtle: var(--border-subtle);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ===== Base ===== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(41, 151, 255, 0.3);
+  color: #fff;
+}
+
+/* ===== Cards — Clean, Flat ===== */
+.card {
+  background: var(--surface);
+  border-radius: 20px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.card:hover {
+  background: var(--surface-elevated);
+  transform: translateY(-2px);
+}
+
+/* ===== Buttons — Apple Style ===== */
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.0625rem;
+  padding: 12px 28px;
+  border-radius: 980px;
+  transition: background 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: -0.01em;
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+}
+
+.btn-secondary {
+  color: var(--primary);
+  font-weight: 500;
+  font-size: 1.0625rem;
+  padding: 12px 28px;
+  border-radius: 980px;
+  border: 2px solid var(--primary);
+  background: transparent;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: -0.01em;
+}
+
+.btn-secondary:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+/* ===== Link — Apple Blue ===== */
+.link-primary {
+  color: var(--primary);
+  font-size: 1.0625rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: opacity 0.2s ease;
+}
+
+.link-primary:hover {
+  text-decoration: underline;
+  opacity: 0.85;
+}
+
+/* ===== Animations — Subtle Only ===== */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll-triggered */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-slide-up {
+  animation: slide-up 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+/* ===== Navigation — Thin Bar ===== */
+.nav-link {
+  color: var(--text-secondary);
+  font-weight: 400;
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+  transition: color 0.2s ease;
+  padding: 4px 0;
+}
+
+.nav-link:hover {
+  color: var(--text-primary);
+}
+
+/* ===== Dropdown ===== */
+.dropdown-menu {
+  background: rgba(29, 29, 31, 0.96);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  padding: 6px;
+  min-width: 200px;
+}
+
+.dropdown-item {
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-primary);
+}
+
+/* ===== Dividers — Hair-thin ===== */
+.section-divider {
+  height: 1px;
+  background: var(--border-subtle);
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== Stat Counter ===== */
+.stat-number {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--text-primary);
+  letter-spacing: -0.04em;
+}
+
+/* ===== Form Inputs ===== */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea {
+  font-family: inherit;
+}
+
+/* ===== Glass (kept minimal for navbar only) ===== */
+.glass {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* Legacy class compat — redirect to card */
+.glass-card {
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.glass-card:hover {
+  background: var(--surface-elevated);
+  transform: translateY(-2px);
+}
+
+/* ===== Gradient text — now simple white */
+.gradient-text,
+.gradient-text-hero {
+  color: var(--primary);
+}
