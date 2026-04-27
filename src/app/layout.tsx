@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CalmStacks — Code. Robotics. Innovation.",
+  title: "CalmStacks",
   description:
     "CalmStacks builds custom digital products, provides expert programming consultation, and develops cutting-edge robotics & automation solutions. Bring your ideas to life.",
   keywords: [
@@ -28,8 +28,12 @@ export const metadata: Metadata = {
     "custom software",
     "CalmStacks",
   ],
+  icons: {
+    icon: "/assets/calmstacks_memorable_logo.svg",
+    apple: "/assets/calmstacks_memorable_logo.svg",
+  },
   openGraph: {
-    title: "CalmStacks — Code. Robotics. Innovation.",
+    title: "CalmStacks",
     description:
       "Building custom digital products, programming solutions, and robotics systems.",
     type: "website",
