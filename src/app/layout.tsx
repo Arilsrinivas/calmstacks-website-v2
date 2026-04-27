@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Providers from "@/components/Providers";
 import ParticleBackground from "@/components/ParticleBackground";
 
 const inter = Inter({
@@ -49,10 +48,8 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen bg-background text-foreground">
-        <Providers>
-          <ParticleBackground />
-          <div className="relative z-10">{children}</div>
-        </Providers>
+        <ParticleBackground />
+        <div className="relative z-10">{children}</div>
       </body>
     </html>
   );

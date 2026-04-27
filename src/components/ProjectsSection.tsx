@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
-const fallbackProjects = [
+const projects = [
   {
     title: "NeuraBot Control Suite",
     category: "Robotics",
@@ -30,20 +30,9 @@ const fallbackProjects = [
   },
 ];
 
-interface Project {
-  id?: string;
-  title: string;
-  category: string;
-  description: string;
-  tech: string[];
-  gradient: string;
-  image?: string;
-}
-
 export default function ProjectsSection() {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
-  const [projects, setProjects] = useState<Project[]>(fallbackProjects);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -51,24 +40,6 @@ export default function ProjectsSection() {
     }, { threshold: 0.1 });
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    fetch("/api/projects")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data) && data.length > 0) {
-          const merged = data.map((item, index) => {
-            const fallback = fallbackProjects.find(f => f.title === item.title) || fallbackProjects[index % fallbackProjects.length];
-            return {
-              ...item,
-              image: item.image || fallback.image
-            };
-          });
-          setProjects(merged);
-        }
-      })
-      .catch(() => {});
   }, []);
 
   return (
@@ -88,22 +59,21 @@ export default function ProjectsSection() {
         <div className="grid md:grid-cols-3 gap-5">
           {projects.map((project, i) => (
             <div
-              key={project.id || project.title}
+              key={project.title}
               className={`card overflow-hidden group cursor-pointer reveal ${inView ? "visible" : ""}`}
               style={{ transitionDelay: `${(i + 1) * 0.1}s` }}
             >
-              {/* Thumbnail — image or subtle gray with category */}
+              {/* Thumbnail */}
               <div className="h-44 bg-surface-elevated relative overflow-hidden group-hover:scale-[1.02] transition-transform duration-500">
                 {project.image && (
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
+                  <img
+                    src={project.image}
+                    alt={project.title}
                     className="w-full h-full object-cover absolute inset-0"
                   />
                 )}
-                {/* Gradient overlay for text readability */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent z-0" />
-                
+
                 <div className="absolute bottom-5 left-5 z-10">
                   <span className="text-[11px] font-medium uppercase tracking-widest text-white/90">
                     {project.category}
