@@ -57,7 +57,7 @@ export default function InnovationAbout() {
   const isInView = useInView(containerRef, { once: true, amount: 0.15 });
 
   return (
-    <section id="highlights" ref={containerRef} className="py-24 relative bg-transparent">
+    <section id="about" ref={containerRef} className="py-24 relative bg-transparent">
       {/* Background Neon Blur */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-blue-500/5 rounded-full blur-[130px] pointer-events-none -z-10" />
 

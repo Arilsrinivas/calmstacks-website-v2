@@ -52,7 +52,7 @@ export default function InnovationTracks() {
   const isInView = useInView(containerRef, { once: true, amount: 0.1 });
 
   return (
-    <section id="prizes" ref={containerRef} className="py-24 relative bg-transparent">
+    <section id="tracks" ref={containerRef} className="py-24 relative bg-transparent">
       <div className="max-w-[980px] mx-auto px-6">
         <div className="section-divider mb-20" />
 
