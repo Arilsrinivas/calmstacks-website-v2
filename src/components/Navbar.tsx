@@ -2,17 +2,29 @@
 
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-
-const navLinks = [
-  { label: "Solutions", href: "#services" },
-  { label: "About Us", href: "#about" },
-  { label: "Founders", href: "#founders" },
-  { label: "Projects", href: "#projects" },
-];
+import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isHackathonPage = pathname === "/innovation-challenge";
+
+  const navLinks = isHackathonPage
+    ? [
+        { label: "The Challenge", href: "#about" },
+        { label: "Benefits", href: "#benefits" },
+        { label: "Tracks", href: "#tracks" },
+        { label: "Timeline", href: "#timeline" },
+        { label: "FAQs", href: "#faqs" },
+      ]
+    : [
+        { label: "Solutions", href: "#services" },
+        { label: "About Us", href: "#about" },
+        { label: "Founders", href: "#founders" },
+        { label: "Projects", href: "#projects" },
+      ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -29,7 +41,7 @@ export default function Navbar() {
     >
       <div className="max-w-[980px] mx-auto px-6 h-11 flex items-center justify-between">
         {/* Logo */}
-        <a href="#hero" className="flex items-center gap-2 transition-opacity hover:opacity-80">
+        <a href={isHackathonPage ? "/" : "#hero"} className="flex items-center gap-2 transition-opacity hover:opacity-80">
           <img
             src="/assets/calmstacks_logo_white.svg"
             alt="CalmStacks Logo"
@@ -48,13 +60,13 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Contact Button */}
+        {/* Contact/Register Button */}
         <div className="hidden lg:flex items-center gap-4">
           <a
-            href="#contact"
-            className="text-sm font-medium text-text-primary border border-border-subtle hover:bg-surface px-5 py-2 rounded-full transition-colors"
+            href={isHackathonPage ? "#register" : "#contact"}
+            className="text-sm font-medium text-text-primary border border-border-subtle hover:bg-surface px-5 py-2 rounded-full transition-colors animate-fade-in"
           >
-            Contact Us
+            {isHackathonPage ? "Register Now" : "Contact Us"}
           </a>
         </div>
 
@@ -85,11 +97,11 @@ export default function Navbar() {
             <div className="h-px bg-border-subtle my-3" />
             <div className="flex gap-3">
               <a
-                href="#contact"
+                href={isHackathonPage ? "#register" : "#contact"}
                 className="text-sm text-primary"
                 onClick={() => setMobileOpen(false)}
               >
-                Contact Us
+                {isHackathonPage ? "Register Now" : "Contact Us"}
               </a>
             </div>
           </div>

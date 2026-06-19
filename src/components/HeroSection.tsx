@@ -1,25 +1,27 @@
 "use client";
 
+import dynamic from "next/dynamic";
+
+const ParticleSphere = dynamic(
+  () => import("./ParticleSphere"),
+  { ssr: false }
+);
+
 export default function HeroSection() {
   return (
     <section
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center pt-11 px-6 overflow-hidden"
     >
-      {/* Background Video */}
-      <div className="absolute inset-0 w-full h-full z-0">
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="w-full h-full object-cover opacity-60 pointer-events-none"
-        >
-          <source src="/assets/Robot_Gazing_At_Sunset_Sky.mp4" type="video/mp4" />
-        </video>
-        {/* Gradient Overlay for better readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background z-10" />
-      </div>
+      {/* 3D Particle Sphere Background */}
+      <ParticleSphere />
+
+      {/* Atmospheric Glow Effects */}
+      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse" style={{ animationDelay: "1s" }} />
+
+      {/* Floating background light streaks */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
 
       <div className="max-w-[980px] w-full text-center relative z-20">
         {/* Headline — massive, tight */}
@@ -37,6 +39,16 @@ export default function HeroSection() {
         >
           Crafted to Deliver Performance without Complexity
         </p>
+
+        {/* CTA Button */}
+        <div 
+          className="mt-10 animate-slide-up"
+          style={{ animationDelay: "0.24s" }}
+        >
+          <a href="/innovation-challenge" className="btn-primary">
+            Hackathon details
+          </a>
+        </div>
       </div>
     </section>
   );
