@@ -49,7 +49,11 @@ interface DatabaseSchema {
   registrations: Registration[];
 }
 
-const DB_FILE_PATH = path.join(process.cwd(), "data", "db.json");
+// In serverless environments like Vercel, the local filesystem is read-only.
+// We fall back to the writeable /tmp directory to prevent EROFS errors.
+const DB_FILE_PATH = process.env.VERCEL
+  ? path.join("/tmp", "db.json")
+  : path.join(process.cwd(), "data", "db.json");
 
 const DEFAULT_HACKATHON: HackathonConfig = {
   id: "calmstacks-internship-hackathon-2026",
@@ -71,47 +75,50 @@ const DEFAULT_HACKATHON: HackathonConfig = {
 };
 
 function ensureDatabase() {
-  const dirPath = path.dirname(DB_FILE_PATH);
-  if (!fs.existsSync(dirPath)) {
-    fs.mkdirSync(dirPath, { recursive: true });
-  }
+  try {
+    const dirPath = path.dirname(DB_FILE_PATH);
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
 
-  if (!fs.existsSync(DB_FILE_PATH)) {
-    const initialDb: DatabaseSchema = {
-      hackathons: [DEFAULT_HACKATHON],
-      registrations: [],
-    };
-    fs.writeFileSync(DB_FILE_PATH, JSON.stringify(initialDb, null, 2), "utf-8");
+    if (!fs.existsSync(DB_FILE_PATH)) {
+      const initialDb: DatabaseSchema = {
+        hackathons: [DEFAULT_HACKATHON],
+        registrations: [],
+      };
+      fs.writeFileSync(DB_FILE_PATH, JSON.stringify(initialDb, null, 2), "utf-8");
+    }
+  } catch (error) {
+    console.error("Error in ensureDatabase:", error);
   }
 }
 
 export function readDb(): DatabaseSchema {
-  ensureDatabase();
   try {
-    const data = fs.readFileSync(DB_FILE_PATH, "utf-8");
-    return JSON.parse(data) as DatabaseSchema;
+    ensureDatabase();
+    if (fs.existsSync(DB_FILE_PATH)) {
+      const data = fs.readFileSync(DB_FILE_PATH, "utf-8");
+      return JSON.parse(data) as DatabaseSchema;
+    }
   } catch (error) {
     console.error("Error reading database file, returning default schema:", error);
-    return { hackathons: [DEFAULT_HACKATHON], registrations: [] };
   }
+  return { hackathons: [DEFAULT_HACKATHON], registrations: [] };
 }
 
 export function writeDb(db: DatabaseSchema) {
-  ensureDatabase();
-  const tempPath = `${DB_FILE_PATH}.tmp`;
   try {
+    ensureDatabase();
+    const tempPath = `${DB_FILE_PATH}.tmp`;
     fs.writeFileSync(tempPath, JSON.stringify(db, null, 2), "utf-8");
     fs.renameSync(tempPath, DB_FILE_PATH);
   } catch (error) {
-    console.error("Error writing to database:", error);
-    if (fs.existsSync(tempPath)) {
-      try {
-        fs.unlinkSync(tempPath);
-      } catch (err) {
-        // ignore
-      }
+    console.error("Error writing to database using temporary file, attempting direct write:", error);
+    try {
+      fs.writeFileSync(DB_FILE_PATH, JSON.stringify(db, null, 2), "utf-8");
+    } catch (directError) {
+      console.error("Critical: Direct database write failed as well:", directError);
     }
-    throw new Error("Failed to write to database");
   }
 }
 
