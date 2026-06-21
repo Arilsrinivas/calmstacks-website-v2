@@ -1,40 +1,174 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CreditCard, CheckCircle2, Loader2, Lock, QrCode } from "lucide-react";
+import { CheckCircle2, Loader2, Users, ArrowRight, UserCheck, AlertCircle } from "lucide-react";
 import { motion, useInView } from "framer-motion";
+
+interface FieldConfig {
+  name: string;
+  label: string;
+  type: "text" | "email" | "tel" | "url";
+  required: boolean;
+}
+
+interface HackathonConfig {
+  id: string;
+  name: string;
+  registrationFee: number;
+  active: boolean;
+  fields: FieldConfig[];
+}
 
 export default function InnovationRegister() {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, amount: 0.1 });
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [track, setTrack] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [hackathon, setHackathon] = useState<HackathonConfig | null>(null);
+  const [cashfreeEnv, setCashfreeEnv] = useState<"sandbox" | "production">("sandbox");
+  const [loading, setLoading] = useState(true);
+  const [registering, setRegistering] = useState(false);
+  const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<"gateway" | "qr">("gateway");
-  const [utr, setUtr] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setSuccess("");
+  const [teamSize, setTeamSize] = useState<number>(1);
+  const [activeTab, setActiveTab] = useState<number>(0);
+  const [members, setMembers] = useState<any[]>([{}]);
 
-    // Simulate registration logic and payment gateway redirect
-    setTimeout(() => {
-      setLoading(false);
-      if (paymentMethod === "gateway") {
-        setSuccess("Registration details submitted! Redirecting to secure Stripe payment gateway...");
-      } else {
-        setSuccess(`Registration details submitted successfully! Your payment (UTR: ${utr}) is under verification. We will email your hackathon pass within 2 hours.`);
+  // Fetch active hackathon details
+  useEffect(() => {
+    async function fetchActiveHackathon() {
+      try {
+        const response = await fetch("/api/hackathon/active");
+        const data = await response.json();
+        if (data.success) {
+          setHackathon(data.hackathon);
+          setCashfreeEnv(data.cashfreeEnv);
+        } else {
+          setError("Could not load hackathon configuration.");
+        }
+      } catch (err) {
+        console.error("Error loading hackathon settings:", err);
+        setError("Error loading hackathon configuration.");
+      } finally {
+        setLoading(false);
       }
-    }, 1500);
+    }
+    fetchActiveHackathon();
+  }, []);
+
+  // Update members array when team size changes
+  const handleTeamSizeChange = (size: number) => {
+    setTeamSize(size);
+    setMembers((prev) => {
+      const updated = [...prev];
+      if (updated.length < size) {
+        while (updated.length < size) {
+          updated.push({});
+        }
+      } else if (updated.length > size) {
+        updated.splice(size);
+      }
+      return updated;
+    });
+    // Reset active tab to first member
+    setActiveTab(0);
   };
+
+  const handleMemberChange = (memberIndex: number, fieldName: string, value: string) => {
+    setMembers((prev) => {
+      const updated = [...prev];
+      updated[memberIndex] = {
+        ...updated[memberIndex],
+        [fieldName]: value,
+      };
+      return updated;
+    });
+  };
+
+  // Check if a member has filled all required fields
+  const isMemberValid = (memberIndex: number) => {
+    if (!hackathon) return false;
+    const member = members[memberIndex] || {};
+    return hackathon.fields.every((field) => {
+      if (!field.required) return true;
+      return member[field.name] && member[field.name].toString().trim() !== "";
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!hackathon) return;
+
+    setError("");
+    setRegistering(true);
+
+    // 1. Perform client side validation across all members
+    for (let i = 0; i < teamSize; i++) {
+      if (!isMemberValid(i)) {
+        setError(`Please fill in all required fields for Member ${i + 1}.`);
+        setActiveTab(i);
+        setRegistering(false);
+        return;
+      }
+    }
+
+    try {
+      // 2. Call register API
+      const registerRes = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          teamSize,
+          members,
+          hackathonId: hackathon.id,
+        }),
+      });
+
+      const registerData = await registerRes.json();
+
+      if (!registerRes.ok) {
+        setError(registerData.error || "Failed to submit registration.");
+        setRegistering(false);
+        return;
+      }
+
+      const { paymentSessionId, orderId } = registerData;
+
+      // 3. Import Cashfree dynamically to avoid SSR issues
+      const { load } = await import("@cashfreepayments/cashfree-js");
+      const cashfree = await load({ mode: cashfreeEnv });
+
+      setSuccess("Registration details saved. Redirecting to payment gateway...");
+
+      // 4. Initiate Cashfree checkout
+      await cashfree.checkout({
+        paymentSessionId,
+        redirectTarget: "_self",
+      });
+    } catch (err: any) {
+      console.error("Payment initiation error:", err);
+      setError(err?.message || "An error occurred while connecting to Cashfree. Please try again.");
+      setRegistering(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-24 min-h-[300px]">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <span className="ml-3 text-text-secondary">Loading registration details...</span>
+      </div>
+    );
+  }
+
+  const fee = hackathon?.registrationFee || 100;
+  const totalAmount = fee * teamSize;
 
   return (
     <section ref={ref} id="register" className="register-section py-24 relative bg-transparent">
-      <div className="max-w-[600px] mx-auto px-6">
+      <div className="max-w-[700px] mx-auto px-6">
         <div className="section-divider mb-16" />
 
         {/* Header */}
@@ -43,192 +177,174 @@ export default function InnovationRegister() {
             REGISTRATION
           </span>
           <h3 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white mt-4 mb-4">
-            Join the Challenge
+            {hackathon?.name || "Internship Hackathon 2026"}
           </h3>
-          <p className="text-base text-text-secondary leading-relaxed">
-            Register today to lock in your individual spot for the 2026 hackathon.
+          <p className="text-base text-text-secondary leading-relaxed max-w-lg mx-auto">
+            Choose your team size and fill in participant details to secure your spot.
           </p>
         </div>
 
         {/* Form Container */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="card glass-card p-8 md:p-10 border border-border-subtle bg-surface/10 backdrop-blur-lg rounded-2xl relative overflow-hidden"
+          className="card glass-card p-6 md:p-8 border border-border-subtle bg-surface/10 backdrop-blur-lg rounded-2xl relative overflow-hidden"
         >
           {success ? (
             <div className="text-center py-8">
               <div className="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-emerald-400">
-                <CheckCircle2 className="w-8 h-8" />
+                <CheckCircle2 className="w-8 h-8 animate-pulse" />
               </div>
-              <h4 className="text-xl font-semibold text-text-primary mb-3">Registration Received</h4>
+              <h4 className="text-xl font-semibold text-text-primary mb-3">Redirecting to Checkout</h4>
               <p className="text-sm text-text-secondary leading-relaxed max-w-sm mx-auto mb-6">
                 {success}
               </p>
-              <div className="p-4 rounded-xl bg-background border border-border-subtle inline-flex items-center gap-2 text-xs text-text-muted">
-                <Lock className="w-3.5 h-3.5" />
-                <span>Redirect / Verification status (Secure Sandbox)</span>
+              <div className="flex justify-center items-center gap-2 text-xs text-text-muted">
+                <Loader2 className="w-4 h-4 animate-spin text-primary" />
+                <span>Redirecting you securely to Cashfree...</span>
               </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Name */}
-              <div>
-                <label htmlFor="reg-name" className="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-2">
-                  Full Name
-                </label>
-                <input
-                  id="reg-name"
-                  type="text"
-                  placeholder="Enter your full name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-primary/50 transition-colors"
-                />
-              </div>
-
-              {/* Email */}
-              <div>
-                <label htmlFor="reg-email" className="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-2">
-                  Email Address
-                </label>
-                <input
-                  id="reg-email"
-                  type="email"
-                  placeholder="name@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-primary/50 transition-colors"
-                />
-              </div>
-
-              {/* Track Selection */}
-              <div>
-                <label htmlFor="reg-track" className="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-2">
-                  Track Selection
-                </label>
-                <select
-                  id="reg-track"
-                  value={track}
-                  onChange={(e) => setTrack(e.target.value)}
-                  required
-                  className="w-full px-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary text-sm focus:outline-none focus:border-primary/50 transition-colors appearance-none cursor-pointer"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2386868b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e")`,
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'right 16px center',
-                    backgroundSize: '16px'
-                  }}
-                >
-                  <option value="" disabled className="text-text-muted">Choose an innovation track</option>
-                  <option value="ai" className="text-text-primary">AI/ML Track</option>
-                  <option value="mobile" className="text-text-primary">Mobile App Development Track</option>
-                </select>
-              </div>
-
-              {/* Payment Method Selector */}
-              <div>
-                <label className="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-2">
-                  Payment Method
-                </label>
-                <div className="grid grid-cols-2 gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("gateway")}
-                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
-                      paymentMethod === "gateway"
-                        ? "border-primary bg-primary/10 text-white"
-                        : "border-border-subtle bg-surface/5 text-text-secondary hover:text-white"
-                    }`}
-                  >
-                    <CreditCard className="w-4 h-4" />
-                    <span>Card / Online Pay</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setPaymentMethod("qr")}
-                    className={`flex items-center justify-center gap-2 p-3 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
-                      paymentMethod === "qr"
-                        ? "border-primary bg-primary/10 text-white"
-                        : "border-border-subtle bg-surface/5 text-text-secondary hover:text-white"
-                    }`}
-                  >
-                    <QrCode className="w-4 h-4" />
-                    <span>UPI QR Code (Fallback)</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Payment details conditional layout */}
-              {paymentMethod === "gateway" ? (
-                /* Payment Info / Secure Badge */
-                <div className="p-4 rounded-xl border border-border-subtle bg-surface/5 flex items-start gap-3">
-                  <CreditCard className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                  <div>
-                    <h5 className="text-xs font-semibold text-white mb-1">Secure Checkout</h5>
-                    <p className="text-[11px] text-text-secondary leading-relaxed">
-                      Stripe handles our registration fee processing securely. Next step will redirect you to the payment gateway to complete the ₹100 transaction.
-                    </p>
-                  </div>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {/* QR Display */}
-                  <div className="p-4 rounded-xl border border-border-subtle bg-surface/5 flex flex-col items-center">
-                    <div className="bg-white p-3 rounded-2xl mb-3 shadow-md w-fit flex items-center justify-center">
-                      <img 
-                        src="/assets/payment_qr.jpg" 
-                        alt="UPI QR Code" 
-                        className="w-40 h-auto object-contain rounded-lg"
-                      />
-                    </div>
-                    <p className="text-xs text-text-primary font-semibold mb-1 text-center">
-                      Scan to Pay ₹100 using PhonePe
-                    </p>
-                    <p className="text-[10px] text-text-muted font-mono text-center select-all">
-                      UPI ID: ARIL SRINIVAS
-                    </p>
-                  </div>
-
-                  {/* UTR Input */}
-                  <div>
-                    <label htmlFor="reg-utr" className="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-2">
-                      Transaction UTR / Ref ID (12 digits)
-                    </label>
-                    <input
-                      id="reg-utr"
-                      type="text"
-                      placeholder="e.g. 612345678901"
-                      value={utr}
-                      onChange={(e) => setUtr(e.target.value)}
-                      required
-                      pattern="\d{12}"
-                      maxLength={12}
-                      title="UTR must be exactly 12 digits"
-                      className="w-full px-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-primary/50 transition-colors"
-                    />
-                  </div>
+              {/* Error Alert */}
+              {error && (
+                <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-start gap-3 text-red-400">
+                  <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
+                  <p className="text-xs font-medium leading-relaxed">{error}</p>
                 </div>
               )}
+
+              {/* Team Size Selector */}
+              <div>
+                <label className="block text-xs font-semibold text-text-secondary uppercase tracking-wider mb-3">
+                  Select Team Size
+                </label>
+                <div className="grid grid-cols-3 gap-3">
+                  {[1, 2, 4].map((size) => (
+                    <button
+                      key={size}
+                      type="button"
+                      onClick={() => handleTeamSizeChange(size)}
+                      className={`flex flex-col items-center justify-center gap-1.5 p-3 rounded-xl border text-xs font-semibold transition-all cursor-pointer ${
+                        teamSize === size
+                          ? "border-primary bg-primary/10 text-white"
+                          : "border-border-subtle bg-surface/5 text-text-secondary hover:text-white"
+                      }`}
+                    >
+                      <Users className="w-4 h-4" />
+                      <span>
+                        {size === 1 ? "1 Member" : `${size} Members`}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Member Tabs for Multi-member Teams */}
+              {teamSize > 1 && (
+                <div className="flex border-b border-border-subtle/50 mb-4 overflow-x-auto scrollbar-none gap-2 py-1">
+                  {Array.from({ length: teamSize }).map((_, idx) => {
+                    const isValid = isMemberValid(idx);
+                    const isActive = activeTab === idx;
+                    return (
+                      <button
+                        key={idx}
+                        type="button"
+                        onClick={() => setActiveTab(idx)}
+                        className={`flex items-center gap-1.5 px-4 py-2 border-b-2 text-xs font-semibold transition-all whitespace-nowrap cursor-pointer ${
+                          isActive
+                            ? "border-primary text-white"
+                            : "border-transparent text-text-secondary hover:text-white"
+                        }`}
+                      >
+                        <span>{idx === 0 ? "Leader (M1)" : `Member ${idx + 1}`}</span>
+                        {isValid ? (
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                        ) : (
+                          <span className="w-1.5 h-1.5 rounded-full bg-red-400/50" />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Dynamic Member Input Form */}
+              <div className="space-y-4">
+                <div className="flex justify-between items-center mb-2">
+                  <h4 className="text-xs font-bold text-text-muted uppercase tracking-wider">
+                    {teamSize > 1
+                      ? `Member ${activeTab + 1} Details`
+                      : "Participant Details"}
+                  </h4>
+                  {teamSize > 1 && activeTab < teamSize - 1 && (
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab((prev) => prev + 1)}
+                      className="text-xs text-primary font-medium hover:text-primary-hover flex items-center gap-1 cursor-pointer"
+                    >
+                      <span>Next Member</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </button>
+                  )}
+                </div>
+
+                {hackathon?.fields.map((field) => {
+                  const val = members[activeTab]?.[field.name] || "";
+                  return (
+                    <div key={field.name}>
+                      <label
+                        htmlFor={`field-${field.name}-${activeTab}`}
+                        className="block text-[11px] font-semibold text-text-secondary uppercase tracking-wider mb-2"
+                      >
+                        {field.label} {field.required && <span className="text-primary">*</span>}
+                      </label>
+                      <input
+                        id={`field-${field.name}-${activeTab}`}
+                        type={field.type}
+                        placeholder={`Enter ${field.label.toLowerCase()}`}
+                        value={val}
+                        onChange={(e) =>
+                          handleMemberChange(activeTab, field.name, e.target.value)
+                        }
+                        required={field.required}
+                        className="w-full px-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-primary/50 transition-colors"
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Order breakdown */}
+              <div className="p-4 rounded-xl border border-border-subtle bg-surface/5 flex justify-between items-center gap-3">
+                <div className="flex items-center gap-2 text-text-secondary">
+                  <UserCheck className="w-4 h-4 text-primary shrink-0" />
+                  <span className="text-xs font-medium">
+                    ₹{fee} per participant x {teamSize}
+                  </span>
+                </div>
+                <div className="text-right">
+                  <span className="text-[10px] text-text-muted uppercase tracking-wider block">
+                    TOTAL FEE
+                  </span>
+                  <span className="text-lg font-bold text-white">₹{totalAmount}</span>
+                </div>
+              </div>
 
               {/* Submit CTA */}
               <button
                 type="submit"
-                disabled={loading}
+                disabled={registering}
                 className="w-full btn-primary justify-center disabled:opacity-50 mt-2 cursor-pointer"
               >
-                {loading ? (
+                {registering ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin text-white" />
-                    <span>Processing...</span>
+                    <span>Processing Payment...</span>
                   </>
                 ) : (
-                  <span>
-                    {paymentMethod === "gateway" ? "Proceed to Payment (₹100)" : "Submit Registration (₹100)"}
-                  </span>
+                  <span>Pay ₹{totalAmount} & Register</span>
                 )}
               </button>
             </form>
