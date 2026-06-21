@@ -29,8 +29,8 @@ export const metadata: Metadata = {
     "CalmStacks",
   ],
   icons: {
-    icon: "/assets/calmstacks_memorable_logo.svg",
-    apple: "/assets/calmstacks_memorable_logo.svg",
+    icon: "/assets/favicon.svg",
+    apple: "/assets/favicon.svg",
   },
   openGraph: {
     title: "CalmStacks",
