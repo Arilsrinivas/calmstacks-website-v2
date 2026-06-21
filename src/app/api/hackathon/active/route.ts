@@ -9,7 +9,7 @@ export async function GET() {
     return NextResponse.json({
       success: true,
       hackathon: activeHackathon,
-      cashfreeEnv: process.env.CASHFREE_ENV || "sandbox",
+      razorpayKeyId: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "",
     });
   } catch (error: any) {
     console.error("Fetch active hackathon error:", error);

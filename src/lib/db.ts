@@ -4,7 +4,7 @@ import path from "path";
 export interface FieldConfig {
   name: string;
   label: string;
-  type: "text" | "email" | "tel" | "url";
+  type: "text" | "email" | "tel" | "url" | "textarea";
   required: boolean;
 }
 
@@ -16,27 +16,32 @@ export interface HackathonConfig {
   fields: FieldConfig[];
 }
 
-export interface TeamMember {
+export interface AdditionalTeamMember {
   fullName: string;
   email: string;
   phone: string;
   college: string;
-  degree?: string;
-  github?: string;
-  linkedin?: string;
-  [key: string]: any; // supports dynamic/additional participant fields
 }
 
 export interface Registration {
-  id: string; // unique registration / team id
-  hackathonId: string;
-  teamSize: number;
-  members: TeamMember[];
-  cashfreeOrderId: string;
-  cashfreePaymentId?: string;
-  paymentStatus: "PENDING" | "SUCCESS" | "FAILED";
-  paymentAmount: number;
-  registeredAt: string;
+  id: string; // registration id
+  hackathonId: string; // future-ready hackathon association
+  created_at: string; // timestamp
+  full_name: string;
+  email: string;
+  phone: string;
+  college: string;
+  degree?: string;
+  year_of_study: string;
+  team_name: string;
+  team_size: number;
+  github?: string;
+  linkedin?: string;
+  motivation: string;
+  payment_id?: string; // Razorpay payment ID
+  payment_status: "PENDING" | "SUCCESS" | "FAILED";
+  team_members: AdditionalTeamMember[]; // JSON stored array of additional members
+  razorpayOrderId: string; // internal tracking for verify signature
 }
 
 interface DatabaseSchema {
@@ -55,10 +60,13 @@ const DEFAULT_HACKATHON: HackathonConfig = {
     { name: "fullName", label: "Full Name", type: "text", required: true },
     { name: "email", label: "Email Address", type: "email", required: true },
     { name: "phone", label: "Phone Number", type: "tel", required: true },
-    { name: "college", label: "College/University", type: "text", required: true },
-    { name: "degree", label: "Degree/Branch", type: "text", required: false },
+    { name: "college", label: "College / University", type: "text", required: true },
+    { name: "degree", label: "Degree / Branch", type: "text", required: true },
+    { name: "year_of_study", label: "Year of Study", type: "text", required: true },
+    { name: "team_name", label: "Team Name", type: "text", required: true },
     { name: "github", label: "GitHub Profile", type: "url", required: false },
     { name: "linkedin", label: "LinkedIn Profile", type: "url", required: false },
+    { name: "motivation", label: "Why do you want to participate?", type: "textarea", required: true },
   ],
 };
 
@@ -83,7 +91,7 @@ export function readDb(): DatabaseSchema {
     const data = fs.readFileSync(DB_FILE_PATH, "utf-8");
     return JSON.parse(data) as DatabaseSchema;
   } catch (error) {
-    console.error("Error reading database file, returning empty schema:", error);
+    console.error("Error reading database file, returning default schema:", error);
     return { hackathons: [DEFAULT_HACKATHON], registrations: [] };
   }
 }
@@ -117,7 +125,6 @@ export function getActiveHackathon(): HackathonConfig {
   const db = readDb();
   const active = db.hackathons.find((h) => h.active);
   if (!active) {
-    // fallback or auto-activate the default one
     return DEFAULT_HACKATHON;
   }
   return active;
@@ -140,9 +147,9 @@ export function getRegistrations(): Registration[] {
   return db.registrations;
 }
 
-export function getRegistrationByOrderId(orderId: string): Registration | undefined {
+export function getRegistrationByRazorpayOrderId(orderId: string): Registration | undefined {
   const db = readDb();
-  return db.registrations.find((r) => r.cashfreeOrderId === orderId);
+  return db.registrations.find((r) => r.razorpayOrderId === orderId);
 }
 
 export function addRegistration(reg: Registration) {
@@ -153,11 +160,11 @@ export function addRegistration(reg: Registration) {
 
 export function updateRegistrationStatus(orderId: string, status: "SUCCESS" | "FAILED", paymentId?: string) {
   const db = readDb();
-  const index = db.registrations.findIndex((r) => r.cashfreeOrderId === orderId);
+  const index = db.registrations.findIndex((r) => r.razorpayOrderId === orderId);
   if (index !== -1) {
-    db.registrations[index].paymentStatus = status;
+    db.registrations[index].payment_status = status;
     if (paymentId) {
-      db.registrations[index].cashfreePaymentId = paymentId;
+      db.registrations[index].payment_id = paymentId;
     }
     writeDb(db);
     return db.registrations[index];

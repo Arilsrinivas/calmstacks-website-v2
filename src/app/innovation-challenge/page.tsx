@@ -17,12 +17,12 @@ export default function InnovationChallengePage() {
       <Navbar />
       <main className="min-h-screen pt-11">
         <InnovationHero />
+        <InnovationRegister />
         <InnovationAbout />
         <InnovationWhy />
         <InnovationTracks />
         <InnovationTimeline />
         <InnovationFees />
-        <InnovationRegister />
         <InnovationFaq />
       </main>
       <InnovationFooter />

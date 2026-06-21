@@ -1,170 +1,171 @@
 import { NextResponse } from "next/server";
-import { getActiveHackathon, addRegistration, getRegistrations, Registration, TeamMember } from "@/lib/db";
+import { getActiveHackathon, addRegistration, getRegistrations, Registration } from "@/lib/db";
 import crypto from "crypto";
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { teamSize, members, hackathonId } = body;
+    const {
+      fullName,
+      email,
+      phone,
+      college,
+      degree,
+      year_of_study,
+      team_name,
+      team_size,
+      github,
+      linkedin,
+      motivation,
+      team_members, // array of additional team members
+      hackathonId,
+    } = body;
 
     // 1. Validation
-    if (!teamSize || ![1, 2, 4].includes(Number(teamSize))) {
+    const size = Number(team_size);
+    if (!size || size < 1 || size > 4) {
+      return NextResponse.json({ error: "Invalid team size. Must be between 1 and 4." }, { status: 400 });
+    }
+
+    if (!fullName || !email || !phone || !college || !degree || !year_of_study || !team_name || !motivation) {
+      return NextResponse.json({ error: "Missing required registration fields." }, { status: 400 });
+    }
+
+    const additionalMembers = team_members || [];
+    if (size > 1 && additionalMembers.length !== size - 1) {
       return NextResponse.json(
-        { error: "Invalid team size. Must be 1, 2, or 4." },
+        { error: `You must specify details for all ${size - 1} additional team member(s).` },
         { status: 400 }
       );
     }
 
-    if (!members || !Array.isArray(members) || members.length !== Number(teamSize)) {
-      return NextResponse.json(
-        { error: `Registration details must contain exactly ${teamSize} member(s).` },
-        { status: 400 }
-      );
+    // Validate additional team members' required fields
+    for (let i = 0; i < additionalMembers.length; i++) {
+      const m = additionalMembers[i];
+      if (!m.fullName || !m.email || !m.phone || !m.college) {
+        return NextResponse.json(
+          { error: `Missing required details for Team Member ${i + 2}.` },
+          { status: 400 }
+        );
+      }
     }
 
     const activeHackathon = getActiveHackathon();
     if (activeHackathon.id !== hackathonId) {
+      return NextResponse.json({ error: "Invalid hackathon identifier." }, { status: 400 });
+    }
+
+    // 2. Prevent duplicate registrations using email address
+    const dbRegistrations = getRegistrations();
+    const successfulRegistrations = dbRegistrations.filter(
+      (r) => r.hackathonId === hackathonId && r.payment_status === "SUCCESS"
+    );
+
+    // Collect all registered emails (primary leaders and team members)
+    const registeredEmails = new Set<string>();
+    successfulRegistrations.forEach((r) => {
+      registeredEmails.add(r.email.toLowerCase().trim());
+      if (r.team_members && Array.isArray(r.team_members)) {
+        r.team_members.forEach((m) => {
+          registeredEmails.add(m.email.toLowerCase().trim());
+        });
+      }
+    });
+
+    // Check leader email
+    if (registeredEmails.has(email.toLowerCase().trim())) {
       return NextResponse.json(
-        { error: "Invalid hackathon identifier." },
+        { error: `Email address '${email}' is already registered.` },
         { status: 400 }
       );
     }
 
-    // Validate required fields based on hackathon config
-    for (let i = 0; i < members.length; i++) {
-      const member = members[i];
-      for (const field of activeHackathon.fields) {
-        if (field.required && (!member[field.name] || member[field.name].toString().trim() === "")) {
-          return NextResponse.json(
-            { error: `Field '${field.label}' is required for Member ${i + 1}.` },
-            { status: 400 }
-          );
-        }
-      }
-    }
-
-    // 2. Prevent duplicate registrations using email address
-    // Find all successful registrations
-    const dbRegistrations = getRegistrations();
-    const successfulRegistrations = dbRegistrations.filter(
-      (r) => r.hackathonId === hackathonId && r.paymentStatus === "SUCCESS"
-    );
-
-    // Get a set of all successfully registered emails
-    const registeredEmails = new Set(
-      successfulRegistrations.flatMap((r) =>
-        r.members.map((m) => m.email.toLowerCase().trim())
-      )
-    );
-
-    // Check if any of the incoming members' emails is already registered
-    for (const member of members) {
-      const email = member.email.toLowerCase().trim();
-      if (registeredEmails.has(email)) {
+    // Check additional member emails
+    for (const m of additionalMembers) {
+      if (registeredEmails.has(m.email.toLowerCase().trim())) {
         return NextResponse.json(
-          { error: `The email address '${member.email}' is already registered for this hackathon.` },
+          { error: `Team member email address '${m.email}' is already registered.` },
           { status: 400 }
         );
       }
     }
 
     // 3. Calculate amount
-    // Registration fee is per participant.
     const feePerParticipant = activeHackathon.registrationFee;
-    const totalAmount = feePerParticipant * Number(teamSize);
+    const totalAmount = feePerParticipant * size;
+    const amountInPaise = totalAmount * 100;
 
-    // 4. Generate unique registration and order IDs
+    // 4. Generate unique registration ID and receipt
     const registrationId = `CS-2026-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
-    const orderId = `CF_${registrationId}_${Date.now()}`;
+    const receiptId = `receipt_${registrationId}`;
 
-    // Team Leader (first member) details for Cashfree customer object
-    const leader: TeamMember = members[0];
-    const customerId = `CUST_${crypto.randomBytes(6).toString("hex").toUpperCase()}`;
-    const customerPhone = leader.phone.replace(/[^0-9]/g, ""); // strip non-numeric
-    
-    // Validate phone number length (Cashfree requires a valid phone number format)
-    const validPhone = customerPhone.length >= 10 ? customerPhone.slice(-10) : "9999999999";
+    // 5. Create Order via Razorpay API (direct REST call)
+    const razorpayKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "";
+    const razorpayKeySecret = process.env.RAZORPAY_KEY_SECRET || "";
 
-    // 5. Create Order via Cashfree API
-    const isProd = process.env.CASHFREE_ENV === "production";
-    const cfBaseUrl = isProd
-      ? "https://api.cashfree.com/pg/orders"
-      : "https://sandbox.cashfree.com/pg/orders";
+    const authString = Buffer.from(`${razorpayKeyId}:${razorpayKeySecret}`).toString("base64");
 
-    const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-
-    const cashfreeRequest = {
-      order_amount: totalAmount,
-      order_currency: "INR",
-      order_id: orderId,
-      customer_details: {
-        customer_id: customerId,
-        customer_name: leader.fullName,
-        customer_email: leader.email,
-        customer_phone: validPhone,
-      },
-      order_meta: {
-        return_url: `${appUrl}/innovation-challenge/success?order_id=${orderId}`,
-      },
-    };
-
-    console.log("Calling Cashfree API at:", cfBaseUrl);
-    
-    const response = await fetch(cfBaseUrl, {
+    console.log("Calling Razorpay Order Creation API...");
+    const rzpResponse = await fetch("https://api.razorpay.com/v1/orders", {
       method: "POST",
       headers: {
-        "x-api-version": "2023-08-01",
-        "x-client-id": process.env.CASHFREE_CLIENT_ID || "",
-        "x-client-secret": process.env.CASHFREE_CLIENT_SECRET || "",
+        Authorization: `Basic ${authString}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(cashfreeRequest),
+      body: JSON.stringify({
+        amount: amountInPaise,
+        currency: "INR",
+        receipt: receiptId,
+      }),
     });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Cashfree Order Creation Failed:", errorText);
+    if (!rzpResponse.ok) {
+      const errorText = await rzpResponse.text();
+      console.error("Razorpay Order Creation Failed:", errorText);
       return NextResponse.json(
-        { error: "Failed to initiate payment gateway order. Please try again." },
+        { error: "Failed to create payment order with Razorpay." },
         { status: 502 }
       );
     }
 
-    const orderData = await response.json();
-    const paymentSessionId = orderData.payment_session_id;
+    const rzpOrder = await rzpResponse.json();
+    const orderId = rzpOrder.id;
 
-    if (!paymentSessionId) {
-      console.error("No payment_session_id returned from Cashfree:", orderData);
-      return NextResponse.json(
-        { error: "Payment gateway did not issue a session. Please try again." },
-        { status: 502 }
-      );
-    }
-
-    // 6. Record the pending registration in the database
+    // 6. Save the pending registration in the database
     const newReg: Registration = {
       id: registrationId,
       hackathonId: hackathonId,
-      teamSize: Number(teamSize),
-      members: members,
-      cashfreeOrderId: orderId,
-      paymentStatus: "PENDING",
-      paymentAmount: totalAmount,
-      registeredAt: new Date().toISOString(),
+      created_at: new Date().toISOString(),
+      full_name: fullName,
+      email: email,
+      phone: phone,
+      college: college,
+      degree: degree,
+      year_of_study: year_of_study,
+      team_name: team_name,
+      team_size: size,
+      github: github || "",
+      linkedin: linkedin || "",
+      motivation: motivation,
+      payment_status: "PENDING",
+      payment_id: "",
+      team_members: additionalMembers,
+      razorpayOrderId: orderId,
     };
 
     addRegistration(newReg);
 
     return NextResponse.json({
       success: true,
-      paymentSessionId,
-      orderId,
-      registrationId,
+      orderId: orderId,
+      amount: rzpOrder.amount,
+      currency: rzpOrder.currency,
+      registrationId: registrationId,
     });
   } catch (error: any) {
     console.error("Registration Error:", error);
     return NextResponse.json(
-      { error: error?.message || "An unexpected error occurred during registration." },
+      { error: error?.message || "An unexpected error occurred." },
       { status: 500 }
     );
   }

@@ -12,21 +12,26 @@ interface Member {
   email: string;
   phone: string;
   college: string;
-  degree?: string;
-  github?: string;
-  linkedin?: string;
 }
 
 interface Registration {
   id: string;
-  hackathonId: string;
-  teamSize: number;
-  members: Member[];
-  cashfreeOrderId: string;
-  cashfreePaymentId?: string;
-  paymentStatus: "PENDING" | "SUCCESS" | "FAILED";
-  paymentAmount: number;
-  registeredAt: string;
+  created_at: string;
+  full_name: string;
+  email: string;
+  phone: string;
+  college: string;
+  degree?: string;
+  year_of_study: string;
+  team_name: string;
+  team_size: number;
+  github?: string;
+  linkedin?: string;
+  motivation: string;
+  payment_id?: string;
+  payment_status: "PENDING" | "SUCCESS" | "FAILED";
+  team_members: Member[];
+  razorpayOrderId: string;
 }
 
 export default function SuccessPage({
@@ -91,9 +96,9 @@ export default function SuccessPage({
             <div className="w-16 h-16 bg-amber-500/10 border border-amber-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-amber-400">
               <AlertTriangle className="w-8 h-8" />
             </div>
-            <h3 className="text-2xl font-semibold text-white mb-3">Order ID Missing</h3>
+            <h3 className="text-2xl font-semibold text-white mb-3">Order Session Missing</h3>
             <p className="text-sm text-text-secondary leading-relaxed mb-6">
-              It looks like you reached this page without a valid registration session. If you just registered, please check your email for confirmation.
+              It looks like you reached this page without a valid order session. If you just registered, check your email for confirmation.
             </p>
             <Link href="/innovation-challenge" className="btn-primary inline-flex items-center gap-2">
               Back to Hackathon
@@ -119,12 +124,12 @@ export default function SuccessPage({
               <div className="w-16 h-16 bg-primary/10 border border-primary/20 rounded-full flex items-center justify-center mx-auto mb-6 text-primary">
                 <Loader2 className="w-8 h-8 animate-spin" />
               </div>
-              <h3 className="text-2xl font-semibold text-white mb-3">Verifying Your Payment</h3>
+              <h3 className="text-2xl font-semibold text-white mb-3">Verifying Your Razorpay Payment</h3>
               <p className="text-sm text-text-secondary leading-relaxed max-w-md mx-auto mb-4">
-                We are securing confirmation from the Cashfree payment gateway. This usually takes just a few seconds. Please do not close or reload this page.
+                We are securing confirmation from the Razorpay gateway. This usually takes just a few seconds. Please do not close or reload this page.
               </p>
               <div className="text-xs text-text-muted">
-                Transaction Ref: <span className="font-mono text-white">{orderId}</span>
+                Razorpay Order: <span className="font-mono text-white">{orderId}</span>
               </div>
             </div>
           ) : status === "SUCCESS" && registration ? (
@@ -137,8 +142,8 @@ export default function SuccessPage({
                 <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">
                   Registration Successful
                 </h2>
-                <p className="text-base text-emerald-400 font-medium">
-                  Payment Confirmed • ₹{registration.paymentAmount}
+                <p className="text-sm text-text-muted">
+                  Confirmation email has been sent to <span className="text-primary font-semibold">{registration.email}</span>
                 </p>
               </div>
 
@@ -153,60 +158,77 @@ export default function SuccessPage({
                   </div>
                   <div>
                     <span className="text-[10px] text-text-muted uppercase tracking-wider block sm:text-right">
-                      REGISTRATION TIMESTAMP
+                      REGISTRATION DATE
                     </span>
                     <span className="text-xs text-text-secondary font-medium block sm:text-right">
-                      {new Date(registration.registeredAt).toLocaleString()}
+                      {new Date(registration.created_at).toLocaleString()}
                     </span>
                   </div>
                 </div>
 
                 {/* Team Details */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-b border-border-subtle/30 pb-4 text-xs">
+                  <div>
+                    <span className="text-text-muted uppercase tracking-wider block mb-0.5">Team Name</span>
+                    <span className="text-sm font-semibold text-white">{registration.team_name}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted uppercase tracking-wider block mb-0.5">Team Size</span>
+                    <span className="text-sm font-semibold text-white">{registration.team_size} {registration.team_size === 1 ? "Participant" : "Participants"}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted uppercase tracking-wider block mb-0.5">Payment ID</span>
+                    <span className="text-white font-mono">{registration.payment_id || "N/A"}</span>
+                  </div>
+                  <div>
+                    <span className="text-text-muted uppercase tracking-wider block mb-0.5">Payment Status</span>
+                    <span className="text-emerald-400 font-bold uppercase">SUCCESS / Confirmed</span>
+                  </div>
+                </div>
+
+                {/* Members list */}
                 <div>
                   <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-4 flex items-center gap-2">
                     <Users className="w-4 h-4 text-primary" />
-                    <span>Registered Participants ({registration.teamSize})</span>
+                    <span>Registered Members</span>
                   </h4>
                   
-                  <div className="space-y-4">
-                    {registration.members.map((member, idx) => (
+                  <div className="space-y-3">
+                    {/* Leader */}
+                    <div className="p-4 rounded-xl border border-border-subtle bg-surface/5 flex flex-col sm:flex-row sm:justify-between gap-3 text-xs">
+                      <div>
+                        <p className="font-bold text-white mb-1">
+                          {registration.full_name} <span className="text-primary text-[10px] ml-1">(Team Leader)</span>
+                        </p>
+                        <p className="text-text-secondary">{registration.college}</p>
+                        {registration.degree && <p className="text-text-muted">{registration.degree} • Year {registration.year_of_study}</p>}
+                      </div>
+                      <div className="sm:text-right flex flex-col justify-center">
+                        <p className="text-text-secondary">{registration.email}</p>
+                        <p className="text-text-secondary font-mono">{registration.phone}</p>
+                      </div>
+                    </div>
+
+                    {/* Additional Members */}
+                    {registration.team_members && registration.team_members.map((member, idx) => (
                       <div key={idx} className="p-4 rounded-xl border border-border-subtle bg-surface/5 flex flex-col sm:flex-row sm:justify-between gap-3 text-xs">
                         <div>
                           <p className="font-bold text-white mb-1">
-                            {member.fullName} {idx === 0 && <span className="text-primary font-semibold text-[10px] ml-1">(Team Leader)</span>}
+                            {member.fullName} <span className="text-text-muted text-[10px] ml-1">(Member {idx + 2})</span>
                           </p>
                           <p className="text-text-secondary">{member.college}</p>
-                          {member.degree && <p className="text-text-muted">{member.degree}</p>}
                         </div>
-                        <div className="sm:text-right flex flex-col gap-1 justify-center">
-                          <p className="text-text-secondary font-medium">{member.email}</p>
-                          <p className="text-text-secondary">{member.phone}</p>
-                          <div className="flex gap-2 sm:justify-end mt-1">
-                            {member.github && (
-                              <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                                GitHub
-                              </a>
-                            )}
-                            {member.github && member.linkedin && <span className="text-text-muted">•</span>}
-                            {member.linkedin && (
-                              <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                                LinkedIn
-                              </a>
-                            )}
-                          </div>
+                        <div className="sm:text-right flex flex-col justify-center">
+                          <p className="text-text-secondary">{member.email}</p>
+                          <p className="text-text-secondary font-mono">{member.phone}</p>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
-
-                {/* Confirm Text */}
-                <div className="p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5 text-xs text-text-secondary leading-relaxed">
-                  Your registration for the <strong className="text-white">CalmStacks Internship Hackathon 2026</strong> has been successfully submitted.
-                </div>
               </div>
 
-              {/* Instructions and Future communication */}
+              {/* Instructions Card */}
               <div className="card glass-card border border-border-subtle bg-surface/10 backdrop-blur-lg rounded-2xl p-6 md:p-8 space-y-6">
                 <h4 className="text-base font-semibold text-white flex items-center gap-2">
                   <HelpCircle className="w-5 h-5 text-primary" />
@@ -218,28 +240,21 @@ export default function SuccessPage({
                     <Mail className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                     <div>
                       <strong className="text-white block mb-0.5">Confirmation Email Sent</strong>
-                      We have sent a detailed confirmation email to the Team Leader at <span className="text-white font-medium">{registration.members[0].email}</span>. Please verify your spam folder if you do not receive it in the next 15 minutes.
+                      We have sent a detailed confirmation email to the Team Leader at <span className="text-white font-medium">{registration.email}</span>. A registration report has also been filed with the CalmStacks organizing team.
                     </div>
                   </li>
                   <li className="flex gap-3">
                     <Calendar className="w-4 h-4 text-primary shrink-0 mt-0.5" />
                     <div>
-                      <strong className="text-white block mb-0.5">Timeline & Submissions</strong>
-                      The hackathon kick-off credentials and access link will be emailed to all participants 24 hours before the event starts. Make sure to whitelist domains ending in <span className="text-primary">@calmstacks.com</span>.
-                    </div>
-                  </li>
-                  <li className="flex gap-3">
-                    <Users className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white block mb-0.5">Join Community Channels</strong>
-                      The team leader email contains the invite link to the CalmStacks Hackathon Discord server. All future communications, mentoring sessions, and submission guidelines will happen there.
+                      <strong className="text-white block mb-0.5">Mentorship Channels & Discord</strong>
+                      The team leader's confirmation mail contains the link to join our Discord server. Make sure all members join to coordinate during mentorship webinars.
                     </div>
                   </li>
                 </ul>
 
                 <div className="border-t border-border-subtle/50 pt-6 flex justify-end">
                   <Link href="/" className="btn-primary items-center gap-2 text-xs">
-                    <span>Back to Home</span>
+                    <span>Go to Homepage</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
@@ -251,9 +266,9 @@ export default function SuccessPage({
               <div className="w-16 h-16 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-red-400">
                 <AlertTriangle className="w-8 h-8" />
               </div>
-              <h3 className="text-2xl font-semibold text-white mb-3">Payment Verification Failed</h3>
+              <h3 className="text-2xl font-semibold text-white mb-3">Payment Failed</h3>
               <p className="text-sm text-text-secondary leading-relaxed max-w-sm mx-auto mb-6">
-                We could not verify a successful transaction for Order ID: <span className="font-mono text-white">{orderId}</span>. If money was debited, it will be refunded automatically by your bank within 5-7 business days.
+                We could not verify a successful transaction for Order ID: <span className="font-mono text-white">{orderId}</span>. Please check if your bank debited the amount. If debited, refunds will settle within 5 business days.
               </p>
               <div className="flex justify-center gap-4">
                 <Link href="/innovation-challenge#register" className="btn-primary text-xs">

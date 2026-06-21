@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { getRegistrationByOrderId, updateRegistrationStatus } from "@/lib/db";
+import { getRegistrationByRazorpayOrderId, updateRegistrationStatus } from "@/lib/db";
+import { sendHackathonEmails } from "@/lib/mailer";
 
 export async function GET(req: Request) {
   try {
@@ -10,94 +11,89 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "order_id parameter is required." }, { status: 400 });
     }
 
-    const registration = getRegistrationByOrderId(orderId);
+    const registration = getRegistrationByRazorpayOrderId(orderId);
     if (!registration) {
       return NextResponse.json({ error: "Registration not found." }, { status: 404 });
     }
 
-    // If the payment is already SUCCESS, return it immediately
-    if (registration.paymentStatus === "SUCCESS") {
+    // If already SUCCESS, return immediately
+    if (registration.payment_status === "SUCCESS") {
       return NextResponse.json({
-        status: registration.paymentStatus,
+        status: registration.payment_status,
         registration,
       });
     }
 
-    // Otherwise, double check directly with Cashfree in case the webhook is delayed
-    const isProd = process.env.CASHFREE_ENV === "production";
-    const cfPaymentsUrl = isProd
-      ? `https://api.cashfree.com/pg/orders/${orderId}/payments`
-      : `https://sandbox.cashfree.com/pg/orders/${orderId}/payments`;
+    // Fallback order sync check directly with Razorpay
+    const razorpayKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "";
+    const razorpayKeySecret = process.env.RAZORPAY_KEY_SECRET || "";
+    const authString = Buffer.from(`${razorpayKeyId}:${razorpayKeySecret}`).toString("base64");
 
-    console.log(`Checking Cashfree payment status at: ${cfPaymentsUrl}`);
+    const rzpUrl = `https://api.razorpay.com/v1/orders/${orderId}`;
+    console.log(`Verifying payment directly via Razorpay: ${rzpUrl}`);
 
     try {
-      const response = await fetch(cfPaymentsUrl, {
-        method: "GET",
+      const response = await fetch(rzpUrl, {
         headers: {
-          "x-api-version": "2023-08-01",
-          "x-client-id": process.env.CASHFREE_CLIENT_ID || "",
-          "x-client-secret": process.env.CASHFREE_CLIENT_SECRET || "",
+          Authorization: `Basic ${authString}`,
         },
       });
 
       if (response.ok) {
-        const paymentsList = await response.json();
+        const orderData = await response.json();
         
-        if (Array.isArray(paymentsList) && paymentsList.length > 0) {
-          // Look for any successful payment attempt
-          const successfulPayment = paymentsList.find(
-            (p: any) => p.payment_status === "SUCCESS"
-          );
-
-          if (successfulPayment) {
-            console.log(`Found successful payment in Cashfree list for order: ${orderId}`);
-            const updatedReg = updateRegistrationStatus(
-              orderId,
-              "SUCCESS",
-              successfulPayment.cf_payment_id.toString()
-            );
-            if (updatedReg) {
-              return NextResponse.json({
-                status: "SUCCESS",
-                registration: updatedReg,
-              });
-            }
-          } else {
-            // Check if there are failed attempts
-            const failedPayment = paymentsList.find(
-              (p: any) => ["FAILED", "USER_DROPPED"].includes(p.payment_status)
-            );
-            if (failedPayment) {
-              console.log(`Found failed/dropped payment in Cashfree list for order: ${orderId}`);
-              const updatedReg = updateRegistrationStatus(
-                orderId,
-                "FAILED",
-                failedPayment.cf_payment_id.toString()
-              );
-              if (updatedReg) {
-                return NextResponse.json({
-                  status: "FAILED",
-                  registration: updatedReg,
-                });
+        if (orderData.status === "paid") {
+          // Fetch payment ID from payments list
+          let paymentId = "";
+          try {
+            const paymentsResponse = await fetch(`https://api.razorpay.com/v1/orders/${orderId}/payments`, {
+              headers: {
+                Authorization: `Basic ${authString}`,
+              },
+            });
+            if (paymentsResponse.ok) {
+              const paymentsData = await paymentsResponse.json();
+              if (paymentsData && Array.isArray(paymentsData.items) && paymentsData.items.length > 0) {
+                const captured = paymentsData.items.find((p: any) => p.status === "captured");
+                if (captured) {
+                  paymentId = captured.id;
+                } else {
+                  paymentId = paymentsData.items[0].id;
+                }
               }
             }
+          } catch (payErr) {
+            console.error("Error fetching payments list from Razorpay:", payErr);
+          }
+
+          console.log(`Razorpay shows order ${orderId} is paid. Syncing status to SUCCESS.`);
+          const updatedReg = updateRegistrationStatus(orderId, "SUCCESS", paymentId);
+          
+          if (updatedReg) {
+            // Trigger confirmation emails
+            sendHackathonEmails(updatedReg).then((success) => {
+              if (!success) {
+                console.error("SMTP failed, but registration status was successfully synced to SUCCESS.");
+              }
+            });
+
+            return NextResponse.json({
+              status: "SUCCESS",
+              registration: updatedReg,
+            });
           }
         }
-      } else {
-        console.error(`Cashfree API returned error ${response.status} when checking payment.`);
       }
-    } catch (cfError) {
-      console.error("Error calling Cashfree API to verify payment status:", cfError);
-      // Fallback to local DB status in case Cashfree is unreachable
+    } catch (err) {
+      console.error("Error connecting to Razorpay for order verification:", err);
     }
 
     return NextResponse.json({
-      status: registration.paymentStatus,
+      status: registration.payment_status,
       registration,
     });
   } catch (error: any) {
-    console.error("Status check endpoint error:", error);
+    console.error("Verification status endpoint error:", error);
     return NextResponse.json(
       { error: error?.message || "An error occurred checking registration status." },
       { status: 500 }

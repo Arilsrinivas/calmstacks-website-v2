@@ -21,7 +21,7 @@ export async function GET(req: Request) {
     
     // Sort by registration date descending
     registrations.sort(
-      (a, b) => new Date(b.registeredAt).getTime() - new Date(a.registeredAt).getTime()
+      (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
     );
 
     return NextResponse.json({ success: true, registrations });
