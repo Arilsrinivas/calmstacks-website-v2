@@ -38,10 +38,10 @@ export interface Registration {
   github?: string;
   linkedin?: string;
   motivation: string;
-  payment_id?: string; // Razorpay payment ID
-  payment_status: "PENDING" | "SUCCESS" | "FAILED";
+  payment_id?: string; // payment verification transaction ID
+  payment_status: "PENDING_VERIFICATION" | "SUCCESS" | "FAILED";
   team_members: AdditionalTeamMember[]; // JSON stored array of additional members
-  razorpayOrderId: string; // internal tracking for verify signature
+  screenshot_path: string; // path to the uploaded payment screenshot file
 }
 
 interface DatabaseSchema {
@@ -154,9 +154,9 @@ export function getRegistrations(): Registration[] {
   return db.registrations;
 }
 
-export function getRegistrationByRazorpayOrderId(orderId: string): Registration | undefined {
+export function getRegistrationById(id: string): Registration | undefined {
   const db = readDb();
-  return db.registrations.find((r) => r.razorpayOrderId === orderId);
+  return db.registrations.find((r) => r.id === id);
 }
 
 export function addRegistration(reg: Registration) {
@@ -165,9 +165,9 @@ export function addRegistration(reg: Registration) {
   writeDb(db);
 }
 
-export function updateRegistrationStatus(orderId: string, status: "SUCCESS" | "FAILED", paymentId?: string) {
+export function updateRegistrationStatus(id: string, status: "SUCCESS" | "FAILED", paymentId?: string) {
   const db = readDb();
-  const index = db.registrations.findIndex((r) => r.razorpayOrderId === orderId);
+  const index = db.registrations.findIndex((r) => r.id === id);
   if (index !== -1) {
     db.registrations[index].payment_status = status;
     if (paymentId) {

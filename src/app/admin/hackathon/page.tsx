@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { 
   Lock, Loader2, Search, Filter, Download, Plus, Trash2, Edit, Save, 
-  Check, X, RefreshCw, Settings, Users, ChevronDown, ChevronUp, AlertCircle
+  Check, X, RefreshCw, Settings, Users, ChevronDown, ChevronUp, AlertCircle, Image, ExternalLink
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import InnovationFooter from "@/components/InnovationFooter";
@@ -46,9 +46,9 @@ interface Registration {
   linkedin?: string;
   motivation: string;
   payment_id?: string;
-  payment_status: "PENDING" | "SUCCESS" | "FAILED";
+  payment_status: "PENDING_VERIFICATION" | "SUCCESS" | "FAILED";
   team_members: Member[];
-  razorpayOrderId: string;
+  screenshot_path: string;
 }
 
 export default function AdminHackathonPage() {
@@ -66,9 +66,13 @@ export default function AdminHackathonPage() {
   const [regError, setRegError] = useState("");
   const [hackathonError, setHackathonError] = useState("");
 
+  // Action states
+  const [actionLoadingId, setActionLoadingId] = useState<string | null>(null);
+  const [manualPaymentId, setManualPaymentId] = useState<string>("");
+
   // Filters
   const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<"ALL" | "SUCCESS" | "PENDING" | "FAILED">("ALL");
+  const [statusFilter, setStatusFilter] = useState<"ALL" | "PENDING_VERIFICATION" | "SUCCESS" | "FAILED">("ALL");
   const [expandedReg, setExpandedReg] = useState<string | null>(null);
 
   // Hackathon Editor State
@@ -78,7 +82,7 @@ export default function AdminHackathonPage() {
   const [savingHackathon, setSavingHackathon] = useState(false);
   const [saveSuccessMessage, setSaveSuccessMessage] = useState("");
 
-  // Session login check
+  // Session check on mount
   useEffect(() => {
     const savedPass = sessionStorage.getItem("admin_passcode");
     if (savedPass) {
@@ -161,6 +165,36 @@ export default function AdminHackathonPage() {
     }
   };
 
+  const handleApproveRegistration = async (registrationId: string) => {
+    setActionLoadingId(registrationId);
+    try {
+      const response = await fetch("/api/admin/registrations/approve", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          passcode,
+          registrationId,
+          paymentId: manualPaymentId || undefined
+        })
+      });
+
+      const data = await response.json();
+      if (response.ok) {
+        setManualPaymentId("");
+        fetchRegistrations(passcode); // reload registrations
+      } else {
+        alert(data.error || "Failed to approve registration.");
+      }
+    } catch (err) {
+      console.error("Approve registration error:", err);
+      alert("Error communicating with approval server.");
+    } finally {
+      setActionLoadingId(null);
+    }
+  };
+
   const handleLogout = () => {
     sessionStorage.removeItem("admin_passcode");
     setIsAuthenticated(false);
@@ -173,7 +207,7 @@ export default function AdminHackathonPage() {
     // Flatten registrations to CSV format
     const headers = [
       "Participant Name", "Email", "Phone", "College", "Degree", "Year of Study", "Team Name", "Team Size", 
-      "Role", "Motivation", "Razorpay Order ID", "Razorpay Payment ID", "Payment Status", "Registered At"
+      "Role", "Motivation", "Screenshot File", "Payment Verification ID", "Payment Status", "Registered At"
     ];
 
     const rows = registrations
@@ -193,7 +227,7 @@ export default function AdminHackathonPage() {
           reg.team_size,
           "Leader",
           reg.motivation,
-          reg.razorpayOrderId,
+          reg.screenshot_path,
           reg.payment_id || "",
           reg.payment_status,
           new Date(reg.created_at).toLocaleString()
@@ -213,7 +247,7 @@ export default function AdminHackathonPage() {
               reg.team_size,
               `Member ${idx + 2}`,
               "", // motivation
-              reg.razorpayOrderId,
+              reg.screenshot_path,
               reg.payment_id || "",
               reg.payment_status,
               new Date(reg.created_at).toLocaleString()
@@ -360,8 +394,6 @@ export default function AdminHackathonPage() {
     const matchesSearch = 
       reg.id.toLowerCase().includes(term) ||
       reg.team_name.toLowerCase().includes(term) ||
-      reg.razorpayOrderId.toLowerCase().includes(term) ||
-      (reg.payment_id && reg.payment_id.toLowerCase().includes(term)) ||
       reg.full_name.toLowerCase().includes(term) ||
       reg.email.toLowerCase().includes(term) ||
       reg.phone.toLowerCase().includes(term) ||
@@ -390,9 +422,9 @@ export default function AdminHackathonPage() {
                 <div className="w-12 h-12 bg-primary/10 border border-primary/20 rounded-full flex items-center justify-center mx-auto mb-4 text-primary">
                   <Lock className="w-6 h-6" />
                 </div>
-                <h3 className="text-2xl font-bold text-white">Admin Authentication</h3>
+                <h3 className="text-2xl font-bold text-white">Organizer Panel</h3>
                 <p className="text-xs text-text-secondary mt-1">
-                  Protected panel /admin/hackathon
+                  Authenticate to verify payment screenshots
                 </p>
               </div>
 
@@ -406,7 +438,7 @@ export default function AdminHackathonPage() {
               <form onSubmit={handleLoginSubmit} className="space-y-4">
                 <div>
                   <label htmlFor="passcode-input" className="block text-[10px] font-bold text-text-secondary uppercase tracking-wider mb-2">
-                    Enter Credentials Passcode
+                    Enter Admin Passcode
                   </label>
                   <input
                     id="passcode-input"
@@ -441,7 +473,7 @@ export default function AdminHackathonPage() {
                 <div>
                   <h2 className="text-3xl font-bold tracking-tight text-white">CalmStacks Organizers</h2>
                   <p className="text-xs text-text-secondary mt-1">
-                    Manage hackathon active fees, fields, search and export registrations.
+                    Manage hackathon active fees, fields, search and verify registrations manually.
                   </p>
                 </div>
                 <div className="flex items-center gap-3">
@@ -501,7 +533,7 @@ export default function AdminHackathonPage() {
                         <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted" />
                         <input
                           type="text"
-                          placeholder="Search name, team, email, college, payment id..."
+                          placeholder="Search name, team, email, college, ID..."
                           value={searchQuery}
                           onChange={(e) => setSearchQuery(e.target.value)}
                           className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface border border-border-subtle/50 text-text-primary placeholder:text-text-muted text-xs focus:outline-none focus:border-primary/50 transition-colors"
@@ -522,8 +554,8 @@ export default function AdminHackathonPage() {
                           }}
                         >
                           <option value="ALL">All Status</option>
+                          <option value="PENDING_VERIFICATION">Under Verification</option>
                           <option value="SUCCESS">Confirmed</option>
-                          <option value="PENDING">Pending</option>
                           <option value="FAILED">Failed</option>
                         </select>
                         <Filter className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-text-muted pointer-events-none" />
@@ -586,7 +618,7 @@ export default function AdminHackathonPage() {
                                   <span className="text-xs text-text-muted block truncate">{reg.email} • {reg.phone}</span>
                                 </div>
                                 <div className="sm:col-span-3 md:col-span-1">
-                                  <span className="text-[10px] text-text-muted uppercase tracking-wider block">Registration Date</span>
+                                  <span className="text-[10px] text-text-muted uppercase tracking-wider block">Submission Date</span>
                                   <span className="text-xs text-text-secondary block">
                                     {new Date(reg.created_at).toLocaleDateString()}
                                   </span>
@@ -595,7 +627,7 @@ export default function AdminHackathonPage() {
 
                               <div className="flex items-center justify-between md:justify-end gap-6 border-t md:border-t-0 pt-3 md:pt-0 border-border-subtle/40">
                                 <div>
-                                  <span className="text-[10px] text-text-muted uppercase tracking-wider block text-left md:text-right font-medium">Payment ID</span>
+                                  <span className="text-[10px] text-text-muted uppercase tracking-wider block text-left md:text-right font-medium">Verified ID</span>
                                   <span className="text-xs text-white block font-mono">{reg.payment_id || "N/A"}</span>
                                 </div>
                                 <div className="flex items-center gap-3">
@@ -606,7 +638,7 @@ export default function AdminHackathonPage() {
                                       ? "bg-red-500/10 text-red-400 border border-red-500/20"
                                       : "bg-amber-500/10 text-amber-400 border border-amber-500/20"
                                   }`}>
-                                    {reg.payment_status === "SUCCESS" ? "Confirmed" : reg.payment_status}
+                                    {reg.payment_status === "PENDING_VERIFICATION" ? "Pending Review" : reg.payment_status === "SUCCESS" ? "Confirmed" : reg.payment_status}
                                   </span>
                                   {isExpanded ? <ChevronUp className="w-4 h-4 text-text-secondary" /> : <ChevronDown className="w-4 h-4 text-text-secondary" />}
                                 </div>
@@ -615,53 +647,125 @@ export default function AdminHackathonPage() {
 
                             {/* Details Panel (Expanded) */}
                             {isExpanded && (
-                              <div className="border-t border-border-subtle/50 bg-surface/5 p-4 md:p-6 space-y-4 animate-slide-up">
-                                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs border-b border-border-subtle/30 pb-4">
-                                  <div>
-                                    <span className="text-text-muted uppercase tracking-wider block mb-1">Razorpay Order ID</span>
-                                    <span className="text-white font-mono">{reg.razorpayOrderId}</span>
-                                  </div>
-                                  <div>
-                                    <span className="text-text-muted uppercase tracking-wider block mb-1">Degree & Year of study</span>
-                                    <span className="text-white">{reg.degree || "N/A"} (Year {reg.year_of_study})</span>
-                                  </div>
-                                  <div>
-                                    <span className="text-text-muted uppercase tracking-wider block mb-1">Profiles</span>
-                                    <div className="flex gap-2">
-                                      {reg.github && <a href={reg.github} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">GitHub</a>}
-                                      {reg.github && reg.linkedin && <span className="text-text-muted">|</span>}
-                                      {reg.linkedin && <a href={reg.linkedin} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">LinkedIn</a>}
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div className="text-xs border-b border-border-subtle/30 pb-4">
-                                  <span className="text-text-muted uppercase tracking-wider block mb-1">Motivation Response</span>
-                                  <p className="text-text-secondary whitespace-pre-wrap bg-surface/5 p-3 rounded-xl border border-border-subtle/30 leading-relaxed font-light">{reg.motivation}</p>
-                                </div>
-
-                                <div>
-                                  <h4 className="text-[11px] font-bold text-white uppercase tracking-wider mb-3">All Team Members ({reg.team_size})</h4>
-                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {/* Leader */}
-                                    <div className="p-3.5 rounded-xl border border-border-subtle/60 bg-surface/5 space-y-1 text-xs">
-                                      <p className="font-bold text-white">
-                                        {reg.full_name} <span className="text-primary text-[10px] ml-1">(Leader)</span>
-                                      </p>
-                                      <p className="text-text-secondary">{reg.college}</p>
-                                      <p className="text-text-muted">{reg.email} • {reg.phone}</p>
-                                    </div>
+                              <div className="border-t border-border-subtle/50 bg-surface/5 p-4 md:p-6 space-y-5 animate-slide-up">
+                                
+                                {/* Verification Area (if status is PENDING_VERIFICATION) */}
+                                {reg.payment_status === "PENDING_VERIFICATION" && (
+                                  <div className="p-4 rounded-xl border border-amber-500/20 bg-amber-500/5 space-y-4">
+                                    <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-2">
+                                      <Lock className="w-4 h-4" />
+                                      <span>Verify Payment Screenshot</span>
+                                    </h4>
                                     
-                                    {/* Additional Members */}
-                                    {reg.team_members && reg.team_members.map((member, mIdx) => (
-                                      <div key={mIdx} className="p-3.5 rounded-xl border border-border-subtle/60 bg-surface/5 space-y-1 text-xs">
-                                        <p className="font-bold text-white">
-                                          {member.fullName} <span className="text-text-muted text-[10px] ml-1">(Member {mIdx + 2})</span>
-                                        </p>
-                                        <p className="text-text-secondary">{member.college}</p>
-                                        <p className="text-text-muted">{member.email} • {member.phone}</p>
+                                    <div className="flex flex-col sm:flex-row gap-4 items-end">
+                                      <div className="flex-grow">
+                                        <label className="block text-[10px] text-text-muted uppercase tracking-wider mb-1.5 font-bold">
+                                          Enter Verification Transaction ID (Optional)
+                                        </label>
+                                        <input
+                                          type="text"
+                                          placeholder="e.g. UPI Ref / Bank ID / Transaction ID"
+                                          value={manualPaymentId}
+                                          onChange={(e) => setManualPaymentId(e.target.value)}
+                                          className="w-full px-3.5 py-2.5 rounded-xl bg-surface border border-border-subtle/50 text-text-primary text-xs focus:outline-none focus:border-primary/50 transition-colors font-mono"
+                                        />
                                       </div>
-                                    ))}
+                                      <button
+                                        type="button"
+                                        disabled={actionLoadingId === reg.id}
+                                        onClick={() => handleApproveRegistration(reg.id)}
+                                        className="btn-primary justify-center text-xs py-2.5 px-6 flex items-center gap-2 cursor-pointer w-full sm:w-auto"
+                                      >
+                                        {actionLoadingId === reg.id ? (
+                                          <Loader2 className="w-4 h-4 animate-spin text-white" />
+                                        ) : (
+                                          <Check className="w-4 h-4" />
+                                        )}
+                                        <span>Confirm & Approve</span>
+                                      </button>
+                                    </div>
+                                  </div>
+                                )}
+
+                                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                  {/* Left: General Details */}
+                                  <div className="md:col-span-2 space-y-4">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs border-b border-border-subtle/30 pb-4">
+                                      <div>
+                                        <span className="text-text-muted uppercase tracking-wider block mb-1">Registration ID</span>
+                                        <span className="text-white font-mono">{reg.id}</span>
+                                      </div>
+                                      <div>
+                                        <span className="text-text-muted uppercase tracking-wider block mb-1">Degree & Year of study</span>
+                                        <span className="text-white">{reg.degree || "N/A"} (Year {reg.year_of_study})</span>
+                                      </div>
+                                      <div>
+                                        <span className="text-text-muted uppercase tracking-wider block mb-1">Profiles</span>
+                                        <div className="flex gap-2">
+                                          {reg.github && <a href={reg.github} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">GitHub</a>}
+                                          {reg.github && reg.linkedin && <span className="text-text-muted">|</span>}
+                                          {reg.linkedin && <a href={reg.linkedin} target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">LinkedIn</a>}
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <div className="text-xs border-b border-border-subtle/30 pb-4">
+                                      <span className="text-text-muted uppercase tracking-wider block mb-1 font-bold">Why do you want to participate?</span>
+                                      <p className="text-text-secondary whitespace-pre-wrap bg-surface/5 p-3 rounded-xl border border-border-subtle/30 leading-relaxed font-light">{reg.motivation}</p>
+                                    </div>
+
+                                    <div>
+                                      <h4 className="text-[11px] font-bold text-white uppercase tracking-wider mb-3">All Team Members ({reg.team_size})</h4>
+                                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                        <div className="p-3.5 rounded-xl border border-border-subtle/60 bg-surface/5 space-y-1 text-xs">
+                                          <p className="font-bold text-white">
+                                            {reg.full_name} <span className="text-primary text-[10px] ml-1">(Leader)</span>
+                                          </p>
+                                          <p className="text-text-secondary">{reg.college}</p>
+                                          <p className="text-text-muted">{reg.email} • {reg.phone}</p>
+                                        </div>
+                                        
+                                        {reg.team_members && reg.team_members.map((member, mIdx) => (
+                                          <div key={mIdx} className="p-3.5 rounded-xl border border-border-subtle/60 bg-surface/5 space-y-1 text-xs">
+                                            <p className="font-bold text-white">
+                                              {member.fullName} <span className="text-text-muted text-[10px] ml-1">(Member {mIdx + 2})</span>
+                                            </p>
+                                            <p className="text-text-secondary">{member.college}</p>
+                                            <p className="text-text-muted">{member.email} • {member.phone}</p>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* Right: Payment Screenshot */}
+                                  <div className="md:col-span-1 space-y-2">
+                                    <span className="text-[10px] text-text-muted uppercase tracking-wider block font-bold">Uploaded Screenshot</span>
+                                    <div className="relative border border-border-subtle bg-surface/5 rounded-2xl overflow-hidden p-2 flex flex-col items-center justify-center min-h-[220px]">
+                                      {reg.screenshot_path ? (
+                                        <>
+                                          <img 
+                                            src={`/api/admin/screenshot?passcode=${encodeURIComponent(passcode)}&path=${encodeURIComponent(reg.screenshot_path)}`}
+                                            alt="Payment Receipt Screenshot" 
+                                            className="max-h-56 w-auto object-contain rounded-xl shadow-md border border-border-subtle/30"
+                                          />
+                                          <a 
+                                            href={`/api/admin/screenshot?passcode=${encodeURIComponent(passcode)}&path=${encodeURIComponent(reg.screenshot_path)}`}
+                                            target="_blank" 
+                                            rel="noopener noreferrer"
+                                            className="text-[10px] text-primary font-bold mt-3 hover:underline flex items-center gap-1"
+                                          >
+                                            <span>Open Full Image</span>
+                                            <ExternalLink className="w-3 h-3" />
+                                          </a>
+                                        </>
+                                      ) : (
+                                        <div className="text-center p-4">
+                                          <Image className="w-8 h-8 text-text-muted mx-auto mb-2" />
+                                          <span className="text-[10px] text-text-secondary">No screenshot uploaded</span>
+                                        </div>
+                                      )}
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -678,7 +782,7 @@ export default function AdminHackathonPage() {
               {activeTab === "hackathons" && (
                 <div className="grid md:grid-cols-3 gap-6 items-start">
                   
-                  {/* Sidebar - hackathon list */}
+                  {/* Sidebar */}
                   <div className="md:col-span-1 card glass-card border border-border-subtle p-5 rounded-2xl space-y-4 bg-surface/5">
                     <div className="flex justify-between items-center">
                       <h4 className="text-xs font-bold text-white uppercase tracking-wider">Select Hackathon</h4>
@@ -721,7 +825,7 @@ export default function AdminHackathonPage() {
                     )}
                   </div>
 
-                  {/* Editor form panel */}
+                  {/* Form panel */}
                   <div className="md:col-span-2 card glass-card border border-border-subtle p-5 md:p-6 rounded-2xl space-y-6">
                     {hackathonError && (
                       <div className="p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
@@ -745,7 +849,6 @@ export default function AdminHackathonPage() {
                           <span className="text-[10px] text-text-muted font-mono">{editingHackathon.id}</span>
                         </div>
 
-                        {/* Config Inputs */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div>
                             <label className="block text-[10px] font-bold text-text-secondary uppercase tracking-wider mb-2">

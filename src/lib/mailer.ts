@@ -1,5 +1,7 @@
 import nodemailer from "nodemailer";
 import { Registration } from "./db";
+import fs from "fs";
+import path from "path";
 
 // Helper to create transport
 function getMailTransport() {
@@ -8,7 +10,6 @@ function getMailTransport() {
   const user = process.env.SMTP_USER || "";
   const pass = process.env.SMTP_PASS || "";
 
-  // If no host is configured, return null to log and simulate success
   if (!host || !user) {
     console.warn("SMTP credentials are not configured in environment variables. Email sending will be logged to console instead.");
     return null;
@@ -17,7 +18,7 @@ function getMailTransport() {
   return nodemailer.createTransport({
     host,
     port,
-    secure: port === 465, // true for 465, false for other ports
+    secure: port === 465,
     auth: {
       user,
       pass,
@@ -25,23 +26,21 @@ function getMailTransport() {
   });
 }
 
-export async function sendHackathonEmails(registration: Registration): Promise<boolean> {
+export async function sendParticipantConfirmation(registration: Registration): Promise<boolean> {
   const transport = getMailTransport();
   const fromEmail = process.env.SMTP_FROM || '"CalmStacks Hackathon" <noreply@calmstacks.com>';
   
-  // Create beautiful HTML for participant confirmation
   const participantHtml = `
-    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; rounded-lg: 8px;">
+    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
       <h2 style="color: #2563eb; margin-bottom: 20px;">Registration Confirmed!</h2>
       <p>Hello <strong>${registration.full_name}</strong>,</p>
-      <p>Your registration for the <strong>CalmStacks Internship Hackathon 2026</strong> has been successfully submitted and confirmed.</p>
+      <p>Your registration for the <strong>CalmStacks Internship Hackathon 2026</strong> has been successfully verified and confirmed.</p>
       
       <div style="background-color: #f8fafc; padding: 15px; border-radius: 6px; margin: 20px 0;">
         <p style="margin: 5px 0;"><strong>Registration ID:</strong> <span style="font-family: monospace; font-size: 14px; font-weight: bold;">${registration.id}</span></p>
         <p style="margin: 5px 0;"><strong>Team Name:</strong> ${registration.team_name}</p>
         <p style="margin: 5px 0;"><strong>Team Size:</strong> ${registration.team_size}</p>
         <p style="margin: 5px 0;"><strong>Payment Status:</strong> Confirmed (SUCCESS)</p>
-        <p style="margin: 5px 0;"><strong>Payment ID:</strong> ${registration.payment_id || "N/A"}</p>
       </div>
 
       <h3 style="color: #1e293b; margin-top: 25px;">What's Next?</h3>
@@ -55,10 +54,42 @@ export async function sendHackathonEmails(registration: Registration): Promise<b
     </div>
   `;
 
-  // Create detailed HTML for admin notification
+  try {
+    if (!transport) {
+      console.log("=== SIMULATED HACKATHON CONFIRMATION EMAIL ===");
+      console.log(`TO: ${registration.email}`);
+      console.log(`FROM: ${fromEmail}`);
+      console.log(`SUBJECT: Registration Confirmed: CalmStacks Internship Hackathon 2026`);
+      console.log(`REGISTRATION ID: ${registration.id}`);
+      console.log("===============================================");
+      return true;
+    }
+
+    await transport.sendMail({
+      from: fromEmail,
+      to: registration.email,
+      subject: "Registration Confirmed: CalmStacks Internship Hackathon 2026",
+      html: participantHtml,
+    });
+    console.log(`Confirmation email sent successfully to ${registration.email}`);
+    return true;
+  } catch (error) {
+    console.error("FAILED to send confirmation email to participant:", error);
+    return false;
+  }
+}
+
+export async function sendAdminNotification(
+  registration: Registration, 
+  screenshotBuffer?: Buffer, 
+  screenshotName?: string
+): Promise<boolean> {
+  const transport = getMailTransport();
+  const fromEmail = process.env.SMTP_FROM || '"CalmStacks Hackathon" <noreply@calmstacks.com>';
+  
   const adminHtml = `
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-      <h2 style="color: #dc2626; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; pb-10px;">New Hackathon Registration</h2>
+      <h2 style="color: #dc2626; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">New Hackathon Registration (Pending Review)</h2>
       
       <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
         <tr style="background-color: #f8fafc;">
@@ -78,12 +109,12 @@ export async function sendHackathonEmails(registration: Registration): Promise<b
           <td style="padding: 8px;">${registration.team_size}</td>
         </tr>
         <tr style="background-color: #f8fafc;">
-          <td style="padding: 8px; font-weight: bold;">Payment ID</td>
-          <td style="padding: 8px; font-family: monospace;">${registration.payment_id || "N/A"}</td>
+          <td style="padding: 8px; font-weight: bold;">Payment Status</td>
+          <td style="padding: 8px; color: #d97706; font-weight: bold;">${registration.payment_status}</td>
         </tr>
         <tr>
-          <td style="padding: 8px; font-weight: bold;">Payment Status</td>
-          <td style="padding: 8px; color: #16a34a; font-weight: bold;">${registration.payment_status}</td>
+          <td style="padding: 8px; font-weight: bold;">Screenshot File Path</td>
+          <td style="padding: 8px; font-family: monospace;">${registration.screenshot_path}</td>
         </tr>
       </table>
 
@@ -149,47 +180,54 @@ export async function sendHackathonEmails(registration: Registration): Promise<b
     </div>
   `;
 
+  // Construct attachments array
+  const adminAttachments: any[] = [];
+  
+  if (screenshotBuffer && screenshotName) {
+    adminAttachments.push({
+      filename: screenshotName,
+      content: screenshotBuffer,
+    });
+  } else if (registration.screenshot_path) {
+    try {
+      const isAbsolute = path.isAbsolute(registration.screenshot_path);
+      const fullPath = isAbsolute 
+        ? registration.screenshot_path 
+        : path.join(process.cwd(), "public", registration.screenshot_path);
+      
+      if (fs.existsSync(fullPath)) {
+        adminAttachments.push({
+          filename: path.basename(fullPath),
+          path: fullPath
+        });
+      }
+    } catch (err) {
+      console.error("Error loading screenshot file for email attachment:", err);
+    }
+  }
+
   try {
     if (!transport) {
-      // SMTP variables not configured, log details to console
-      console.log("=== SIMULATED HACKATHON CONFIRMATION EMAIL ===");
-      console.log(`TO: ${registration.email}`);
-      console.log(`FROM: ${fromEmail}`);
-      console.log(`SUBJECT: Registration Confirmed: CalmStacks Internship Hackathon 2026`);
-      console.log(`REGISTRATION ID: ${registration.id}`);
-      console.log("===============================================");
-      
       console.log("=== SIMULATED ADMIN NOTIFICATION EMAIL ===");
       console.log(`TO: arilsrinivas8@gmail.com`);
       console.log(`FROM: ${fromEmail}`);
       console.log(`SUBJECT: [Hackathon Registration] ${registration.full_name}`);
-      console.log(`TEAM SIZE: ${registration.team_size}`);
+      console.log(`ATTACHMENT INCLUDED: ${adminAttachments.length > 0 ? "YES" : "NO"}`);
       console.log("===========================================");
       return true;
     }
 
-    // 1. Send confirmation email to participant
-    await transport.sendMail({
-      from: fromEmail,
-      to: registration.email,
-      subject: "Registration Confirmed: CalmStacks Internship Hackathon 2026",
-      html: participantHtml,
-    });
-    console.log(`Confirmation email sent successfully to ${registration.email}`);
-
-    // 2. Send notification email to admin arilsrinivas8@gmail.com
     await transport.sendMail({
       from: fromEmail,
       to: "arilsrinivas8@gmail.com",
       subject: `[Hackathon Registration] ${registration.full_name}`,
       html: adminHtml,
+      attachments: adminAttachments,
     });
     console.log(`Admin notification email sent successfully to arilsrinivas8@gmail.com`);
-
     return true;
   } catch (error) {
-    // Log the error but do not throw, satisfying the fallback requirement
-    console.error("FAILED to send emails via SMTP transporter:", error);
+    console.error("FAILED to send admin notification email:", error);
     return false;
   }
 }

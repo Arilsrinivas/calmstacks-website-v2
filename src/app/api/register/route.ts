@@ -1,28 +1,31 @@
 import { NextResponse } from "next/server";
-import { getActiveHackathon, addRegistration, getRegistrations, Registration } from "@/lib/db";
+import { getActiveHackathon, addRegistration, getRegistrations, Registration, AdditionalTeamMember } from "@/lib/db";
 import crypto from "crypto";
+import fs from "fs";
+import path from "path";
+import { sendAdminNotification } from "@/lib/mailer";
 
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const {
-      fullName,
-      email,
-      phone,
-      college,
-      degree,
-      year_of_study,
-      team_name,
-      team_size,
-      github,
-      linkedin,
-      motivation,
-      team_members, // array of additional team members
-      hackathonId,
-    } = body;
+    const formData = await req.formData();
+    
+    const fullName = formData.get("fullName") as string;
+    const email = formData.get("email") as string;
+    const phone = formData.get("phone") as string;
+    const college = formData.get("college") as string;
+    const degree = formData.get("degree") as string;
+    const year_of_study = formData.get("year_of_study") as string;
+    const team_name = formData.get("team_name") as string;
+    const team_size_str = formData.get("team_size") as string;
+    const github = formData.get("github") as string || "";
+    const linkedin = formData.get("linkedin") as string || "";
+    const motivation = formData.get("motivation") as string;
+    const hackathonId = formData.get("hackathonId") as string;
+    const team_members_str = formData.get("team_members") as string || "[]";
+    const screenshot = formData.get("screenshot") as Blob | null;
 
     // 1. Validation
-    const size = Number(team_size);
+    const size = Number(team_size_str);
     if (!size || size < 1 || size > 4) {
       return NextResponse.json({ error: "Invalid team size. Must be between 1 and 4." }, { status: 400 });
     }
@@ -31,17 +34,27 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Missing required registration fields." }, { status: 400 });
     }
 
-    const additionalMembers = team_members || [];
-    if (size > 1 && additionalMembers.length !== size - 1) {
+    if (!screenshot) {
+      return NextResponse.json({ error: "Payment verification screenshot file is required." }, { status: 400 });
+    }
+
+    let teamMembers: AdditionalTeamMember[] = [];
+    try {
+      teamMembers = JSON.parse(team_members_str);
+    } catch (e) {
+      return NextResponse.json({ error: "Invalid team members details." }, { status: 400 });
+    }
+
+    if (size > 1 && teamMembers.length !== size - 1) {
       return NextResponse.json(
         { error: `You must specify details for all ${size - 1} additional team member(s).` },
         { status: 400 }
       );
     }
 
-    // Validate additional team members' required fields
-    for (let i = 0; i < additionalMembers.length; i++) {
-      const m = additionalMembers[i];
+    // Validate additional team members
+    for (let i = 0; i < teamMembers.length; i++) {
+      const m = teamMembers[i];
       if (!m.fullName || !m.email || !m.phone || !m.college) {
         return NextResponse.json(
           { error: `Missing required details for Team Member ${i + 2}.` },
@@ -61,7 +74,6 @@ export async function POST(req: Request) {
       (r) => r.hackathonId === hackathonId && r.payment_status === "SUCCESS"
     );
 
-    // Collect all registered emails (primary leaders and team members)
     const registeredEmails = new Set<string>();
     successfulRegistrations.forEach((r) => {
       registeredEmails.add(r.email.toLowerCase().trim());
@@ -72,7 +84,6 @@ export async function POST(req: Request) {
       }
     });
 
-    // Check leader email
     if (registeredEmails.has(email.toLowerCase().trim())) {
       return NextResponse.json(
         { error: `Email address '${email}' is already registered.` },
@@ -80,8 +91,7 @@ export async function POST(req: Request) {
       );
     }
 
-    // Check additional member emails
-    for (const m of additionalMembers) {
+    for (const m of teamMembers) {
       if (registeredEmails.has(m.email.toLowerCase().trim())) {
         return NextResponse.json(
           { error: `Team member email address '${m.email}' is already registered.` },
@@ -90,48 +100,39 @@ export async function POST(req: Request) {
       }
     }
 
-    // 3. Calculate amount
-    const feePerParticipant = activeHackathon.registrationFee;
-    const totalAmount = feePerParticipant * size;
-    const amountInPaise = totalAmount * 100;
-
-    // 4. Generate unique registration ID and receipt
+    // 3. Save Screenshot File
     const registrationId = `CS-2026-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
-    const receiptId = `receipt_${registrationId}`;
+    const screenshotBytes = await screenshot.arrayBuffer();
+    const screenshotBuffer = Buffer.from(screenshotBytes);
 
-    // 5. Create Order via Razorpay API (direct REST call)
-    const razorpayKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || "";
-    const razorpayKeySecret = process.env.RAZORPAY_KEY_SECRET || "";
-
-    const authString = Buffer.from(`${razorpayKeyId}:${razorpayKeySecret}`).toString("base64");
-
-    console.log("Calling Razorpay Order Creation API...");
-    const rzpResponse = await fetch("https://api.razorpay.com/v1/orders", {
-      method: "POST",
-      headers: {
-        Authorization: `Basic ${authString}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        amount: amountInPaise,
-        currency: "INR",
-        receipt: receiptId,
-      }),
-    });
-
-    if (!rzpResponse.ok) {
-      const errorText = await rzpResponse.text();
-      console.error("Razorpay Order Creation Failed:", errorText);
-      return NextResponse.json(
-        { error: "Failed to create payment order with Razorpay." },
-        { status: 502 }
-      );
+    // Get original file extension
+    let ext = "png";
+    const originalName = (screenshot as any).name || "payment.png";
+    const dotIdx = originalName.lastIndexOf(".");
+    if (dotIdx !== -1) {
+      ext = originalName.substring(dotIdx + 1);
     }
 
-    const rzpOrder = await rzpResponse.json();
-    const orderId = rzpOrder.id;
+    const screenshotFilename = `${registrationId}_payment_${Date.now()}.${ext}`;
+    const uploadsDir = process.env.VERCEL
+      ? path.join("/tmp", "uploads")
+      : path.join(process.cwd(), "public", "uploads");
 
-    // 6. Save the pending registration in the database
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+
+    const screenshotFullPath = path.join(uploadsDir, screenshotFilename);
+    fs.writeFileSync(screenshotFullPath, screenshotBuffer);
+    
+    // Save relative or tmp path in db
+    const screenshotPath = process.env.VERCEL
+      ? `/tmp/uploads/${screenshotFilename}`
+      : `/uploads/${screenshotFilename}`;
+
+    // 4. Save Registration to local database
+    const totalAmount = activeHackathon.registrationFee * size;
+
     const newReg: Registration = {
       id: registrationId,
       hackathonId: hackathonId,
@@ -144,23 +145,31 @@ export async function POST(req: Request) {
       year_of_study: year_of_study,
       team_name: team_name,
       team_size: size,
-      github: github || "",
-      linkedin: linkedin || "",
+      github: github,
+      linkedin: linkedin,
       motivation: motivation,
-      payment_status: "PENDING",
+      payment_status: "PENDING_VERIFICATION",
       payment_id: "",
-      team_members: additionalMembers,
-      razorpayOrderId: orderId,
+      team_members: teamMembers,
+      screenshot_path: screenshotPath,
     };
 
     addRegistration(newReg);
 
+    // 5. Send Email Notification to Admin (Asynchronously with Attachment Buffer)
+    // Satisfies: "If email sending fails: Save registration to database, Show success message, Log email error"
+    sendAdminNotification(newReg, screenshotBuffer, screenshotFilename).then((success) => {
+      if (!success) {
+        console.error("Nodemailer failed to email admin arilsrinivas8@gmail.com, but registration was preserved.");
+      } else {
+        console.log("Admin notification email sent successfully with payment screenshot.");
+      }
+    });
+
     return NextResponse.json({
       success: true,
-      orderId: orderId,
-      amount: rzpOrder.amount,
-      currency: rzpOrder.currency,
       registrationId: registrationId,
+      status: "PENDING_VERIFICATION",
     });
   } catch (error: any) {
     console.error("Registration Error:", error);

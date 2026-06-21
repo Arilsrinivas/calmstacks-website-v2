@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CheckCircle2, Loader2, Users, ArrowRight, UserCheck, AlertCircle } from "lucide-react";
+import { CheckCircle2, Loader2, Users, ArrowRight, UserCheck, AlertCircle, Upload, FileImage, Image } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRouter } from "next/navigation";
 
@@ -26,7 +26,6 @@ export default function InnovationRegister() {
   const router = useRouter();
 
   const [hackathon, setHackathon] = useState<HackathonConfig | null>(null);
-  const [razorpayKeyId, setRazorpayKeyId] = useState<string>("");
   const [loading, setLoading] = useState(true);
   const [registering, setRegistering] = useState(false);
   const [error, setError] = useState("");
@@ -35,6 +34,10 @@ export default function InnovationRegister() {
   const [teamSize, setTeamSize] = useState<number>(1);
   const [activeTab, setActiveTab] = useState<number>(0); // 0 = Leader, 1 = Member 2, etc.
   
+  // Screenshot file state
+  const [screenshotFile, setScreenshotFile] = useState<File | null>(null);
+  const [screenshotPreview, setScreenshotPreview] = useState<string>("");
+
   // Leader details state (matches dynamic fields)
   const [leaderDetails, setLeaderDetails] = useState<any>({
     fullName: "",
@@ -56,21 +59,6 @@ export default function InnovationRegister() {
     { fullName: "", email: "", phone: "", college: "" }, // Member 4
   ]);
 
-  // Load Razorpay SDK Script
-  const loadRazorpayScript = () => {
-    return new Promise((resolve) => {
-      if ((window as any).Razorpay) {
-        resolve(true);
-        return;
-      }
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
-  };
-
   // Fetch active hackathon details
   useEffect(() => {
     async function fetchActiveHackathon() {
@@ -79,7 +67,6 @@ export default function InnovationRegister() {
         const data = await response.json();
         if (data.success) {
           setHackathon(data.hackathon);
-          setRazorpayKeyId(data.razorpayKeyId);
         } else {
           setError("Could not load hackathon configuration.");
         }
@@ -111,6 +98,24 @@ export default function InnovationRegister() {
     });
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setScreenshotFile(file);
+      
+      // Generate image preview if file is an image
+      if (file.type.startsWith("image/")) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          setScreenshotPreview(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+      } else {
+        setScreenshotPreview(""); // no preview for PDFs/non-images
+      }
+    }
+  };
+
   // Check if a member tab has all required fields completed
   const isMemberValid = (idx: number) => {
     if (idx === 0) {
@@ -139,8 +144,7 @@ export default function InnovationRegister() {
     setError("");
     setRegistering(true);
 
-    // 1. Perform client side validation
-    // Validate Leader
+    // 1. Client-side validations
     if (!isMemberValid(0)) {
       setError("Please fill in all required fields for the Team Leader.");
       setActiveTab(0);
@@ -148,7 +152,6 @@ export default function InnovationRegister() {
       return;
     }
 
-    // Validate Additional Members
     if (teamSize > 1) {
       for (let i = 1; i < teamSize; i++) {
         if (!isMemberValid(i)) {
@@ -160,100 +163,49 @@ export default function InnovationRegister() {
       }
     }
 
-    try {
-      // 2. Load Razorpay Script
-      const scriptLoaded = await loadRazorpayScript();
-      if (!scriptLoaded) {
-        setError("Failed to load Razorpay SDK. Please check your internet connection.");
-        setRegistering(false);
-        return;
-      }
+    if (!screenshotFile) {
+      setError("Please upload a payment verification screenshot.");
+      setRegistering(false);
+      return;
+    }
 
-      // 3. Post to /api/register
-      const activeMembersData = additionalMembers.slice(0, teamSize - 1);
-      const registerRes = await fetch("/api/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...leaderDetails,
-          team_size: teamSize,
-          team_members: activeMembersData,
-          hackathonId: hackathon.id,
-        }),
+    try {
+      // 2. Prepare FormData
+      const formData = new FormData();
+      
+      // Append Leader dynamic fields
+      Object.keys(leaderDetails).forEach((key) => {
+        formData.append(key, leaderDetails[key]);
       });
 
-      const registerData = await registerRes.json();
+      // Append general fields
+      formData.append("team_size", teamSize.toString());
+      formData.append("hackathonId", hackathon.id);
+      
+      // Filter only active members to send
+      const activeMembersData = additionalMembers.slice(0, teamSize - 1);
+      formData.append("team_members", JSON.stringify(activeMembersData));
 
-      if (!registerRes.ok) {
-        setError(registerData.error || "Failed to submit registration.");
+      // Append screenshot file
+      formData.append("screenshot", screenshotFile);
+
+      // 3. Post to API
+      const response = await fetch("/api/register", {
+        method: "POST",
+        body: formData, // fetch sets content-type multipart/form-data automatically for FormData
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSuccess("Registration details submitted successfully!");
+        router.push(`/innovation-challenge/success?registration_id=${data.registrationId}`);
+      } else {
+        setError(data.error || "Failed to submit registration. Please try again.");
         setRegistering(false);
-        return;
       }
-
-      const { orderId, amount, currency } = registerData;
-
-      // 4. Open Razorpay Checkout
-      const options = {
-        key: razorpayKeyId || "rzp_test_5g2P35h90K7S8w",
-        amount: amount,
-        currency: currency || "INR",
-        name: "CalmStacks",
-        description: `${hackathon.name} Registration`,
-        order_id: orderId,
-        handler: async function (response: any) {
-          setRegistering(true);
-          setSuccess("Payment authorized! Verifying transaction...");
-          try {
-            // Verify payment on backend
-            const verifyRes = await fetch("/api/register/verify-payment", {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                razorpay_payment_id: response.razorpay_payment_id,
-                razorpay_order_id: response.razorpay_order_id,
-                razorpay_signature: response.razorpay_signature,
-              }),
-            });
-
-            const verifyData = await verifyRes.json();
-
-            if (verifyRes.ok) {
-              setSuccess("Payment confirmed! Redirecting...");
-              router.push(`/innovation-challenge/success?order_id=${orderId}`);
-            } else {
-              setError(verifyData.error || "Payment verification failed.");
-              setRegistering(false);
-            }
-          } catch (verifyErr) {
-            console.error("Verification connection error:", verifyErr);
-            setError("Error communicating with verification server. Please refresh your success page.");
-            setRegistering(false);
-          }
-        },
-        prefill: {
-          name: leaderDetails.fullName,
-          email: leaderDetails.email,
-          contact: leaderDetails.phone,
-        },
-        theme: {
-          color: "#0a84ff", // premium blue accent
-        },
-        modal: {
-          ondismiss: function () {
-            setRegistering(false);
-            setError("Payment was cancelled. You can try checking out again.");
-          },
-        },
-      };
-
-      const rzp = new (window as any).Razorpay(options);
-      rzp.open();
     } catch (err: any) {
-      console.error("Razorpay Checkout trigger error:", err);
+      console.error("Submission error:", err);
       setError(err?.message || "An unexpected error occurred. Please try again.");
       setRegistering(false);
     }
@@ -263,7 +215,7 @@ export default function InnovationRegister() {
     return (
       <div className="flex justify-center items-center py-24 min-h-[300px]">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
-        <span className="ml-3 text-text-secondary text-sm">Loading registration details...</span>
+        <span className="ml-3 text-text-secondary text-sm">Loading registration form...</span>
       </div>
     );
   }
@@ -285,11 +237,11 @@ export default function InnovationRegister() {
             {hackathon?.name || "Internship Hackathon 2026"}
           </h3>
           <p className="text-sm text-text-secondary leading-relaxed max-w-lg mx-auto">
-            Secure your team or individual spot. Fill in the details below and pay the nominal ₹100 registration fee per participant.
+            Scan the UPI QR code below to pay the registration fee, upload your payment screenshot, and fill in the registration details.
           </p>
         </div>
 
-        {/* Form Card */}
+        {/* Form Container */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -301,13 +253,13 @@ export default function InnovationRegister() {
               <div className="w-16 h-16 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-6 text-emerald-400">
                 <CheckCircle2 className="w-8 h-8 animate-pulse" />
               </div>
-              <h4 className="text-xl font-semibold text-text-primary mb-3">Processing Successful</h4>
+              <h4 className="text-xl font-semibold text-text-primary mb-3">Submission Received</h4>
               <p className="text-sm text-text-secondary leading-relaxed max-w-sm mx-auto mb-6">
                 {success}
               </p>
               <div className="flex justify-center items-center gap-2 text-xs text-text-muted">
                 <Loader2 className="w-4 h-4 animate-spin text-primary" />
-                <span>Navigating you to confirmation...</span>
+                <span>Redirecting you to success page...</span>
               </div>
             </div>
           ) : (
@@ -347,6 +299,80 @@ export default function InnovationRegister() {
                 </div>
               </div>
 
+              {/* UPI QR Code Section */}
+              <div className="p-6 rounded-2xl border border-border-subtle bg-surface/5 flex flex-col items-center">
+                <span className="text-[10px] text-primary font-bold uppercase tracking-widest mb-4 bg-primary/10 px-3 py-1 rounded-full border border-primary/20">
+                  Step 1: Scan & Pay ₹{totalAmount}
+                </span>
+                
+                <div className="bg-white p-3 rounded-2xl mb-4 shadow-md w-fit flex items-center justify-center">
+                  <img 
+                    src="/assets/payment_qr.jpg" 
+                    alt="UPI QR Code" 
+                    className="w-40 h-auto object-contain rounded-lg"
+                  />
+                </div>
+                
+                <p className="text-xs text-text-primary font-semibold mb-1 text-center">
+                  Scan using PhonePe, GPay, Paytm, or any UPI App
+                </p>
+                <p className="text-[10px] text-text-muted font-mono text-center select-all">
+                  UPI ID: ARIL SRINIVAS
+                </p>
+                
+                <div className="w-full border-t border-border-subtle/30 mt-6 pt-5 space-y-4">
+                  <span className="text-[10px] text-primary font-bold uppercase tracking-widest block text-center">
+                    Step 2: Upload Payment Screenshot
+                  </span>
+                  
+                  {/* File Upload Box */}
+                  <div className="flex flex-col items-center justify-center">
+                    <label 
+                      htmlFor="screenshot-upload"
+                      className="w-full flex flex-col items-center justify-center p-6 border-2 border-dashed border-border-subtle hover:border-primary/50 bg-surface/5 rounded-xl cursor-pointer transition-all hover:bg-surface/10 group"
+                    >
+                      {screenshotFile ? (
+                        <div className="text-center space-y-3">
+                          {screenshotPreview ? (
+                            <img 
+                              src={screenshotPreview} 
+                              alt="Screenshot Preview" 
+                              className="max-h-24 w-auto object-contain rounded-lg mx-auto shadow-md border border-border-subtle"
+                            />
+                          ) : (
+                            <FileImage className="w-8 h-8 text-primary mx-auto" />
+                          )}
+                          <p className="text-xs text-white font-medium truncate max-w-xs mx-auto">
+                            {screenshotFile.name}
+                          </p>
+                          <span className="text-[10px] text-primary group-hover:underline">
+                            Change screenshot
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="text-center space-y-2">
+                          <Upload className="w-8 h-8 text-text-secondary group-hover:text-primary transition-colors mx-auto" />
+                          <p className="text-xs text-text-primary font-semibold">
+                            Click to Upload Screenshot
+                          </p>
+                          <p className="text-[10px] text-text-muted">
+                            Supports PNG, JPG, JPEG, or PDF (Max 5MB)
+                          </p>
+                        </div>
+                      )}
+                      <input 
+                        id="screenshot-upload"
+                        type="file"
+                        accept="image/*,application/pdf"
+                        onChange={handleFileChange}
+                        required
+                        className="hidden"
+                      />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
               {/* Member Tabs for Multi-member Teams */}
               {teamSize > 1 && (
                 <div className="flex border-b border-border-subtle/50 mb-2 overflow-x-auto scrollbar-none gap-2 py-1">
@@ -376,15 +402,15 @@ export default function InnovationRegister() {
                 </div>
               )}
 
-              {/* Render Forms based on Tab */}
+              {/* Dynamic Member Input Form */}
               <div className="space-y-4">
                 <div className="flex justify-between items-center mb-1">
                   <h4 className="text-xs font-bold text-text-muted uppercase tracking-wider">
-                    {teamSize > 1
+                    Step 3: {teamSize > 1
                       ? activeTab === 0
-                        ? "Team Leader / Primary Contact Details"
-                        : `Team Member ${activeTab + 1} Details`
-                      : "Participant Details"}
+                        ? "Fill Leader (M1) Details"
+                        : `Fill Member ${activeTab + 1} Details`
+                      : "Fill Registration Details"}
                   </h4>
                   {teamSize > 1 && activeTab < teamSize - 1 && (
                     <button
@@ -399,7 +425,7 @@ export default function InnovationRegister() {
                 </div>
 
                 {activeTab === 0 ? (
-                  /* Team Leader Form - Full Fields from Hackathon configuration */
+                  /* Team Leader Form - Full Fields */
                   hackathon?.fields.map((field) => {
                     const val = leaderDetails[field.name] || "";
                     if (field.type === "textarea") {
@@ -418,7 +444,7 @@ export default function InnovationRegister() {
                             rows={4}
                             onChange={(e) => handleLeaderChange(field.name, e.target.value)}
                             required={field.required}
-                            className="w-full px-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-primary/50 transition-colors resize-none"
+                            className="w-full px-4 py-3 rounded-xl bg-surface border border-border-subtle text-text-primary placeholder:text-text-muted text-sm focus:outline-none focus:border-primary/50 transition-colors resize-none font-light"
                           />
                         </div>
                       );
@@ -434,7 +460,7 @@ export default function InnovationRegister() {
                         <input
                           id={`field-${field.name}`}
                           type={field.type === "tel" ? "tel" : field.type === "url" ? "url" : "text"}
-                          placeholder={`Enter your ${field.label.toLowerCase()}`}
+                          placeholder={`Enter ${field.label.toLowerCase()}`}
                           value={val}
                           onChange={(e) => handleLeaderChange(field.name, e.target.value)}
                           required={field.required}
@@ -444,7 +470,7 @@ export default function InnovationRegister() {
                     );
                   })
                 ) : (
-                  /* Additional Members Form - Collect subset: Name, Email, Phone, College */
+                  /* Additional Members Form - Name, Email, Phone, College */
                   <div className="space-y-4">
                     <div>
                       <label className="block text-[11px] font-semibold text-text-secondary uppercase tracking-wider mb-2">
@@ -502,7 +528,7 @@ export default function InnovationRegister() {
                 )}
               </div>
 
-              {/* Price Breakdown */}
+              {/* Price Calculation Card */}
               <div className="p-4 rounded-xl border border-border-subtle bg-surface/5 flex justify-between items-center gap-3">
                 <div className="flex items-center gap-2 text-text-secondary">
                   <UserCheck className="w-4 h-4 text-primary shrink-0" />
@@ -512,7 +538,7 @@ export default function InnovationRegister() {
                 </div>
                 <div className="text-right">
                   <span className="text-[10px] text-text-muted uppercase tracking-wider block">
-                    TOTAL AMOUNT
+                    TOTAL AMOUNT PAID
                   </span>
                   <span className="text-lg font-bold text-white">₹{totalAmount}</span>
                 </div>
@@ -527,35 +553,12 @@ export default function InnovationRegister() {
                 {registering ? (
                   <>
                     <Loader2 className="w-4 h-4 animate-spin text-white" />
-                    <span>Processing Secure Checkout...</span>
+                    <span>Submitting Details...</span>
                   </>
                 ) : (
-                  <span>Pay ₹{totalAmount} & Register</span>
+                  <span>Submit Registration</span>
                 )}
               </button>
-
-              {/* UPI QR Alternative */}
-              <div className="pt-6 border-t border-border-subtle/50 flex flex-col items-center">
-                <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wider mb-4 bg-surface px-3 py-1 rounded-full border border-border-subtle">
-                  Or Scan to Pay via UPI QR
-                </span>
-                <div className="bg-white p-3 rounded-2xl mb-3 shadow-md w-fit flex items-center justify-center">
-                  <img 
-                    src="/assets/payment_qr.jpg" 
-                    alt="UPI QR Code" 
-                    className="w-40 h-auto object-contain rounded-lg"
-                  />
-                </div>
-                <p className="text-xs text-text-primary font-semibold mb-1 text-center">
-                  Pay ₹{totalAmount} using any UPI App
-                </p>
-                <p className="text-[10px] text-text-muted font-mono text-center select-all">
-                  UPI ID: ARIL SRINIVAS
-                </p>
-                <p className="text-[10px] text-text-secondary mt-3 text-center leading-relaxed max-w-sm">
-                  Note: If paying via QR code, click the pay button above to submit your registration details first, or email your screenshot and Team Details to <a href="mailto:arilsrinivas8@gmail.com" className="text-primary hover:underline">arilsrinivas8@gmail.com</a> for manual activation.
-                </p>
-              </div>
             </form>
           )}
         </motion.div>
