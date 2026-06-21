@@ -533,6 +533,29 @@ export default function InnovationRegister() {
                   <span>Pay ₹{totalAmount} & Register</span>
                 )}
               </button>
+
+              {/* UPI QR Alternative */}
+              <div className="pt-6 border-t border-border-subtle/50 flex flex-col items-center">
+                <span className="text-[10px] text-text-muted font-semibold uppercase tracking-wider mb-4 bg-surface px-3 py-1 rounded-full border border-border-subtle">
+                  Or Scan to Pay via UPI QR
+                </span>
+                <div className="bg-white p-3 rounded-2xl mb-3 shadow-md w-fit flex items-center justify-center">
+                  <img 
+                    src="/assets/payment_qr.jpg" 
+                    alt="UPI QR Code" 
+                    className="w-40 h-auto object-contain rounded-lg"
+                  />
+                </div>
+                <p className="text-xs text-text-primary font-semibold mb-1 text-center">
+                  Pay ₹{totalAmount} using any UPI App
+                </p>
+                <p className="text-[10px] text-text-muted font-mono text-center select-all">
+                  UPI ID: ARIL SRINIVAS
+                </p>
+                <p className="text-[10px] text-text-secondary mt-3 text-center leading-relaxed max-w-sm">
+                  Note: If paying via QR code, click the pay button above to submit your registration details first, or email your screenshot and Team Details to <a href="mailto:arilsrinivas8@gmail.com" className="text-primary hover:underline">arilsrinivas8@gmail.com</a> for manual activation.
+                </p>
+              </div>
             </form>
           )}
         </motion.div>
