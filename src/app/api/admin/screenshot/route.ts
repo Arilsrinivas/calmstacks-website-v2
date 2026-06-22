@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
+import { getRegistrationById } from "@/lib/db";
 
 export async function GET(req: Request) {
   try {
@@ -19,6 +20,34 @@ export async function GET(req: Request) {
 
     // Resolve directory safely to prevent path traversal
     const filename = path.basename(filePath);
+
+    // 1. Try to load from database first (base64) to bypass ephemeral disk isolation on Vercel
+    let registrationId = "";
+    if (filename.startsWith("CS-2026-")) {
+      const parts = filename.split("_");
+      registrationId = parts[0];
+    }
+
+    if (registrationId) {
+      const reg = await getRegistrationById(registrationId);
+      if (reg && reg.screenshot_base64) {
+        // Extract content type and base64 payload from data url
+        const matches = reg.screenshot_base64.match(/^data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+);base64,(.+)$/);
+        if (matches && matches.length === 3) {
+          const contentType = matches[1];
+          const base64Data = matches[2];
+          const fileBuffer = Buffer.from(base64Data, "base64");
+          return new Response(fileBuffer, {
+            headers: {
+              "Content-Type": contentType,
+              "Cache-Control": "public, max-age=31536000, immutable",
+            },
+          });
+        }
+      }
+    }
+
+    // 2. Fallback to local filesystem if not in DB or no base64 string
     const uploadsDir = process.env.VERCEL
       ? path.join("/tmp", "uploads")
       : path.join(process.cwd(), "public", "uploads");

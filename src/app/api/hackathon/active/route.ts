@@ -5,7 +5,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const activeHackathon = getActiveHackathon();
+    const activeHackathon = await getActiveHackathon();
     return NextResponse.json({
       success: true,
       hackathon: activeHackathon,

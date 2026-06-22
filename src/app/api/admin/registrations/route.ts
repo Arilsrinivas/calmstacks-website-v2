@@ -17,7 +17,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Unauthorized access. Invalid passcode." }, { status: 401 });
     }
 
-    const registrations = getRegistrations();
+    const registrations = await getRegistrations();
     
     // Sort by registration date descending
     registrations.sort(

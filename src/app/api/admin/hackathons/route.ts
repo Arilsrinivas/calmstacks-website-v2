@@ -14,7 +14,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "Unauthorized access." }, { status: 401 });
     }
 
-    const hackathons = getHackathons();
+    const hackathons = await getHackathons();
     return NextResponse.json({ success: true, hackathons });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -42,16 +42,16 @@ export async function POST(req: Request) {
 
     // If this hackathon is set to active, deactivate all others
     if (hackathon.active) {
-      const db = readDb();
+      const db = await readDb();
       db.hackathons = db.hackathons.map((h) => ({
         ...h,
         active: h.id === hackathon.id,
       }));
-      writeDb(db);
+      await writeDb(db);
     }
 
     // Save this hackathon configuration
-    saveHackathon(hackathon as HackathonConfig);
+    await saveHackathon(hackathon as HackathonConfig);
 
     return NextResponse.json({ success: true, hackathon });
   } catch (error: any) {

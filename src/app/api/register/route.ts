@@ -63,13 +63,13 @@ export async function POST(req: Request) {
       }
     }
 
-    const activeHackathon = getActiveHackathon();
+    const activeHackathon = await getActiveHackathon();
     if (activeHackathon.id !== hackathonId) {
       return NextResponse.json({ error: "Invalid hackathon identifier." }, { status: 400 });
     }
 
     // 2. Prevent duplicate registrations using email address
-    const dbRegistrations = getRegistrations();
+    const dbRegistrations = await getRegistrations();
     const successfulRegistrations = dbRegistrations.filter(
       (r) => r.hackathonId === hackathonId && r.payment_status === "SUCCESS"
     );
@@ -100,12 +100,12 @@ export async function POST(req: Request) {
       }
     }
 
-    // 3. Save Screenshot File
+    // 3. Process Screenshot File
     const registrationId = `CS-2026-${crypto.randomBytes(4).toString("hex").toUpperCase()}`;
     const screenshotBytes = await screenshot.arrayBuffer();
     const screenshotBuffer = Buffer.from(screenshotBytes);
 
-    // Get original file extension
+    // Get original file extension & base64 encoding
     let ext = "png";
     const originalName = (screenshot as any).name || "payment.png";
     const dotIdx = originalName.lastIndexOf(".");
@@ -113,24 +113,31 @@ export async function POST(req: Request) {
       ext = originalName.substring(dotIdx + 1);
     }
 
+    const mimeType = ext === "pdf" ? "application/pdf" : `image/${ext === "jpg" || ext === "jpeg" ? "jpeg" : "png"}`;
+    const base64Data = screenshotBuffer.toString("base64");
+    const screenshotBase64 = `data:${mimeType};base64,${base64Data}`;
+
     const screenshotFilename = `${registrationId}_payment_${Date.now()}.${ext}`;
     const uploadsDir = process.env.VERCEL
       ? path.join("/tmp", "uploads")
       : path.join(process.cwd(), "public", "uploads");
 
-    if (!fs.existsSync(uploadsDir)) {
-      fs.mkdirSync(uploadsDir, { recursive: true });
+    try {
+      if (!fs.existsSync(uploadsDir)) {
+        fs.mkdirSync(uploadsDir, { recursive: true });
+      }
+      const screenshotFullPath = path.join(uploadsDir, screenshotFilename);
+      fs.writeFileSync(screenshotFullPath, screenshotBuffer);
+    } catch (fsErr) {
+      console.warn("Failed to write screenshot to local filesystem:", fsErr);
     }
-
-    const screenshotFullPath = path.join(uploadsDir, screenshotFilename);
-    fs.writeFileSync(screenshotFullPath, screenshotBuffer);
     
     // Save relative or tmp path in db
     const screenshotPath = process.env.VERCEL
       ? `/tmp/uploads/${screenshotFilename}`
       : `/uploads/${screenshotFilename}`;
 
-    // 4. Save Registration to local database
+    // 4. Save Registration to database
     const totalAmount = activeHackathon.registrationFee * size;
 
     const newReg: Registration = {
@@ -152,9 +159,10 @@ export async function POST(req: Request) {
       payment_id: "",
       team_members: teamMembers,
       screenshot_path: screenshotPath,
+      screenshot_base64: screenshotBase64,
     };
 
-    addRegistration(newReg);
+    await addRegistration(newReg);
 
     // 5. Send Email Notification to Admin (Asynchronously with Attachment Buffer)
     // Satisfies: "If email sending fails: Save registration to database, Show success message, Log email error"

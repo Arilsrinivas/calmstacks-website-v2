@@ -16,14 +16,14 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: "Registration ID is required." }, { status: 400 });
     }
 
-    const reg = getRegistrationById(registrationId);
+    const reg = await getRegistrationById(registrationId);
     if (!reg) {
       return NextResponse.json({ error: "Registration not found." }, { status: 404 });
     }
 
     // Update status to SUCCESS (Confirmed)
     const txId = paymentId || `MANUAL_${Date.now()}`;
-    const updatedReg = updateRegistrationStatus(registrationId, "SUCCESS", txId);
+    const updatedReg = await updateRegistrationStatus(registrationId, "SUCCESS", txId);
 
     if (!updatedReg) {
       return NextResponse.json({ error: "Failed to update status." }, { status: 500 });

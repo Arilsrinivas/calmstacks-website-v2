@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import { kv } from "@vercel/kv";
 
 export interface FieldConfig {
   name: string;
@@ -42,6 +43,7 @@ export interface Registration {
   payment_status: "PENDING_VERIFICATION" | "SUCCESS" | "FAILED";
   team_members: AdditionalTeamMember[]; // JSON stored array of additional members
   screenshot_path: string; // path to the uploaded payment screenshot file
+  screenshot_base64?: string; // base64 representation of the screenshot image
 }
 
 interface DatabaseSchema {
@@ -74,6 +76,8 @@ const DEFAULT_HACKATHON: HackathonConfig = {
   ],
 };
 
+const isKvAvailable = !!(process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN);
+
 function ensureDatabase() {
   try {
     const dirPath = path.dirname(DB_FILE_PATH);
@@ -93,7 +97,24 @@ function ensureDatabase() {
   }
 }
 
-export function readDb(): DatabaseSchema {
+export async function readDb(): Promise<DatabaseSchema> {
+  if (isKvAvailable) {
+    try {
+      const data = await kv.get<DatabaseSchema>("calmstacks:db");
+      if (data) {
+        return data;
+      }
+      const initialDb: DatabaseSchema = {
+        hackathons: [DEFAULT_HACKATHON],
+        registrations: [],
+      };
+      await kv.set("calmstacks:db", initialDb);
+      return initialDb;
+    } catch (error) {
+      console.error("Error reading from Vercel KV, falling back to local file:", error);
+    }
+  }
+
   try {
     ensureDatabase();
     if (fs.existsSync(DB_FILE_PATH)) {
@@ -106,7 +127,16 @@ export function readDb(): DatabaseSchema {
   return { hackathons: [DEFAULT_HACKATHON], registrations: [] };
 }
 
-export function writeDb(db: DatabaseSchema) {
+export async function writeDb(db: DatabaseSchema): Promise<void> {
+  if (isKvAvailable) {
+    try {
+      await kv.set("calmstacks:db", db);
+      return;
+    } catch (error) {
+      console.error("Error writing to Vercel KV, falling back to local file:", error);
+    }
+  }
+
   try {
     ensureDatabase();
     const tempPath = `${DB_FILE_PATH}.tmp`;
@@ -123,13 +153,13 @@ export function writeDb(db: DatabaseSchema) {
 }
 
 // Helpers for Hackathons
-export function getHackathons(): HackathonConfig[] {
-  const db = readDb();
+export async function getHackathons(): Promise<HackathonConfig[]> {
+  const db = await readDb();
   return db.hackathons;
 }
 
-export function getActiveHackathon(): HackathonConfig {
-  const db = readDb();
+export async function getActiveHackathon(): Promise<HackathonConfig> {
+  const db = await readDb();
   const active = db.hackathons.find((h) => h.active);
   if (!active) {
     return DEFAULT_HACKATHON;
@@ -137,43 +167,43 @@ export function getActiveHackathon(): HackathonConfig {
   return active;
 }
 
-export function saveHackathon(hackathon: HackathonConfig) {
-  const db = readDb();
+export async function saveHackathon(hackathon: HackathonConfig): Promise<void> {
+  const db = await readDb();
   const index = db.hackathons.findIndex((h) => h.id === hackathon.id);
   if (index !== -1) {
     db.hackathons[index] = hackathon;
   } else {
     db.hackathons.push(hackathon);
   }
-  writeDb(db);
+  await writeDb(db);
 }
 
 // Helpers for Registrations
-export function getRegistrations(): Registration[] {
-  const db = readDb();
+export async function getRegistrations(): Promise<Registration[]> {
+  const db = await readDb();
   return db.registrations;
 }
 
-export function getRegistrationById(id: string): Registration | undefined {
-  const db = readDb();
+export async function getRegistrationById(id: string): Promise<Registration | undefined> {
+  const db = await readDb();
   return db.registrations.find((r) => r.id === id);
 }
 
-export function addRegistration(reg: Registration) {
-  const db = readDb();
+export async function addRegistration(reg: Registration): Promise<void> {
+  const db = await readDb();
   db.registrations.push(reg);
-  writeDb(db);
+  await writeDb(db);
 }
 
-export function updateRegistrationStatus(id: string, status: "SUCCESS" | "FAILED", paymentId?: string) {
-  const db = readDb();
+export async function updateRegistrationStatus(id: string, status: "SUCCESS" | "FAILED", paymentId?: string): Promise<Registration | undefined> {
+  const db = await readDb();
   const index = db.registrations.findIndex((r) => r.id === id);
   if (index !== -1) {
     db.registrations[index].payment_status = status;
     if (paymentId) {
       db.registrations[index].payment_id = paymentId;
     }
-    writeDb(db);
+    await writeDb(db);
     return db.registrations[index];
   }
   return undefined;

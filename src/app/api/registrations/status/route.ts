@@ -12,7 +12,7 @@ export async function GET(req: Request) {
       return NextResponse.json({ error: "registration_id parameter is required." }, { status: 400 });
     }
 
-    const registration = getRegistrationById(regId);
+    const registration = await getRegistrationById(regId);
     if (!registration) {
       return NextResponse.json({ error: "Registration not found." }, { status: 404 });
     }

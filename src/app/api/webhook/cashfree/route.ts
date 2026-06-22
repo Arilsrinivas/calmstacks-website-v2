@@ -36,16 +36,16 @@ export async function POST(req: Request) {
 
       if (paymentStatus === "SUCCESS") {
         console.log(`Payment SUCCESS for order: ${orderId}, paymentId: ${paymentId}`);
-        updateRegistrationStatus(orderId, "SUCCESS", paymentId);
+        await updateRegistrationStatus(orderId, "SUCCESS", paymentId);
       } else {
         console.log(`Payment failed/other for order: ${orderId}, status: ${paymentStatus}`);
-        updateRegistrationStatus(orderId, "FAILED", paymentId);
+        await updateRegistrationStatus(orderId, "FAILED", paymentId);
       }
     } else if (payload.type === "PAYMENT_FAILED_WEBHOOK") {
       const orderId = payload.data.order.order_id;
       const paymentId = payload.data.payment.cf_payment_id;
       console.log(`Payment FAILED for order: ${orderId}, paymentId: ${paymentId}`);
-      updateRegistrationStatus(orderId, "FAILED", paymentId);
+      await updateRegistrationStatus(orderId, "FAILED", paymentId);
     } else {
       console.log(`Unhandled webhook event type: ${payload.type}`);
     }
