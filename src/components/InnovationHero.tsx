@@ -50,7 +50,7 @@ export default function InnovationHero() {
           transition={{ duration: 0.8, delay: 0.45 }}
           className="cta-group mt-12 flex flex-col sm:flex-row gap-5 justify-center items-center w-full"
         >
-          <a href="#register" className="btn-primary primary-button px-8 py-4 text-sm font-semibold tracking-tight text-white transition-all shadow-lg shadow-blue-500/10 hover:shadow-blue-500/25">
+          <a href="https://forms.gle/n6n1hrkAESCL5dM89" target="_blank" rel="noopener noreferrer" className="btn-primary primary-button px-8 py-4 text-sm font-semibold tracking-tight text-white transition-all shadow-lg shadow-blue-500/10 hover:shadow-blue-500/25">
             Register Now
           </a>
           <a href="#timeline" className="btn-secondary secondary-button px-8 py-4 text-sm font-semibold tracking-tight transition-all">

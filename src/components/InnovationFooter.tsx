@@ -27,7 +27,7 @@ export default function InnovationFooter() {
           {/* Links */}
           <div className="flex items-center gap-6">
             <a href="/" className="text-xs text-text-muted hover:text-text-primary transition-colors">Main Site</a>
-            <a href="#register" className="text-xs text-text-muted hover:text-text-primary transition-colors">Register</a>
+            <a href="https://forms.gle/n6n1hrkAESCL5dM89" target="_blank" rel="noopener noreferrer" className="text-xs text-text-muted hover:text-text-primary transition-colors">Register</a>
             <a href="#faqs" className="text-xs text-text-muted hover:text-text-primary transition-colors">Support</a>
           </div>
         </div>

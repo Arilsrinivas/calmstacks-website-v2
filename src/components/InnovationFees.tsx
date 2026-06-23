@@ -52,15 +52,15 @@ export default function InnovationFees() {
               GUIDELINES
             </span>
             <h3 className="text-4xl font-semibold tracking-tight text-white mt-4 mb-6">
-              Fees & Rules
+              Rules & Guidelines
             </h3>
             <p className="text-lg text-text-secondary leading-relaxed mb-6">
-              CalmStacks Internship Hackathon requires a nominal registration fee of <strong className="text-white font-semibold">₹100</strong> per participant. This fee is strictly implemented to ensure genuine participation, commit participants to their submissions, and support the rewards pool.
+              The CalmStacks Internship Hackathon is open to all passionate tech minds. Please review our judging criteria and timeline guidelines before submitting your application.
             </p>
             <div className="flex items-center gap-3 p-4 rounded-xl border border-border-subtle bg-surface/5">
               <HelpCircle className="w-5 h-5 text-primary shrink-0" />
               <p className="text-xs text-text-secondary leading-relaxed">
-                All registration fees are added to the final prize pool and mentorship scholarships.
+                Ensure you submit your team and project details before the registration deadline.
               </p>
             </div>
           </motion.div>

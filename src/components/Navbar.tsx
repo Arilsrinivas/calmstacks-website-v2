@@ -63,7 +63,9 @@ export default function Navbar() {
         {/* Contact/Register Button */}
         <div className="hidden lg:flex items-center gap-4">
           <a
-            href={isHackathonPage ? "#register" : "#contact"}
+            href={isHackathonPage ? "https://forms.gle/n6n1hrkAESCL5dM89" : "#contact"}
+            target={isHackathonPage ? "_blank" : undefined}
+            rel={isHackathonPage ? "noopener noreferrer" : undefined}
             className="text-sm font-medium text-text-primary border border-border-subtle hover:bg-surface px-5 py-2 rounded-full transition-colors animate-fade-in"
           >
             {isHackathonPage ? "Register Now" : "Contact Us"}
@@ -97,7 +99,9 @@ export default function Navbar() {
             <div className="h-px bg-border-subtle my-3" />
             <div className="flex gap-3">
               <a
-                href={isHackathonPage ? "#register" : "#contact"}
+                href={isHackathonPage ? "https://forms.gle/n6n1hrkAESCL5dM89" : "#contact"}
+                target={isHackathonPage ? "_blank" : undefined}
+                rel={isHackathonPage ? "noopener noreferrer" : undefined}
                 className="text-sm text-primary"
                 onClick={() => setMobileOpen(false)}
               >
