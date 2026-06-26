@@ -1,26 +1,26 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
-
-const ParticleSphere = dynamic(
-  () => import("./ParticleSphere"),
-  { ssr: false }
-);
 
 export default function InnovationHero() {
   return (
-    <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden bg-transparent pt-11 px-6">
+    <section className="hero-section relative min-h-screen flex items-center justify-center overflow-hidden bg-black pt-11 px-6">
       
-      {/* 3D Particle Sphere Background */}
-      <ParticleSphere />
+      {/* Background Video (from CalmStacks v3) */}
+      <video
+        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover z-0 opacity-60"
+      />
 
-      {/* Atmospheric Glow Effects */}
-      <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-blue-500/10 rounded-full blur-[100px] pointer-events-none -z-10 animate-pulse" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-500/5 rounded-full blur-[120px] pointer-events-none -z-10 animate-pulse" style={{ animationDelay: "1s" }} />
+      {/* Noise Overlay */}
+      <div className="absolute inset-0 noise-overlay opacity-[0.4] mix-blend-overlay pointer-events-none z-10" />
 
-      {/* Floating background light streaks */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none" />
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/80 z-10" />
 
       <div className="max-w-[980px] w-full text-center relative z-20 flex flex-col items-center">
         {/* Primary Header */}
