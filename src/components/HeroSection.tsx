@@ -40,15 +40,7 @@ export default function HeroSection() {
           Crafted to Deliver Performance without Complexity
         </p>
 
-        {/* CTA Button */}
-        <div 
-          className="mt-10 animate-slide-up"
-          style={{ animationDelay: "0.24s" }}
-        >
-          <a href="#services" className="btn-primary">
-            Explore Solutions
-          </a>
-        </div>
+
       </div>
     </section>
   );
