@@ -24,8 +24,23 @@ export default function VisionSection() {
   }, []);
 
   return (
-    <section id="vision" ref={sectionRef} className="py-24 px-6 relative">
-      <div className="max-w-[980px] mx-auto text-center">
+    <section id="vision" ref={sectionRef} className="py-32 px-6 relative overflow-hidden">
+      {/* Pushed Robot background video from home hero */}
+      <div className="absolute inset-0 w-full h-full z-0">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="w-full h-full object-cover opacity-30 pointer-events-none"
+        >
+          <source src="/assets/Robot_Gazing_At_Sunset_Sky.mp4" type="video/mp4" />
+        </video>
+        {/* Gradient overlays to blend into background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-transparent to-background z-10" />
+      </div>
+
+      <div className="max-w-[980px] mx-auto text-center relative z-20">
         <h2 className="text-sm font-semibold tracking-widest text-primary uppercase mb-4 reveal">
           VISION
         </h2>

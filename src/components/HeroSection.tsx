@@ -6,7 +6,7 @@ export default function HeroSection() {
       id="hero"
       className="relative min-h-screen flex flex-col items-center justify-center pt-11 px-6 overflow-hidden"
     >
-      {/* Background Video */}
+      {/* Background Video (from Hackathon / calmstacks v3) */}
       <div className="absolute inset-0 w-full h-full z-0">
         <video 
           autoPlay 
@@ -15,10 +15,12 @@ export default function HeroSection() {
           playsInline 
           className="w-full h-full object-cover opacity-60 pointer-events-none"
         >
-          <source src="/assets/Robot_Gazing_At_Sunset_Sky.mp4" type="video/mp4" />
+          <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4" type="video/mp4" />
         </video>
+        {/* Noise Overlay */}
+        <div className="absolute inset-0 noise-overlay opacity-[0.4] mix-blend-overlay pointer-events-none z-10" />
         {/* Gradient Overlay for better readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background z-10" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background z-10" />
       </div>
 
       <div className="max-w-[980px] w-full text-center relative z-20">
@@ -43,8 +45,8 @@ export default function HeroSection() {
           className="mt-10 animate-slide-up"
           style={{ animationDelay: "0.24s" }}
         >
-          <a href="/innovation-challenge" className="btn-primary">
-            Hackathon details
+          <a href="#services" className="btn-primary">
+            Explore Solutions
           </a>
         </div>
       </div>

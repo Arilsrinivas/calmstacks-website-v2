@@ -1,37 +1,25 @@
 "use client";
-
+ 
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-import { usePathname } from "next/navigation";
-
+ 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const pathname = usePathname();
-
-  const isHackathonPage = pathname === "/innovation-challenge";
-
-  const navLinks = isHackathonPage
-    ? [
-        { label: "The Challenge", href: "#about" },
-        { label: "Benefits", href: "#benefits" },
-        { label: "Tracks", href: "#tracks" },
-        { label: "Timeline", href: "#timeline" },
-        { label: "FAQs", href: "#faqs" },
-      ]
-    : [
-        { label: "Solutions", href: "#services" },
-        { label: "About Us", href: "#about" },
-        { label: "Founders", href: "#founders" },
-        { label: "Projects", href: "#projects" },
-      ];
-
+ 
+  const navLinks = [
+    { label: "Solutions", href: "#services" },
+    { label: "About Us", href: "#about" },
+    { label: "Founders", href: "#founders" },
+    { label: "Projects", href: "#projects" },
+  ];
+ 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
+ 
   return (
     <header
       id="navbar"
@@ -41,7 +29,7 @@ export default function Navbar() {
     >
       <div className="max-w-[980px] mx-auto px-6 h-11 flex items-center justify-between">
         {/* Logo */}
-        <a href={isHackathonPage ? "/" : "#hero"} className="flex items-center gap-2 transition-opacity hover:opacity-80">
+        <a href="#hero" className="flex items-center gap-2 transition-opacity hover:opacity-80">
           <img
             src="/assets/calmstacks_logo_white.svg"
             alt="CalmStacks Logo"
@@ -51,7 +39,7 @@ export default function Navbar() {
             CalmStacks
           </span>
         </a>
-
+ 
         <nav className="hidden lg:flex items-center gap-7">
           {navLinks.map((link) => (
             <a key={link.label} href={link.href} className="nav-link">
@@ -59,19 +47,17 @@ export default function Navbar() {
             </a>
           ))}
         </nav>
-
-        {/* Contact/Register Button */}
+ 
+        {/* Contact Button */}
         <div className="hidden lg:flex items-center gap-4">
           <a
-            href={isHackathonPage ? "https://forms.gle/n6n1hrkAESCL5dM89" : "#contact"}
-            target={isHackathonPage ? "_blank" : undefined}
-            rel={isHackathonPage ? "noopener noreferrer" : undefined}
+            href="#contact"
             className="text-sm font-medium text-text-primary border border-border-subtle hover:bg-surface px-5 py-2 rounded-full transition-colors animate-fade-in"
           >
-            {isHackathonPage ? "Register Now" : "Contact Us"}
+            Contact Us
           </a>
         </div>
-
+ 
         {/* Mobile Toggle */}
         <button
           className="lg:hidden p-1.5 text-text-secondary hover:text-text-primary transition-colors"
@@ -81,7 +67,7 @@ export default function Navbar() {
           {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
-
+ 
       {/* Mobile Menu */}
       {mobileOpen && (
         <div className="lg:hidden glass border-t border-border-subtle animate-slide-up">
@@ -99,13 +85,11 @@ export default function Navbar() {
             <div className="h-px bg-border-subtle my-3" />
             <div className="flex gap-3">
               <a
-                href={isHackathonPage ? "https://forms.gle/n6n1hrkAESCL5dM89" : "#contact"}
-                target={isHackathonPage ? "_blank" : undefined}
-                rel={isHackathonPage ? "noopener noreferrer" : undefined}
+                href="#contact"
                 className="text-sm text-primary"
                 onClick={() => setMobileOpen(false)}
               >
-                {isHackathonPage ? "Register Now" : "Contact Us"}
+                Contact Us
               </a>
             </div>
           </div>
