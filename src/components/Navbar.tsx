@@ -4,9 +4,11 @@ import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "Solutions", href: "#services" },
-  { label: "About Us", href: "#about" },
-  { label: "Projects", href: "#projects" },
+  { label: "Solutions", href: "/#services" },
+  { label: "Founders", href: "/#founders" },
+  { label: "About Us", href: "/#about" },
+  { label: "Projects", href: "/#projects" },
+  { label: "Hackathon", href: "/hackathon", isEvent: true },
 ];
 
 export default function Navbar() {
@@ -41,8 +43,24 @@ export default function Navbar() {
 
         <nav className="hidden lg:flex items-center gap-7">
           {navLinks.map((link) => (
-            <a key={link.label} href={link.href} className="nav-link">
+            <a
+              key={link.label}
+              href={link.href}
+              className={`nav-link flex items-center gap-1.5 ${
+                link.isEvent
+                  ? "text-white font-medium hover:text-primary transition-colors"
+                  : ""
+              }`}
+            >
+              {link.isEvent && (
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              )}
               {link.label}
+              {link.isEvent && (
+                <span className="text-[10px] font-mono uppercase px-1.5 py-0.5 rounded bg-primary/20 text-primary border border-primary/30 ml-0.5">
+                  24H
+                </span>
+              )}
             </a>
           ))}
         </nav>
@@ -75,10 +93,24 @@ export default function Navbar() {
               <a
                 key={link.label}
                 href={link.href}
-                className="py-2.5 text-sm text-text-secondary hover:text-text-primary transition-colors"
+                className={`py-2.5 text-sm transition-colors flex items-center justify-between ${
+                  link.isEvent
+                    ? "text-primary font-medium"
+                    : "text-text-secondary hover:text-text-primary"
+                }`}
                 onClick={() => setMobileOpen(false)}
               >
-                {link.label}
+                <div className="flex items-center gap-2">
+                  {link.isEvent && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  )}
+                  <span>{link.label}</span>
+                </div>
+                {link.isEvent && (
+                  <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-primary/20 text-primary border border-primary/30">
+                    24H EVENT
+                  </span>
+                )}
               </a>
             ))}
             <div className="h-px bg-border-subtle my-3" />

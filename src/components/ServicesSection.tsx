@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Monitor, MessageSquareCode, Cog, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const services = [
   {
