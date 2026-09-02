@@ -22,7 +22,7 @@ export default function HackathonPage() {
     setRegisterModalOpen(true);
   };
 
-  const handleSelectTrack = (_trackId: string) => {
+  const handleSelectTrack = () => {
     setRegisterModalOpen(true);
   };
 

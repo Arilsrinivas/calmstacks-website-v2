@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 export default function Footer() {
   return (
     <footer className="pt-16 pb-8 bg-surface-elevated/30">
@@ -29,19 +31,19 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-text-primary mb-4">Quick Links</h4>
             <ul className="space-y-3">
               <li>
-                <a href="/#services" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors">Solutions</a>
+                <Link href="/#services" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors">Solutions</Link>
               </li>
               <li>
-                <a href="/#about" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors">About Us</a>
+                <Link href="/#about" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors">About Us</Link>
               </li>
               <li>
-                <a href="/#projects" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors">Projects</a>
+                <Link href="/#projects" className="text-sm font-medium text-text-secondary hover:text-text-primary transition-colors">Projects</Link>
               </li>
               <li>
-                <a href="/hackathon" className="text-sm font-medium text-primary hover:underline transition-colors flex items-center gap-1.5">
+                <Link href="/hackathon" className="text-sm font-medium text-primary hover:underline transition-colors flex items-center gap-1.5">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                   24H Hackathon
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

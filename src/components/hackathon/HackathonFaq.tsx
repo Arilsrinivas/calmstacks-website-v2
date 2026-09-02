@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Plus, Minus, HelpCircle } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export default function HackathonFaq() {

@@ -1,6 +1,6 @@
 "use client";
 
-import { Trophy, Award, Sparkles, ArrowRight } from "lucide-react";
+import { Trophy, Award, Sparkles } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export default function HackathonPrizes() {

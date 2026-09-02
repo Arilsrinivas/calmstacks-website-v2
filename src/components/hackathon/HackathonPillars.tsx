@@ -22,7 +22,7 @@ export default function HackathonPillars() {
             >
               {/* Pillar Number */}
               <div className="font-mono text-xs text-text-muted mb-8">
-                0{index + 1} // CODE OF CONDUCT
+                0{index + 1} {"//"} CODE OF CONDUCT
               </div>
 
               {/* Large Pillar Typography */}

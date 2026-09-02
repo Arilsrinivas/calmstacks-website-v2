@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Terminal } from "lucide-react";
+import { Terminal } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 interface HackathonFinalCtaProps {

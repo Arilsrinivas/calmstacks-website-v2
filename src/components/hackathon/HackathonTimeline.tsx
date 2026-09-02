@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Clock, CheckCircle2, ChevronRight, Activity } from "lucide-react";
-import { HACKATHON_CONFIG, TimelineMilestone } from "@/config/hackathonConfig";
+import { Clock } from "lucide-react";
+import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export default function HackathonTimeline() {
   const { timeline } = HACKATHON_CONFIG;

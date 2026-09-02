@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Users, GraduationCap, FileCode2 } from "lucide-react";
+import { Check, Users, GraduationCap } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export default function HackathonEligibility() {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
@@ -39,7 +40,7 @@ export default function HackathonNav({ onOpenRegister }: HackathonNavProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand & Event Identifier */}
         <div className="flex items-center gap-3">
-          <a
+          <Link
             href="/"
             className="flex items-center gap-2.5 group transition-opacity hover:opacity-80"
             title="Return to Calmstacks main site"
@@ -52,7 +53,7 @@ export default function HackathonNav({ onOpenRegister }: HackathonNavProps) {
             <span className="text-sm font-semibold tracking-tight text-white">
               {HACKATHON_CONFIG.meta.organizer}
             </span>
-          </a>
+          </Link>
 
           {/* Hairline Divider & Monospace Event Tag */}
           <div className="hidden sm:flex items-center gap-2 pl-3 border-l border-white/15">
@@ -78,13 +79,13 @@ export default function HackathonNav({ onOpenRegister }: HackathonNavProps) {
 
         {/* Right Action: Register CTA */}
         <div className="hidden md:flex items-center gap-3">
-          <a
+          <Link
             href="/"
             className="font-mono text-xs text-text-muted hover:text-text-secondary px-3 py-1.5 transition-colors flex items-center gap-1"
           >
             calmstacks.com
             <ArrowUpRight className="w-3 h-3" />
-          </a>
+          </Link>
 
           <button
             type="button"
@@ -145,13 +146,13 @@ export default function HackathonNav({ onOpenRegister }: HackathonNavProps) {
               >
                 REGISTER NOW
               </button>
-              <a
+              <Link
                 href="/"
                 className="text-center text-xs font-mono text-text-muted hover:text-white py-1 flex items-center justify-center gap-1"
               >
                 Return to Calmstacks Main Site
                 <ArrowUpRight className="w-3 h-3" />
-              </a>
+              </Link>
             </div>
           </div>
         </div>

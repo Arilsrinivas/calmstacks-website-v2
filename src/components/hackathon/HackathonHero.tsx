@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { ArrowRight, ChevronDown, Compass, Terminal, Shield, Cpu, Activity } from "lucide-react";
+import { ArrowRight, ChevronDown, Compass, Terminal, Activity } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 interface HackathonHeroProps {
@@ -100,7 +100,7 @@ export default function HackathonHero({ onOpenRegister }: HackathonHeroProps) {
           </span>
           <p className="font-mono text-[11px] uppercase tracking-widest text-text-secondary">
             {HACKATHON_CONFIG.hero.smallLabel}
-            <span className="text-white mx-1.5">//</span>
+            <span className="text-white mx-1.5">{"//"}</span>
             <span className="text-white">{HACKATHON_CONFIG.meta.series}</span>
           </p>
         </div>
@@ -339,7 +339,7 @@ export default function HackathonHero({ onOpenRegister }: HackathonHeroProps) {
       {/* Bottom Ticker / Event Metadata Grid */}
       <div className="relative z-10 max-w-7xl mx-auto w-full pt-8 border-t border-white/[0.08]">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {HACKATHON_CONFIG.hero.metadataItems.map((item, idx) => (
+          {HACKATHON_CONFIG.hero.metadataItems.map((item) => (
             <div key={item.label} className="border-l border-white/15 pl-4 space-y-1">
               <div className="font-mono text-[10px] uppercase tracking-widest text-text-muted">
                 {item.label}

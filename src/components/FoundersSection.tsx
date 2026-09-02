@@ -68,7 +68,7 @@ export default function FoundersSection() {
             Meet Our Founders
           </h3>
           <p className="text-lg text-text-secondary leading-relaxed max-w-[680px] mx-auto reveal" style={{ transitionDelay: "200ms" }}>
-            We're a dedicated team committed to delivering clean, reliable, and high-performance digital products to help your business scale effortlessly.
+            We&apos;re a dedicated team committed to delivering clean, reliable, and high-performance digital products to help your business scale effortlessly.
           </p>
         </div>
 

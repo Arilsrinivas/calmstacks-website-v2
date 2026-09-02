@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Check, Layers, ChevronRight } from "lucide-react";
-import { HACKATHON_CONFIG, HackathonTrack } from "@/config/hackathonConfig";
+import { ArrowUpRight, Layers } from "lucide-react";
+import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 interface HackathonChallengesProps {
   onSelectTrack?: (trackId: string) => void;

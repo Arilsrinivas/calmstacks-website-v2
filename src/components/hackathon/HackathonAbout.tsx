@@ -50,7 +50,7 @@ export default function HackathonAbout() {
               <div>
                 {/* Large Monospace Number */}
                 <div className="font-mono text-xs font-semibold text-primary tracking-widest mb-4">
-                  {feature.number} // FEATURE
+                  {feature.number} {"//"} FEATURE
                 </div>
 
                 {/* Block Title */}
