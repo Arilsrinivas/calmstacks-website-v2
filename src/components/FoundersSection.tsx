@@ -17,7 +17,7 @@ const founders: Founder[] = [
     name: "Aril Srinivas",
     role: "Founder & CEO",
     bio: "Aril is a tech-focused software engineer specializing in building high-performance, scalable web systems and intelligent architectures. Passionate about bringing ideas to life with clean code and modern design, he steers the technical and strategic product vision at CalmStacks.",
-    image: "/assets/founder_aril.png",
+    image: "/assets/founder_aril_v2.png",
     linkedin: "https://linkedin.com",
     github: "https://github.com/Arilsrinivas",
     email: "mailto:aril@calmstacks.co.in",
