@@ -50,9 +50,10 @@ export const HACKATHON_CONFIG = {
     series: "CSE Student Development Series",
     organizer: "CALMSTACKS",
     dates: "25–26 SEPTEMBER 2026",
-    startDateIso: "2026-09-25T09:00:00+05:30",
-    endDateIso: "2026-09-26T09:00:00+05:30",
-    format: "24-HOUR OFFLINE SPRINT",
+    startTime: "02:00 PM IST",
+    startDateIso: "2026-09-25T14:00:00+05:30",
+    endDateIso: "2026-09-26T14:00:00+05:30",
+    format: "24-HOUR OFFLINE SPRINT (STARTS 2:00 PM)",
     venue: "CENTRAL LIBRARY, MALNAD COLLEGE OF ENGINEERING",
     venueShort: "Malnad College Library",
     city: "HASSAN, KARNATAKA",
@@ -177,7 +178,7 @@ export const HACKATHON_CONFIG = {
       "A structured 24-hour roadmap with designated checkpoints, mentorship rounds, meal breaks, and evaluation modalities.",
     milestones: [
       {
-        time: "09:00 AM",
+        time: "01:00 PM",
         phase: "DAY 1 • CHECK-IN",
         title: "REPORTING & STATION ALLOCATION",
         category: "CHECK-IN",
@@ -186,7 +187,7 @@ export const HACKATHON_CONFIG = {
         modality: "Identity check against registered USN, network test & team table setup.",
       },
       {
-        time: "10:30 AM",
+        time: "02:00 PM",
         phase: "DAY 1 • KICKOFF",
         title: "OPENING CEREMONY & PROBLEM DROP",
         category: "IDEATION",
@@ -195,7 +196,7 @@ export const HACKATHON_CONFIG = {
         modality: "Track selection confirmed; teams enter 1-hour ideation and system architecture freeze.",
       },
       {
-        time: "11:30 AM",
+        time: "03:00 PM",
         phase: "DAY 1 • SPRINT START",
         title: "THE 24-HOUR BUILD COMMENCES",
         category: "BUILD",
@@ -204,16 +205,16 @@ export const HACKATHON_CONFIG = {
         modality: "Code repositories created on GitHub; sprint timer countdown activated.",
       },
       {
-        time: "01:30 PM",
+        time: "05:30 PM",
         phase: "DAY 1 • HOSPITALITY",
-        title: "LUNCH BREAK & RECHARGE",
+        title: "EVENING SNACKS & TEA BREAK",
         category: "CHECK-IN",
         description:
-          "Fresh lunch served to all registered participants in the library refreshment zone.",
-        modality: "Nutritious lunch included; casual peer networking allowed.",
+          "Hot tea, coffee, and evening snacks served to all registered participants in the library refreshment zone.",
+        modality: "Evening refreshments included; casual peer networking allowed.",
       },
       {
-        time: "04:30 PM",
+        time: "08:00 PM",
         phase: "DAY 1 • CHECKPOINT 1",
         title: "MENTORSHIP & ARCHITECTURE REVIEW",
         category: "REVIEW",
@@ -222,25 +223,25 @@ export const HACKATHON_CONFIG = {
         modality: "Mandatory milestone check: Mentors grade design feasibility and technical trajectory.",
       },
       {
-        time: "08:30 PM",
+        time: "09:30 PM",
         phase: "DAY 1 • HOSPITALITY",
-        title: "DINNER & EVENING FUEL",
+        title: "DINNER BUFFET & RECHARGE",
         category: "CHECK-IN",
         description:
           "Dinner buffet served on-site, followed by hot tea and coffee to power through the night.",
         modality: "Full dinner provided for all participants.",
       },
       {
-        time: "12:00 MIDNIGHT",
+        time: "01:00 AM",
         phase: "NIGHT SPRINT",
-        title: "MIDNIGHT ENERGY BREAK & SPRINT",
+        title: "MIDNIGHT ENERGY FUEL & SPRINT",
         category: "BUILD",
         description:
           "Midnight energy snacks and refreshments served. Intensive overnight coding sprint in the quiet library environment.",
         modality: "Core feature completion and backend API integrations.",
       },
       {
-        time: "05:30 AM",
+        time: "06:30 AM",
         phase: "DAY 2 • CHECKPOINT 2",
         title: "PRE-DAWN CODE & FEATURE FREEZE",
         category: "REVIEW",
@@ -249,16 +250,25 @@ export const HACKATHON_CONFIG = {
         modality: "Second progress verification: Deployment link validation and demo rehearsal.",
       },
       {
-        time: "08:00 AM",
+        time: "08:30 AM",
         phase: "DAY 2 • HOSPITALITY",
-        title: "BREAKFAST & FINAL SUBMISSIONS",
-        category: "SUBMISSION",
+        title: "BREAKFAST & FINAL POLISH",
+        category: "CHECK-IN",
         description:
-          "Breakfast served. Final project repositories, live preview URLs, and presentation slide decks submitted to the portal.",
-        modality: "Strict code lockout at 08:30 AM. No commits accepted post deadline.",
+          "Fresh breakfast served. Teams run final tests, rehearse live demos, and finalize submission slide decks.",
+        modality: "Breakfast provided; demo slide deck preparation.",
       },
       {
-        time: "09:30 AM",
+        time: "12:00 PM",
+        phase: "DAY 2 • SUBMISSION",
+        title: "FINAL SUBMISSION LOCKOUT",
+        category: "SUBMISSION",
+        description:
+          "Final project repositories, live preview URLs, and presentation slide decks submitted to the portal.",
+        modality: "Strict code lockout at 12:00 PM. No commits accepted post deadline.",
+      },
+      {
+        time: "12:30 PM",
         phase: "DAY 2 • FINALE",
         title: "LIVE JURY DEMOS & AWARD CEREMONY",
         category: "JURY",
@@ -481,7 +491,7 @@ export const HACKATHON_CONFIG = {
         id: "faq-dates",
         question: "When and where is the hackathon taking place?",
         answer:
-          "The hackathon will take place on 25th and 26th September 2026 at the Central Library, Malnad College of Engineering, Hassan, Karnataka. It runs for 24 continuous hours from Day 1 morning to Day 2 morning.",
+          "The hackathon will take place on 25th and 26th September 2026 at the Central Library, Malnad College of Engineering, Hassan, Karnataka. It starts at 2:00 PM on Friday, 25th September, and runs for 24 continuous hours until 2:00 PM on Saturday, 26th September.",
       },
       {
         id: "faq-prizes",

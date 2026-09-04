@@ -328,6 +328,10 @@ export default function HackathonHero({ onOpenRegister }: HackathonHeroProps) {
                 <span className="text-primary font-semibold">{HACKATHON_CONFIG.meta.dates}</span>
               </div>
               <div className="flex justify-between items-center text-text-secondary">
+                <span className="text-text-muted">START TIME</span>
+                <span className="text-cyan-400 font-medium">02:00 PM IST</span>
+              </div>
+              <div className="flex justify-between items-center text-text-secondary">
                 <span className="text-text-muted">PRIZES</span>
                 <span className="text-white font-medium">₹25K + 6 Internships</span>
               </div>
