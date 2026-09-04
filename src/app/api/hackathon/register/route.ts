@@ -1,4 +1,4 @@
-﻿import { NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
   try {
@@ -37,9 +37,13 @@ export async function POST(request: Request) {
       projectIdea: projectIdea || "To be finalized",
     };
 
+    const DEFAULT_GOOGLE_SHEETS_SCRIPT_URL =
+      "https://script.google.com/macros/s/AKfycbypb1qgXc6g_Htu7CNGeqDpkKtPh1adLel_KRs4T8H8kShooLWlTeUUare7tCgVV0ZY/exec";
+
     const googleSheetScriptUrl =
       process.env.GOOGLE_SHEETS_SCRIPT_URL ||
-      process.env.NEXT_PUBLIC_GOOGLE_SHEETS_URL;
+      process.env.NEXT_PUBLIC_GOOGLE_SHEETS_URL ||
+      DEFAULT_GOOGLE_SHEETS_SCRIPT_URL;
 
     let sheetSaved = false;
 
