@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, CheckCircle2, ArrowRight, ShieldCheck, Terminal } from "lucide-react";
+import { X, CheckCircle2, ArrowRight, ShieldCheck, Terminal, Utensils, IndianRupee } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 interface HackathonRegisterModalProps {
@@ -20,7 +20,7 @@ export default function HackathonRegisterModal({
     phone: "",
     yearSemester: "3rd Year (5th Sem)",
     teamName: "",
-    teamSize: "Team (2-4 members)",
+    teamSize: "Team of 4 Members (₹1,200 total)",
     trackPreference: HACKATHON_CONFIG.challenges.tracks[0].id,
     projectIdea: "",
   });
@@ -73,7 +73,7 @@ export default function HackathonRegisterModal({
       phone: "",
       yearSemester: "3rd Year (5th Sem)",
       teamName: "",
-      teamSize: "Team (2-4 members)",
+      teamSize: "Team of 4 Members (₹1,200 total)",
       trackPreference: HACKATHON_CONFIG.challenges.tracks[0].id,
       projectIdea: "",
     });
@@ -113,7 +113,7 @@ export default function HackathonRegisterModal({
               Register for the Sprint
             </h2>
             <p className="text-xs text-text-secondary mt-1">
-              Malnad College of Engineering, Hassan • 18–19 September
+              Central Library, Malnad College of Engineering • 25–26 September 2026
             </p>
           </div>
 
@@ -137,7 +137,7 @@ export default function HackathonRegisterModal({
                 Registration Confirmed
               </h3>
               <p className="text-sm text-text-secondary max-w-md mx-auto leading-relaxed">
-                Thank you, <span className="text-white font-medium">{formData.fullName}</span>. Your application for the 24 Hour Hackathon at Malnad College of Engineering has been recorded. Check-in protocols and team confirmation details will be sent to{" "}
+                Thank you, <span className="text-white font-medium">{formData.fullName}</span>. Your application for the 24 Hour Hackathon at Malnad College Central Library has been recorded. Check-in protocols and team confirmation details will be sent to{" "}
                 <span className="text-primary font-mono">{formData.email}</span>.
               </p>
 
@@ -154,18 +154,28 @@ export default function HackathonRegisterModal({
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               {/* Context Callout */}
-              <div className="flex items-start gap-2.5 p-3 rounded-lg bg-white/[0.03] border border-white/10 text-xs text-text-secondary">
-                <ShieldCheck className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                <span>
-                  Open exclusively to students participating in the CSE Student Development Series. Valid college ID required at check-in.
-                </span>
+              <div className="space-y-2 p-3.5 rounded-lg bg-white/[0.03] border border-white/10 text-xs">
+                <div className="flex items-center gap-2 text-primary font-mono font-semibold">
+                  <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
+                  <span>24H SPRINT ENTRY DETAILS</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-text-secondary font-light pt-1">
+                  <div className="flex items-center gap-1.5">
+                    <IndianRupee className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>₹300 / team member (3-4 members)</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Utensils className="w-3.5 h-3.5 text-primary" />
+                    <span>All Meals, Drinks & Snacks Included</span>
+                  </div>
+                </div>
               </div>
 
               {/* Personal Details */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
-                    Full Name *
+                    Full Name (Team Lead) *
                   </label>
                   <input
                     type="text"
@@ -252,7 +262,7 @@ export default function HackathonRegisterModal({
 
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
-                    Participation Format
+                    Team Size (3 to 4 Members) *
                   </label>
                   <select
                     value={formData.teamSize}
@@ -261,8 +271,9 @@ export default function HackathonRegisterModal({
                     }
                     className="w-full px-3.5 py-2.5 rounded-lg bg-[#141418] border border-white/10 text-white text-sm focus:outline-none focus:border-primary transition-colors"
                   >
-                    <option value="Team (2-4 members)">Team (2 to 4 members)</option>
-                    <option value="Solo Builder (Pair at kickoff)">Solo Builder (Pair during Ideation)</option>
+                    <option value="Team of 4 Members (₹1,200 total)">Team of 4 Members (₹1,200 total fee)</option>
+                    <option value="Team of 3 Members (₹900 total)">Team of 3 Members (₹900 total fee)</option>
+                    <option value="Solo / Partial Builder (Find teammate at check-in)">Solo / Partial (Team-up during check-in)</option>
                   </select>
                 </div>
               </div>
@@ -270,7 +281,7 @@ export default function HackathonRegisterModal({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
-                    Team Name (if formed)
+                    Team Name
                   </label>
                   <input
                     type="text"
@@ -323,7 +334,7 @@ export default function HackathonRegisterModal({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 px-6 rounded-full bg-primary hover:bg-primary-hover text-white font-medium text-sm tracking-wide flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+                  className="w-full py-3.5 px-6 rounded-full bg-primary hover:bg-primary-hover text-white font-medium text-sm tracking-wide flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <span>Registering...</span>
@@ -337,7 +348,7 @@ export default function HackathonRegisterModal({
               </div>
 
               <p className="text-[11px] text-text-muted text-center">
-                By submitting, you agree to the hackathon sprint code of conduct and on-campus guidelines.
+                Registration fee of ₹300 per team member is payable during on-campus check-in at MCE Central Library. Food, refreshments & certificates included.
               </p>
             </form>
           )}

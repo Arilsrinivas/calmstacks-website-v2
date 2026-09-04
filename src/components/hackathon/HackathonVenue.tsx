@@ -1,6 +1,6 @@
 "use client";
 
-import { MapPin, Navigation, ArrowUpRight, CheckCircle2, Compass } from "lucide-react";
+import { MapPin, Navigation, ArrowUpRight, CheckCircle2, Compass, BookOpen } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export default function HackathonVenue() {
@@ -17,9 +17,15 @@ export default function HackathonVenue() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left 6 Columns: Venue Information */}
           <div className="lg:col-span-6 space-y-8">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white uppercase leading-[1.02]">
-              {venue.heading}
-            </h2>
+            <div>
+              <div className="flex items-center gap-2 font-mono text-xs text-primary mb-2">
+                <BookOpen className="w-4 h-4" />
+                <span>OFFICIAL VENUE // CENTRAL LIBRARY</span>
+              </div>
+              <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white uppercase leading-[1.02] whitespace-pre-line">
+                {venue.heading}
+              </h2>
+            </div>
 
             <div className="space-y-2">
               <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
@@ -36,7 +42,7 @@ export default function HackathonVenue() {
             {/* On-Site Amenities / Infrastructure */}
             <div className="space-y-3 pt-4 border-t border-white/[0.08]">
               <div className="font-mono text-[10px] uppercase tracking-wider text-text-muted">
-                ON-SITE INFRASTRUCTURE:
+                CENTRAL LIBRARY ON-SITE INFRASTRUCTURE:
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {venue.amenities.map((item) => (
@@ -104,8 +110,8 @@ export default function HackathonVenue() {
                   <div className="flex items-center gap-2.5">
                     <MapPin className="w-4 h-4 text-primary" />
                     <div>
-                      <div className="font-bold text-xs text-white">MCE Campus, Hassan</div>
-                      <div className="font-mono text-[10px] text-text-muted">CSE Department Labs</div>
+                      <div className="font-bold text-xs text-white">Central Library, MCE Campus</div>
+                      <div className="font-mono text-[10px] text-text-muted">Hassan, Karnataka</div>
                     </div>
                   </div>
 
@@ -122,8 +128,8 @@ export default function HackathonVenue() {
 
               {/* Bottom Telemetry strip */}
               <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-between font-mono text-[11px] text-text-muted">
-                <span>DESTINATION // OFFLINE EVENT</span>
-                <span className="text-text-secondary">ACCESSIBLE VIA HASSAN CENTRAL</span>
+                <span>DESTINATION // 24H OFFLINE VENUE</span>
+                <span className="text-emerald-400">CENTRAL LIBRARY AIR-CONDITIONED HALLS</span>
               </div>
             </div>
           </div>

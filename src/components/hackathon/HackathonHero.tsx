@@ -320,16 +320,20 @@ export default function HackathonHero({ onOpenRegister }: HackathonHeroProps) {
               <div className="flex justify-between items-center text-text-secondary">
                 <span className="text-text-muted">VENUE</span>
                 <span className="text-white font-medium text-right">
-                  Malnad College of Engineering
+                  {HACKATHON_CONFIG.meta.venueShort}
                 </span>
               </div>
               <div className="flex justify-between items-center text-text-secondary">
-                <span className="text-text-muted">LOCATION</span>
-                <span className="text-white font-medium">Hassan, Karnataka</span>
+                <span className="text-text-muted">DATES</span>
+                <span className="text-primary font-semibold">{HACKATHON_CONFIG.meta.dates}</span>
               </div>
               <div className="flex justify-between items-center text-text-secondary">
-                <span className="text-text-muted">DATES</span>
-                <span className="text-primary font-semibold">18–19 September</span>
+                <span className="text-text-muted">PRIZES</span>
+                <span className="text-white font-medium">₹25K + 6 Internships</span>
+              </div>
+              <div className="flex justify-between items-center text-text-secondary">
+                <span className="text-text-muted">ENTRY & FOOD</span>
+                <span className="text-emerald-400 font-medium">₹300/head (Food Incl.)</span>
               </div>
             </div>
           </div>
