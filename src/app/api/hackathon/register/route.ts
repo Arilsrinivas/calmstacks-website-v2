@@ -46,9 +46,31 @@ export async function POST(request: Request) {
     // Format transaction ID with leading quote so Google Sheets treats it as text
     const sheetTxnId = rawTxnId.startsWith("'") ? rawTxnId : `'${rawTxnId}`;
 
-    const enrichedProjectIdea = projectIdea
-      ? `${projectIdea} | [PAID: ${paymentAmount} • UTR: ${rawTxnId}]`
-      : `[PAID: ${paymentAmount} • UTR: ${rawTxnId}]`;
+    const members: Array<{ name: string; usn: string; email?: string; phone?: string }> =
+      Array.isArray(body.members) ? body.members : [];
+
+    // Construct clean roster descriptions
+    const memberDescriptions = members
+      .filter((m) => m && m.name && m.name.trim())
+      .map(
+        (m, idx) =>
+          `[M${idx + 2}] ${m.name.trim()} (${(m.usn || "N/A").trim()})${
+            m.phone ? ` • ${m.phone.trim()}` : ""
+          }`
+      );
+
+    const teamRosterDisplay = [
+      `[Lead] ${fullName} (${usn})`,
+      ...memberDescriptions,
+    ].join(" | ");
+
+    const enrichedProjectIdea = [
+      projectIdea ? projectIdea.trim() : "",
+      memberDescriptions.length > 0 ? `[TEAM: ${teamRosterDisplay}]` : "",
+      `[PAID: ${paymentAmount} • UTR: ${rawTxnId}]`,
+    ]
+      .filter(Boolean)
+      .join(" | ");
 
     const payload = {
       timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
@@ -58,12 +80,16 @@ export async function POST(request: Request) {
       phone: sheetPhone,
       yearSemester: yearSemester || "N/A",
       teamName,
-      teamSize: teamSize || "Team of 4 Members (₹1,200 total)",
+      teamSize: teamSize || `Team of ${members.length + 1} Members (${paymentAmount} total)`,
       trackPreference: trackPreference || "Spontaneous (Revealed On-Spot)",
       projectIdea: enrichedProjectIdea,
       paymentStatus,
       paymentAmount,
       transactionId: sheetTxnId,
+      teamMembers: teamRosterDisplay,
+      member2: members[0] ? `${members[0].name} (${members[0].usn})` : "",
+      member3: members[1] ? `${members[1].name} (${members[1].usn})` : "",
+      member4: members[2] ? `${members[2].name} (${members[2].usn})` : "",
     };
 
     const DEFAULT_GOOGLE_SHEETS_SCRIPT_URL =
@@ -100,6 +126,17 @@ export async function POST(request: Request) {
     const web3formsKey =
       process.env.WEB3FORMS_KEY || "2bfb4e6e-317b-4d34-b81e-ce44a86fae87";
 
+    const rosterEmailText = members.length > 0
+      ? members
+          .map(
+            (m, idx) =>
+              `• Member ${idx + 2}: ${m.name || "N/A"} | USN: ${m.usn || "N/A"}${
+                m.email ? ` | Email: ${m.email}` : ""
+              }${m.phone ? ` | Phone: ${m.phone}` : ""}`
+          )
+          .join("\n")
+      : "• Solo participant / Finding teammates at check-in";
+
     try {
       await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -118,11 +155,12 @@ UPI Transaction ID / UTR: ${rawTxnId}
 Payee: Aril Srinivas (arilsrinivas8@okhdfcbank)
 -----------------------------------
 Team Name: ${teamName}
-Team Size: ${teamSize}
-Team Lead: ${fullName}
-USN: ${usn}
-Email: ${email}
-Phone / WhatsApp: ${cleanPhone}
+Total Members: ${members.length + 1}
+-----------------------------------
+TEAM ROSTER:
+• Lead (Member 1): ${fullName} | USN: ${usn} | Email: ${email} | Phone: ${cleanPhone}
+${rosterEmailText}
+-----------------------------------
 Year & Sem: ${yearSemester}
 Track: Spontaneous (Revealed On-Spot)
 Project / Skills: ${projectIdea || "N/A"}
