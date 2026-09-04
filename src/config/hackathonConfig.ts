@@ -69,6 +69,13 @@ export const HACKATHON_CONFIG = {
     certificates: "Certificates for All Participants",
   },
 
+  payment: {
+    feePerMember: 300,
+    upiId: "arilsrinivas8@okhdfcbank",
+    payeeName: "Aril Srinivas",
+    qrImage: "/assets/payment_qr.jpg",
+  },
+
   hero: {
     smallLabel: "CALMSTACKS PRESENTS",
     headlineLine1: "24",

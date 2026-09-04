@@ -1,7 +1,22 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
-import { X, CheckCircle2, ArrowRight, ShieldCheck, Terminal, Utensils, IndianRupee, Loader2, AlertCircle } from "lucide-react";
+import {
+  X,
+  CheckCircle2,
+  ArrowRight,
+  ArrowLeft,
+  ShieldCheck,
+  Terminal,
+  Utensils,
+  IndianRupee,
+  Loader2,
+  AlertCircle,
+  Copy,
+  Check,
+  QrCode,
+  Sparkles,
+} from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 interface HackathonRegisterModalProps {
@@ -13,6 +28,8 @@ export default function HackathonRegisterModal({
   isOpen,
   onClose,
 }: HackathonRegisterModalProps) {
+  const [step, setStep] = useState<"details" | "payment">("details");
+
   const [formData, setFormData] = useState({
     fullName: "",
     usn: "",
@@ -25,9 +42,20 @@ export default function HackathonRegisterModal({
     projectIdea: "",
   });
 
+  const [transactionId, setTransactionId] = useState("");
+  const [copiedUpi, setCopiedUpi] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  // Calculate dynamic fee
+  const getFeeAmount = () => {
+    if (formData.teamSize.includes("3")) return 900;
+    if (formData.teamSize.includes("Solo")) return 300;
+    return 1200;
+  };
+
+  const feeAmount = getFeeAmount();
 
   // Close on Escape key
   useEffect(() => {
@@ -54,10 +82,46 @@ export default function HackathonRegisterModal({
 
   if (!isOpen) return null;
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Step 1: Proceed to Payment verification
+  const handleProceedToPayment = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setErrorMessage("");
+
+    if (!formData.fullName.trim()) {
+      setErrorMessage("Please provide the Team Lead's full name.");
+      return;
+    }
+    if (!formData.usn.trim()) {
+      setErrorMessage("Please enter your USN / College Roll number.");
+      return;
+    }
+    if (!formData.email.trim()) {
+      setErrorMessage("Please enter a valid email address.");
+      return;
+    }
+    if (!formData.phone.trim()) {
+      setErrorMessage("Please provide a WhatsApp contact phone number.");
+      return;
+    }
+    if (!formData.teamName.trim()) {
+      setErrorMessage("Please enter your Team Name.");
+      return;
+    }
+
+    setStep("payment");
+  };
+
+  // Step 2: Confirm Payment and Push to Google Sheets
+  const handleFinalSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrorMessage("");
+
+    if (!transactionId.trim()) {
+      setErrorMessage("Please enter the 12-digit UPI Transaction ID / UTR from your payment app.");
+      return;
+    }
+
+    setIsSubmitting(true);
 
     try {
       const res = await fetch("/api/hackathon/register", {
@@ -65,7 +129,12 @@ export default function HackathonRegisterModal({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          paymentStatus: "PAID",
+          paymentAmount: `₹${feeAmount}`,
+          transactionId: transactionId.trim(),
+        }),
       });
 
       const data = await res.json();
@@ -79,16 +148,27 @@ export default function HackathonRegisterModal({
       const msg =
         err instanceof Error
           ? err.message
-          : "Failed to submit registration. Please try again.";
+          : "Failed to complete registration. Please try again.";
       setErrorMessage(msg);
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const handleCopyUpi = () => {
+    const upi = HACKATHON_CONFIG.payment?.upiId || "arilsrinivas8@okhdfcbank";
+    if (navigator?.clipboard) {
+      navigator.clipboard.writeText(upi);
+      setCopiedUpi(true);
+      setTimeout(() => setCopiedUpi(false), 2000);
+    }
+  };
+
   const handleReset = () => {
     setIsSuccess(false);
+    setStep("details");
     setErrorMessage("");
+    setTransactionId("");
     setFormData({
       fullName: "",
       usn: "",
@@ -105,38 +185,48 @@ export default function HackathonRegisterModal({
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-headline"
     >
       {/* Frosted Glass Backdrop */}
       <div
-        className="fixed inset-0 bg-black/80 backdrop-blur-md transition-opacity animate-fade-up"
+        className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity animate-fade-up"
         onClick={onClose}
         aria-hidden="true"
       />
 
       {/* Modal Container */}
-      <div className="relative w-full max-w-xl bg-[#0d0d10] border border-white/15 rounded-2xl shadow-2xl overflow-hidden z-10 my-8">
+      <div className="relative w-full max-w-xl bg-[#0d0d10] border border-white/15 rounded-2xl shadow-2xl overflow-hidden z-10 my-4 sm:my-8">
         {/* Top Accent Bar */}
         <div className="h-1 w-full bg-gradient-to-r from-primary via-cyan-400 to-primary" />
 
         {/* Header */}
-        <div className="p-6 sm:p-8 border-b border-white/10 flex items-start justify-between">
+        <div className="p-5 sm:p-7 border-b border-white/10 flex items-start justify-between">
           <div>
-            <div className="flex items-center gap-2 mb-2 font-mono text-[11px] uppercase tracking-wider text-primary">
+            <div className="flex items-center gap-2 mb-1.5 font-mono text-[11px] uppercase tracking-wider text-primary">
               <Terminal className="w-3.5 h-3.5" />
-              <span>REGISTRATION // CALMSTACKS 24H</span>
+              <span>
+                {isSuccess
+                  ? "CONFIRMATION // COMPLETE"
+                  : step === "details"
+                  ? "STEP 1 OF 2 // TEAM REGISTRATION"
+                  : "STEP 2 OF 2 // UPI SCANNER & PAYMENT"}
+              </span>
             </div>
             <h2
               id="modal-headline"
-              className="text-2xl font-bold tracking-tight text-white"
+              className="text-xl sm:text-2xl font-bold tracking-tight text-white"
             >
-              Register for the Sprint
+              {isSuccess
+                ? "Registration & Payment Confirmed"
+                : step === "details"
+                ? "Register Your Team"
+                : "Scan QR & Complete Payment"}
             </h2>
             <p className="text-xs text-text-secondary mt-1">
-              Central Library, Malnad College of Engineering • 25–26 September 2026
+              Central Library, Malnad College • 25–26 September 2026 (Starts 2:00 PM)
             </p>
           </div>
 
@@ -149,43 +239,100 @@ export default function HackathonRegisterModal({
           </button>
         </div>
 
-        {/* Content */}
-        <div className="p-6 sm:p-8 max-h-[75vh] overflow-y-auto">
+        {/* Stepper Pill Indicator */}
+        {!isSuccess && (
+          <div className="px-5 sm:px-7 pt-4 pb-1 border-b border-white/[0.06] bg-white/[0.01]">
+            <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-wider">
+              <div
+                className={`flex items-center gap-1.5 ${
+                  step === "details" ? "text-primary font-semibold" : "text-emerald-400"
+                }`}
+              >
+                <span className="w-5 h-5 rounded-full border border-current flex items-center justify-center text-[10px]">
+                  {step === "payment" ? "✓" : "1"}
+                </span>
+                <span>1. Team Details</span>
+              </div>
+              <div className="h-[1px] flex-1 mx-3 bg-white/10" />
+              <div
+                className={`flex items-center gap-1.5 ${
+                  step === "payment" ? "text-primary font-semibold" : "text-text-muted"
+                }`}
+              >
+                <span className="w-5 h-5 rounded-full border border-current flex items-center justify-center text-[10px]">
+                  2
+                </span>
+                <span>2. UPI Scanner (₹{feeAmount})</span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Content Body */}
+        <div className="p-5 sm:p-7 max-h-[75vh] overflow-y-auto">
           {isSuccess ? (
-            <div className="py-8 text-center space-y-4">
+            /* SUCCESS STATE */
+            <div className="py-6 text-center space-y-4">
               <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
                 <CheckCircle2 className="w-8 h-8" />
               </div>
               <h3 className="text-xl font-bold text-white tracking-tight">
-                Registration Confirmed
+                Registration Officially Recorded
               </h3>
               <p className="text-sm text-text-secondary max-w-md mx-auto leading-relaxed">
-                Thank you, <span className="text-white font-medium">{formData.fullName}</span>. Your application for the 24 Hour Hackathon at Malnad College Central Library has been recorded. Check-in protocols and team confirmation details will be sent to{" "}
-                <span className="text-primary font-mono">{formData.email}</span>.
+                Thank you, <span className="text-white font-medium">{formData.fullName}</span>. Payment of <span className="text-emerald-400 font-semibold">₹{feeAmount}</span> for team <span className="text-white font-medium">{formData.teamName}</span> has been logged and details pushed to the Google Sheet roster.
               </p>
 
-              <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row gap-3 justify-center">
+              {/* Receipt Box */}
+              <div className="max-w-md mx-auto p-4 rounded-xl bg-white/[0.03] border border-white/10 text-left font-mono text-xs space-y-2">
+                <div className="flex justify-between items-center text-text-secondary">
+                  <span className="text-text-muted">TEAM NAME</span>
+                  <span className="text-white font-medium">{formData.teamName}</span>
+                </div>
+                <div className="flex justify-between items-center text-text-secondary">
+                  <span className="text-text-muted">TEAM LEAD</span>
+                  <span className="text-white font-medium">{formData.fullName} ({formData.usn})</span>
+                </div>
+                <div className="flex justify-between items-center text-text-secondary">
+                  <span className="text-text-muted">PAYMENT STATUS</span>
+                  <span className="text-emerald-400 font-semibold">PAID (₹{feeAmount})</span>
+                </div>
+                <div className="flex justify-between items-center text-text-secondary">
+                  <span className="text-text-muted">TRANSACTION ID / UTR</span>
+                  <span className="text-cyan-400 font-medium break-all">{transactionId}</span>
+                </div>
+                <div className="flex justify-between items-center text-text-secondary pt-1 border-t border-white/10">
+                  <span className="text-text-muted">REPORTING TIME</span>
+                  <span className="text-white">01:00 PM • 25 SEPT 2026</span>
+                </div>
+              </div>
+
+              <div className="pt-4 flex justify-center">
                 <button
                   type="button"
                   onClick={handleReset}
-                  className="btn-primary justify-center text-sm py-2.5 px-6"
+                  className="btn-primary justify-center text-sm py-2.5 px-8"
                 >
                   Done
                 </button>
               </div>
             </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-5">
+          ) : step === "details" ? (
+            /* STEP 1: FORM DETAILS */
+            <form onSubmit={handleProceedToPayment} className="space-y-4">
               {/* Context Callout */}
-              <div className="space-y-2 p-3.5 rounded-lg bg-white/[0.03] border border-white/10 text-xs">
-                <div className="flex items-center gap-2 text-primary font-mono font-semibold">
-                  <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
-                  <span>24H SPRINT ENTRY DETAILS</span>
+              <div className="p-3.5 rounded-lg bg-white/[0.03] border border-white/10 text-xs">
+                <div className="flex items-center justify-between text-primary font-mono font-semibold">
+                  <div className="flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-primary shrink-0" />
+                    <span>24H SPRINT ENTRY DETAILS</span>
+                  </div>
+                  <span className="text-emerald-400">Total: ₹{feeAmount}</span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-text-secondary font-light pt-1">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-text-secondary font-light pt-2">
                   <div className="flex items-center gap-1.5">
                     <IndianRupee className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>₹300 / team member (3-4 members)</span>
+                    <span>₹300 per member ({formData.teamSize.split("(")[0].trim()})</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Utensils className="w-3.5 h-3.5 text-primary" />
@@ -203,7 +350,7 @@ export default function HackathonRegisterModal({
                   <input
                     type="text"
                     required
-                    placeholder="Aril Srinivas"
+                    placeholder="e.g. Aril Srinivas"
                     value={formData.fullName}
                     onChange={(e) =>
                       setFormData({ ...formData, fullName: e.target.value })
@@ -214,17 +361,17 @@ export default function HackathonRegisterModal({
 
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
-                    College USN / Roll No *
+                    USN / Student ID *
                   </label>
                   <input
                     type="text"
                     required
-                    placeholder="4MC22CS000"
+                    placeholder="e.g. 4MC23CS001"
                     value={formData.usn}
                     onChange={(e) =>
-                      setFormData({ ...formData, usn: e.target.value })
+                      setFormData({ ...formData, usn: e.target.value.toUpperCase() })
                     }
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm font-mono focus:outline-none focus:border-primary transition-colors uppercase"
+                    className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors uppercase"
                   />
                 </div>
               </div>
@@ -232,7 +379,7 @@ export default function HackathonRegisterModal({
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
-                    College / Personal Email *
+                    Email Address *
                   </label>
                   <input
                     type="email"
@@ -296,7 +443,7 @@ export default function HackathonRegisterModal({
                   >
                     <option value="Team of 4 Members (₹1,200 total)">Team of 4 Members (₹1,200 total fee)</option>
                     <option value="Team of 3 Members (₹900 total)">Team of 3 Members (₹900 total fee)</option>
-                    <option value="Solo / Partial Builder (Find teammate at check-in)">Solo / Partial (Team-up during check-in)</option>
+                    <option value="Solo / Partial Builder (Find teammate at check-in)">Solo / Partial (₹300 fee)</option>
                   </select>
                 </div>
               </div>
@@ -322,7 +469,7 @@ export default function HackathonRegisterModal({
                   <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary">
                     Primary Tech Stack / Skills (Optional)
                   </label>
-                  <span className="text-[10px] font-mono text-cyan-400">100% SPONTANEOUS CHALLENGE</span>
+                  <span className="text-[10px] font-mono text-cyan-400">100% SPONTANEOUS</span>
                 </div>
                 <textarea
                   rows={2}
@@ -333,9 +480,6 @@ export default function HackathonRegisterModal({
                   }
                   className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors resize-none"
                 />
-                <p className="text-[11px] text-text-muted mt-1 font-mono">
-                  ⚡ Problem statements are kept strictly confidential and will be revealed live at 02:00 PM kickoff.
-                </p>
               </div>
 
               {/* Error Message */}
@@ -346,29 +490,147 @@ export default function HackathonRegisterModal({
                 </div>
               )}
 
-              {/* Submit CTA */}
+              {/* Next Button */}
               <div className="pt-2">
                 <button
                   type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3.5 px-6 rounded-full bg-primary hover:bg-primary-hover text-white font-medium text-sm tracking-wide flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
+                  className="w-full py-3.5 px-6 rounded-full bg-primary hover:bg-primary-hover text-white font-medium text-sm tracking-wide flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                >
+                  <span>PROCEED TO PAYMENT (₹{feeAmount})</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
+
+              <p className="text-[11px] text-text-muted text-center">
+                Scan QR and complete UPI payment in the next step to confirm your team slot.
+              </p>
+            </form>
+          ) : (
+            /* STEP 2: UPI SCANNER & PAYMENT */
+            <form onSubmit={handleFinalSubmit} className="space-y-4">
+              {/* Order Summary Pill */}
+              <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/10 flex items-center justify-between text-xs">
+                <div>
+                  <span className="text-text-muted block font-mono text-[10px]">REGISTERING TEAM</span>
+                  <span className="text-white font-semibold text-sm">{formData.teamName}</span>
+                </div>
+                <div className="text-right">
+                  <span className="text-text-muted block font-mono text-[10px]">TOTAL AMOUNT</span>
+                  <span className="text-emerald-400 font-bold text-base font-mono">₹{feeAmount}</span>
+                </div>
+              </div>
+
+              {/* QR Scanner Display Card */}
+              <div className="p-5 rounded-2xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-white/15 text-center space-y-3">
+                <div className="flex items-center justify-center gap-2 text-xs font-mono text-cyan-400 font-medium">
+                  <QrCode className="w-4 h-4" />
+                  <span>SCAN TO PAY VIA ANY UPI APP</span>
+                </div>
+
+                {/* QR Code Container */}
+                <div className="inline-block p-3 rounded-2xl bg-white shadow-2xl mx-auto border-2 border-white/30">
+                  <img
+                    src="/assets/payment_qr.jpg"
+                    alt="UPI Payment QR Code - Aril Srinivas"
+                    className="w-52 h-auto rounded-xl object-contain mx-auto"
+                  />
+                </div>
+
+                {/* Payee Details & UPI Copy Box */}
+                <div className="space-y-2 pt-1 max-w-sm mx-auto">
+                  <div className="flex items-center justify-between px-3.5 py-2 rounded-lg bg-black/60 border border-white/10 text-xs font-mono">
+                    <div className="text-left overflow-hidden">
+                      <span className="text-text-muted block text-[10px]">PAYEE: ARIL SRINIVAS</span>
+                      <span className="text-white font-medium truncate block">
+                        arilsrinivas8@okhdfcbank
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={handleCopyUpi}
+                      className="ml-2 px-2.5 py-1 rounded bg-white/10 hover:bg-white/20 text-text-secondary hover:text-white transition-colors flex items-center gap-1 text-[11px] shrink-0"
+                    >
+                      {copiedUpi ? (
+                        <>
+                          <Check className="w-3 h-3 text-emerald-400" />
+                          <span className="text-emerald-400">Copied</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3 h-3" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  <p className="text-[11px] text-text-muted font-light">
+                    Supported on Google Pay, PhonePe, Paytm, BHIM & all UPI banking apps.
+                  </p>
+                </div>
+              </div>
+
+              {/* Transaction ID / UTR Input */}
+              <div className="space-y-1.5 pt-1">
+                <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary">
+                  UPI Reference No. / 12-Digit UTR *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. 423891029381 or Transaction ID"
+                  value={transactionId}
+                  onChange={(e) => setTransactionId(e.target.value)}
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors font-mono"
+                />
+                <p className="text-[11px] text-text-muted">
+                  Check your payment successful receipt in GPay / PhonePe / Paytm for the 12-digit UTR number.
+                </p>
+              </div>
+
+              {/* Error Alert */}
+              {errorMessage && (
+                <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="pt-2 flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setErrorMessage("");
+                    setStep("details");
+                  }}
+                  className="py-3 px-4 rounded-full border border-white/15 hover:bg-white/5 text-text-secondary hover:text-white font-medium text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Back</span>
+                </button>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting || !transactionId.trim()}
+                  className="flex-1 py-3 px-6 rounded-full bg-primary hover:bg-primary-hover text-white font-medium text-sm tracking-wide flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin text-white" />
-                      <span>Recording Registration...</span>
+                      <span>Verifying & Recording...</span>
                     </>
                   ) : (
                     <>
-                      <span>CONFIRM REGISTRATION</span>
-                      <ArrowRight className="w-4 h-4" />
+                      <Sparkles className="w-4 h-4 text-cyan-300" />
+                      <span>CONFIRM PAYMENT & SUBMIT</span>
                     </>
                   )}
                 </button>
               </div>
 
-              <p className="text-[11px] text-text-muted text-center">
-                Registration fee of ₹300 per team member is payable during on-campus check-in at MCE Central Library. Food, refreshments & certificates included.
+              <p className="text-[11px] text-text-muted text-center font-mono">
+                Once submitted, your team entry and payment UTR are instantly pushed to Google Sheets.
               </p>
             </form>
           )}

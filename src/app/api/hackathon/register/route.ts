@@ -28,6 +28,28 @@ export async function POST(request: Request) {
     const cleanPhone = phone.toString().trim();
     const sheetPhone = cleanPhone.startsWith("'") ? cleanPhone : `'${cleanPhone}`;
 
+    const paymentStatus = body.paymentStatus || "PAID";
+    const paymentAmount =
+      body.paymentAmount || (teamSize?.includes("3") ? "₹900" : "₹1,200");
+    const rawTxnId = (body.transactionId || "").toString().trim();
+
+    if (!rawTxnId) {
+      return NextResponse.json(
+        {
+          error:
+            "Payment verification required: Please enter the UPI Reference ID / UTR number from your payment receipt.",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Format transaction ID with leading quote so Google Sheets treats it as text
+    const sheetTxnId = rawTxnId.startsWith("'") ? rawTxnId : `'${rawTxnId}`;
+
+    const enrichedProjectIdea = projectIdea
+      ? `${projectIdea} | [PAID: ${paymentAmount} • UTR: ${rawTxnId}]`
+      : `[PAID: ${paymentAmount} • UTR: ${rawTxnId}]`;
+
     const payload = {
       timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
       fullName,
@@ -38,7 +60,10 @@ export async function POST(request: Request) {
       teamName,
       teamSize: teamSize || "Team of 4 Members (₹1,200 total)",
       trackPreference: trackPreference || "Spontaneous (Revealed On-Spot)",
-      projectIdea: projectIdea || "To be finalized",
+      projectIdea: enrichedProjectIdea,
+      paymentStatus,
+      paymentAmount,
+      transactionId: sheetTxnId,
     };
 
     const DEFAULT_GOOGLE_SHEETS_SCRIPT_URL =
@@ -81,12 +106,17 @@ export async function POST(request: Request) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           access_key: web3formsKey,
-          subject: `⚡ New Hackathon Registration: ${teamName} (${fullName})`,
+          subject: `⚡ [PAID ${paymentAmount}] Hackathon Registration: ${teamName} (${fullName})`,
           from_name: "Calmstacks Hackathon Portal",
           message: `
-NEW 24-HOUR HACKATHON REGISTRATION
+NEW 24-HOUR HACKATHON REGISTRATION (PAYMENT COMPLETED)
 -----------------------------------
 Date & Time: ${payload.timestamp}
+Payment Status: ${paymentStatus}
+Fee Amount: ${paymentAmount}
+UPI Transaction ID / UTR: ${rawTxnId}
+Payee: Aril Srinivas (arilsrinivas8@okhdfcbank)
+-----------------------------------
 Team Name: ${teamName}
 Team Size: ${teamSize}
 Team Lead: ${fullName}
@@ -94,8 +124,8 @@ USN: ${usn}
 Email: ${email}
 Phone / WhatsApp: ${cleanPhone}
 Year & Sem: ${yearSemester}
-Track Preference: ${trackPreference}
-Project Concept / Problem: ${projectIdea}
+Track: Spontaneous (Revealed On-Spot)
+Project / Skills: ${projectIdea || "N/A"}
 -----------------------------------
 Venue: Central Library, Malnad College of Engineering
 Dates: 25-26 September 2026 (Starts 2:00 PM)
