@@ -339,22 +339,6 @@ export default function HackathonHero({ onOpenRegister }: HackathonHeroProps) {
           </div>
         </div>
       </div>
-
-      {/* Bottom Ticker / Event Metadata Grid */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full pt-8 border-t border-white/[0.08]">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {HACKATHON_CONFIG.hero.metadataItems.map((item) => (
-            <div key={item.label} className="border-l border-white/15 pl-4 space-y-1">
-              <div className="font-mono text-[10px] uppercase tracking-widest text-text-muted">
-                {item.label}
-              </div>
-              <div className="font-mono text-xs sm:text-sm font-semibold text-white tracking-tight">
-                {item.value}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
     </section>
   );
 }
