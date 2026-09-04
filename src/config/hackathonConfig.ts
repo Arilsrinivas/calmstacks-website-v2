@@ -123,50 +123,50 @@ export const HACKATHON_CONFIG = {
   },
 
   challenges: {
-    sectionTag: "02 // PROBLEM DOMAINS",
-    heading: "THE CHALLENGE TRACKS",
+    sectionTag: "02 // SPRINT FORMAT",
+    heading: "100% SPONTANEOUS • LIVE PROBLEM DROP",
     description:
-      "Choose a challenge track aligned with your strengths or build cross-disciplinary solutions. Detailed problem statement briefs and evaluation rubrics will be unveiled during kickoff.",
+      "There are no predefined tracks. The official problem statements will be unveiled live on-stage during the 2:00 PM kickoff at the MCE Central Library. Every team starts with a completely clean slate, testing true spontaneous engineering, creativity, and rapid 24-hour execution.",
     tracks: [
       {
-        id: "ai-automation",
+        id: "live-drop",
         number: "01",
-        title: "AI & AUTOMATION",
-        tagline: "Autonomous agents, intelligent workflows & synthetic compute",
+        title: "LIVE PROBLEM DROP",
+        tagline: "Unveiled on-stage at 02:00 PM, 25th September",
         description:
-          "Harness generative models, specialized machine learning, or computer vision to build tools that eliminate friction and automate complex human and developer tasks.",
-        tags: ["LLM Agents", "Computer Vision", "Workflow Automation", "API Synthesis"],
-        focusAreas: ["Predictive tooling", "Autonomous assistants", "Context-aware engines"],
+          "Problem statements are kept strictly confidential until kickoff. All teams receive the challenge brief at the exact same second, testing real-time problem comprehension and creative agility.",
+        tags: ["Live Reveal at 2:00 PM", "MCE Central Library", "Equal Ground"],
+        focusAreas: ["Instant ideation", "Problem decomposition", "Fast alignment"],
       },
       {
-        id: "web-digital",
+        id: "clean-slate",
         number: "02",
-        title: "WEB & DIGITAL PRODUCTS",
-        tagline: "High-performance platforms, developer tools & modern SaaS",
+        title: "CLEAN SLATE PROTOCOL",
+        tagline: "Zero pre-built repos — build 100% from scratch",
         description:
-          "Design and build fast, responsive, and intuitive web applications or utilities that solve tangible everyday workflows with exceptional UI/UX fidelity.",
-        tags: ["Next.js", "Distributed APIs", "Design Systems", "Real-Time Sync"],
-        focusAreas: ["Developer tooling", "Modern collaboration", "Micro-SaaS prototypes"],
+          "To guarantee spontaneous authenticity, all code repositories must be created fresh on-site after the problem announcement. Pre-written codebases and existing repositories are strictly barred.",
+        tags: ["Fresh Git Init", "Timestamped Commits", "Pure 24H Sprint"],
+        focusAreas: ["Code integrity", "Original design", "Authentic development"],
       },
       {
-        id: "social-impact",
+        id: "open-stack",
         number: "03",
-        title: "SOCIAL IMPACT & CIVIC TECH",
-        tagline: "Accessible healthcare, sustainability & regional governance",
+        title: "OPEN STACK FREEDOM",
+        tagline: "Build with any language, framework, or AI toolchain",
         description:
-          "Craft purpose-driven engineering solutions that tackle pressing societal challenges—education accessibility, environmental monitoring, and public health systems.",
-        tags: ["Civic Tech", "Accessibility", "Public Data", "Resource Optimization"],
-        focusAreas: ["Healthcare workflows", "Educational tooling", "Community resilience"],
+          "No technology constraints. Choose the best stack for the problem: Next.js, Python, Flutter, cloud backends, microservices, or custom AI models. Whatever solves the problem fastest and best.",
+        tags: ["Any Tech Stack", "Full-Stack Web", "Mobile & Cloud", "AI / LLM Toolchains"],
+        focusAreas: ["Modern toolchains", "Fast prototyping", "Robust architecture"],
       },
       {
-        id: "open-innovation",
+        id: "rapid-prototype",
         number: "04",
-        title: "OPEN INNOVATION & IOT",
-        tagline: "Hardware-software integration, robotics & new primitives",
+        title: "24-HOUR PROTOTYPING",
+        tagline: "From spontaneous prompt to live working deployment",
         description:
-          "For cross-disciplinary builders combining hardware, IoT, embedded microcontrollers, robotics, or novel software primitives that push creative boundaries.",
-        tags: ["Embedded Systems", "Hardware/IoT", "Robotics", "Novel Primitives"],
-        focusAreas: ["Physical-digital bridges", "Edge computing", "Novel interfaces"],
+          "Translate a surprise problem statement into a working prototype with live deployment, intuitive UI/UX, and demonstrable real-world utility within 24 continuous hours.",
+        tags: ["Live Deployed URL", "Working Demo", "Jury Evaluation"],
+        focusAreas: ["Sprint execution", "Production polish", "Effective pitching"],
       },
     ] as HackathonTrack[],
   },
@@ -192,8 +192,8 @@ export const HACKATHON_CONFIG = {
         title: "OPENING CEREMONY & PROBLEM DROP",
         category: "IDEATION",
         description:
-          "Official opening address by CalmStacks & CSE Department. Release of track problem statements, rubric criteria, and submission requirements.",
-        modality: "Track selection confirmed; teams enter 1-hour ideation and system architecture freeze.",
+          "Official opening ceremony by Calmstacks & CSE Department. Spontaneous release of the live challenge problem statements and rubric criteria.",
+        modality: "Problem statements announced live on-stage; teams enter 1-hour spontaneous ideation and architecture freeze.",
       },
       {
         time: "03:00 PM",
@@ -424,7 +424,7 @@ export const HACKATHON_CONFIG = {
       },
       {
         title: "4 UNPAID INTERNSHIPS",
-        subtitle: "Exclusive project internship roles for standout performers across all tracks.",
+        subtitle: "Exclusive project internship roles for standout performers in the 24-hour sprint.",
         tag: "TOP PERFORMERS",
       },
       {
@@ -531,15 +531,15 @@ export const HACKATHON_CONFIG = {
       },
       {
         id: "faq-tracks",
-        question: "What can we build during the 24 hours?",
+        question: "Are there predefined tracks or problem statements?",
         answer:
-          "You can build solutions in one of four tracks: AI & Automation, Web & Digital Products, Social Impact & Civic Tech, or Open Innovation & IoT. Problem statements will be detailed during the opening ceremony.",
+          "No. There are no predefined tracks. Calmstacks 24H is 100% spontaneous. The problem statements will be revealed live on-stage at the event kickoff (02:00 PM on 25th September at MCE Central Library). Every team starts from a clean slate at the exact same moment.",
       },
       {
         id: "faq-register",
         question: "How do we register our team?",
         answer:
-          "Click the 'REGISTER NOW' button on this page, fill out the team details, USN, contact numbers, and track preference. You will receive a confirmation with check-in instructions.",
+          "Click the 'REGISTER NOW' button on this page, fill out your team details, USN, and contact numbers. There are no tracks to choose during registration since the problem statements will be revealed live on-spot.",
       },
     ] as FaqItem[],
   },

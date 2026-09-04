@@ -37,7 +37,7 @@ export async function POST(request: Request) {
       yearSemester: yearSemester || "N/A",
       teamName,
       teamSize: teamSize || "Team of 4 Members (₹1,200 total)",
-      trackPreference: trackPreference || "General Track",
+      trackPreference: trackPreference || "Spontaneous (Revealed On-Spot)",
       projectIdea: projectIdea || "To be finalized",
     };
 

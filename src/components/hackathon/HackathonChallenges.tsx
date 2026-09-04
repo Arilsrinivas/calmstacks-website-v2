@@ -17,18 +17,27 @@ export default function HackathonChallenges({ onSelectTrack }: HackathonChalleng
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-white/[0.08]">
-          <div>
-            <div className="font-mono text-xs text-primary uppercase tracking-widest mb-3">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-mono text-[11px] uppercase tracking-wider mb-4">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span>NO PRE-DEFINED TRACKS // 100% SPONTANEOUS SPRINT</span>
+            </div>
+            <div className="font-mono text-xs text-primary uppercase tracking-widest mb-2">
               {challenges.sectionTag}
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white uppercase leading-[1.02]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white uppercase leading-[1.05]">
               {challenges.heading}
             </h2>
           </div>
 
-          <p className="text-sm sm:text-base text-text-secondary max-w-md font-light leading-relaxed">
-            {challenges.description}
-          </p>
+          <div className="max-w-md space-y-3">
+            <p className="text-sm sm:text-base text-text-secondary font-light leading-relaxed">
+              {challenges.description}
+            </p>
+            <div className="font-mono text-xs text-cyan-400 font-medium">
+              ⚡ Problem brief announced live at 02:00 PM on 25th September
+            </div>
+          </div>
         </div>
 
         {/* Editorial Rows (Stacked Full Width) */}
@@ -97,7 +106,7 @@ export default function HackathonChallenges({ onSelectTrack }: HackathonChalleng
             <span>RUBRIC CRITERIA: TECHNICAL RIGOR • PRACTICAL IMPACT • UX EXECUTION</span>
           </div>
           <div className="text-primary font-medium">
-            DETAILED PROBLEM PACKS UNVEILED AT 02:00 IDEATION
+            PROBLEM PACKS UNVEILED LIVE ON-STAGE AT 02:00 PM KICKOFF
           </div>
         </div>
       </div>

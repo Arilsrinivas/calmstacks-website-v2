@@ -21,7 +21,7 @@ export default function HackathonRegisterModal({
     yearSemester: "3rd Year (5th Sem)",
     teamName: "",
     teamSize: "Team of 4 Members (₹1,200 total)",
-    trackPreference: HACKATHON_CONFIG.challenges.tracks[0].id,
+    trackPreference: "Spontaneous (Revealed On-Spot)",
     projectIdea: "",
   });
 
@@ -97,7 +97,7 @@ export default function HackathonRegisterModal({
       yearSemester: "3rd Year (5th Sem)",
       teamName: "",
       teamSize: "Team of 4 Members (₹1,200 total)",
-      trackPreference: HACKATHON_CONFIG.challenges.tracks[0].id,
+      trackPreference: "Spontaneous (Revealed On-Spot)",
       projectIdea: "",
     });
     onClose();
@@ -301,55 +301,41 @@ export default function HackathonRegisterModal({
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
-                    Team Name
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. StackOverclock"
-                    value={formData.teamName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, teamName: e.target.value })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
-                    Target Track *
-                  </label>
-                  <select
-                    value={formData.trackPreference}
-                    onChange={(e) =>
-                      setFormData({ ...formData, trackPreference: e.target.value })
-                    }
-                    className="w-full px-3.5 py-2.5 rounded-lg bg-[#141418] border border-white/10 text-white text-sm focus:outline-none focus:border-primary transition-colors"
-                  >
-                    {HACKATHON_CONFIG.challenges.tracks.map((track) => (
-                      <option key={track.id} value={track.id}>
-                        {track.number} — {track.title}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+              <div>
+                <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
+                  Team Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. StackOverclock"
+                  value={formData.teamName}
+                  onChange={(e) =>
+                    setFormData({ ...formData, teamName: e.target.value })
+                  }
+                  className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors"
+                />
               </div>
 
               <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
-                  Brief Project Concept / Tech Stack (Optional)
-                </label>
+                <div className="flex justify-between items-center mb-1.5">
+                  <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary">
+                    Primary Tech Stack / Skills (Optional)
+                  </label>
+                  <span className="text-[10px] font-mono text-cyan-400">100% SPONTANEOUS CHALLENGE</span>
+                </div>
                 <textarea
-                  rows={3}
-                  placeholder="What problem or technology are you eager to explore during the 24 hours?"
+                  rows={2}
+                  placeholder="e.g. Next.js, Python, Flutter, Node.js, AI/ML APIs, UI/UX Design..."
                   value={formData.projectIdea}
                   onChange={(e) =>
                     setFormData({ ...formData, projectIdea: e.target.value })
                   }
                   className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors resize-none"
                 />
+                <p className="text-[11px] text-text-muted mt-1 font-mono">
+                  ⚡ Problem statements are kept strictly confidential and will be revealed live at 02:00 PM kickoff.
+                </p>
               </div>
 
               {/* Error Message */}
