@@ -24,12 +24,16 @@ export async function POST(request: Request) {
       );
     }
 
+    // Format phone: Prepend single quote (') for Google Sheets so '+' isn't parsed as a math formula (#ERROR!)
+    const cleanPhone = phone.toString().trim();
+    const sheetPhone = cleanPhone.startsWith("'") ? cleanPhone : `'${cleanPhone}`;
+
     const payload = {
       timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
       fullName,
       usn,
       email,
-      phone,
+      phone: sheetPhone,
       yearSemester: yearSemester || "N/A",
       teamName,
       teamSize: teamSize || "Team of 4 Members (₹1,200 total)",
@@ -88,7 +92,7 @@ Team Size: ${teamSize}
 Team Lead: ${fullName}
 USN: ${usn}
 Email: ${email}
-Phone / WhatsApp: ${phone}
+Phone / WhatsApp: ${cleanPhone}
 Year & Sem: ${yearSemester}
 Track Preference: ${trackPreference}
 Project Concept / Problem: ${projectIdea}
