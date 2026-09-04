@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X, CheckCircle2, ArrowRight, ShieldCheck, Terminal, Utensils, IndianRupee } from "lucide-react";
+import { X, CheckCircle2, ArrowRight, ShieldCheck, Terminal, Utensils, IndianRupee, Loader2, AlertCircle } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 interface HackathonRegisterModalProps {
@@ -27,6 +27,7 @@ export default function HackathonRegisterModal({
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   // Close on Escape key
   useEffect(() => {
@@ -53,19 +54,41 @@ export default function HackathonRegisterModal({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setErrorMessage("");
 
-    // Simulate API registration delay
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const res = await fetch("/api/hackathon/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit registration. Please try again.");
+      }
+
       setIsSuccess(true);
-    }, 900);
+    } catch (err: unknown) {
+      const msg =
+        err instanceof Error
+          ? err.message
+          : "Failed to submit registration. Please try again.";
+      setErrorMessage(msg);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleReset = () => {
     setIsSuccess(false);
+    setErrorMessage("");
     setFormData({
       fullName: "",
       usn: "",
@@ -329,6 +352,14 @@ export default function HackathonRegisterModal({
                 />
               </div>
 
+              {/* Error Message */}
+              {errorMessage && (
+                <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-red-400 text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
               {/* Submit CTA */}
               <div className="pt-2">
                 <button
@@ -337,7 +368,10 @@ export default function HackathonRegisterModal({
                   className="w-full py-3.5 px-6 rounded-full bg-primary hover:bg-primary-hover text-white font-medium text-sm tracking-wide flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
                 >
                   {isSubmitting ? (
-                    <span>Registering...</span>
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-white" />
+                      <span>Recording Registration...</span>
+                    </>
                   ) : (
                     <>
                       <span>CONFIRM REGISTRATION</span>
