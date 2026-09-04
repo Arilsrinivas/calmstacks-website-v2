@@ -90,6 +90,12 @@ export async function POST(request: Request) {
       member2: members[0] ? `${members[0].name} (${members[0].usn})` : "",
       member3: members[1] ? `${members[1].name} (${members[1].usn})` : "",
       member4: members[2] ? `${members[2].name} (${members[2].usn})` : "",
+      member2Name: members[0]?.name || "",
+      member2Usn: members[0]?.usn || "",
+      member3Name: members[1]?.name || "",
+      member3Usn: members[1]?.usn || "",
+      member4Name: members[2]?.name || "",
+      member4Usn: members[2]?.usn || "",
     };
 
     const DEFAULT_GOOGLE_SHEETS_SCRIPT_URL =
