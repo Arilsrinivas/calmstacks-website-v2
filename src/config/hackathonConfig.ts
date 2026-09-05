@@ -63,8 +63,8 @@ export const HACKATHON_CONFIG = {
     registrationOpen: true,
     prizePoolTotal: "₹25,000",
     internshipsCount: "2 Paid + 4 Unpaid",
-    feePerMember: "₹300",
-    teamSizeLimit: "3 to 4 Members",
+    feePerMember: "₹300 (₹1,200 per team of 4)",
+    teamSizeLimit: "Compulsory 4 Members per Team",
     foodIncluded: "Full Meals, Snacks & Refreshments Included",
     certificates: "Certificates for All Participants",
   },
@@ -88,7 +88,7 @@ export const HACKATHON_CONFIG = {
       { label: "DATES", value: "25–26 SEPTEMBER 2026" },
       { label: "VENUE", value: "MALNAD COLLEGE LIBRARY" },
       { label: "PRIZE POOL", value: "₹25,000 + INTERNSHIPS" },
-      { label: "FEE & FOOD", value: "₹300 / HEAD • FOOD INCL." },
+      { label: "FEE & FOOD", value: "₹1,200 / TEAM OF 4 • FOOD INCL." },
     ],
     primaryCta: "REGISTER NOW",
     secondaryCta: "EXPLORE TIMELINE",
@@ -116,9 +116,9 @@ export const HACKATHON_CONFIG = {
       },
       {
         number: "03",
-        title: "3–4 MEMBERS PER SQUAD",
+        title: "COMPULSORY 4-MEMBER SQUADS",
         description:
-          "Form teams of 3 or 4 builders (₹300/member) with complementary skills in frontend, backend, AI, UI/UX, or systems design.",
+          "Team size of exactly 4 members is compulsory (₹300/member, ₹1,200 total per team) with complementary skills in frontend, backend, AI, UI/UX, or systems design.",
       },
       {
         number: "04",
@@ -288,14 +288,14 @@ export const HACKATHON_CONFIG = {
     modalities: [
       {
         number: "01",
-        title: "TEAM COMPOSITION & ENTRY",
-        subtitle: "3–4 Members • ₹300/head",
+        title: "COMPULSORY 4-MEMBER TEAM ENTRY",
+        subtitle: "Compulsory 4 Members • ₹1,200/team",
         details:
-          "Teams must comprise strictly 3 or 4 members. The registration fee is ₹300 per member, which covers entry, full 24-hour catering (lunch, dinner, breakfast, snacks, beverages), and certificates.",
+          "Teams must comprise strictly 4 members (compulsory). The registration fee is ₹300 per member (₹1,200 total per team), which covers entry, full 24-hour catering (dinner, breakfast, snacks, tea/coffee, midnight fuel), and certificates.",
         keyPoints: [
-          "3 or 4 students per squad",
-          "₹300 per participant",
-          "All meals & snacks included",
+          "Compulsory 4 students per squad",
+          "Fixed ₹1,200 total fee per team",
+          "All meals, drinks & snacks included",
         ],
       },
       {
@@ -450,17 +450,17 @@ export const HACKATHON_CONFIG = {
   eligibility: {
     sectionTag: "06 // ELIGIBILITY & REGISTRATION",
     heading: "WHO CAN PARTICIPATE?",
-    primaryAudience: "Open to students forming teams of 3 to 4 members.",
+    primaryAudience: "Open to students forming squads of exactly 4 members (compulsory).",
     eventContext:
       "Held in the Central Library of Malnad College of Engineering, Hassan, under the CSE Student Development Series.",
     teamConfiguration: {
       title: "Team Structure & Fee Details",
       details:
-        "Participants must register in squads of 3 or 4 members. The registration fee is ₹300 per team member (₹900 for a 3-member team, ₹1,200 for a 4-member team), which includes all food, snacks, midnight refreshments, and certificates.",
+        "Participants must register in squads of exactly 4 members (compulsory). The registration fee is ₹300 per team member (₹1,200 total per team of 4), which includes all food, snacks, midnight refreshments, and certificates.",
       requirements: [
-        "Team size: Strictly 3 or 4 members per team",
-        "Registration fee: ₹300 per team member",
-        "Full food, lunch, dinner, breakfast & snacks included for all 24 hours",
+        "Team size: Compulsory 4 members per team (no solo or partial squads permitted)",
+        "Registration fee: ₹1,200 per team of 4 (₹300 per member)",
+        "Full food, dinner, breakfast & snacks included for all 24 hours",
         "Certificate of Participation awarded to ALL participating team members",
         "Valid college Student ID card required at check-in",
         "Bring your own development laptops, chargers, and extension strips",
@@ -510,13 +510,13 @@ export const HACKATHON_CONFIG = {
         id: "faq-fee-food",
         question: "What is the registration fee and is food included?",
         answer:
-          "The registration fee is ₹300 per team member. This fee covers full participation, hackathon kit, and complete hospitality—including lunch, evening snacks, dinner, midnight energy refreshments, tea/coffee, and morning breakfast.",
+          "The registration fee is ₹300 per member (₹1,200 total for the team of 4). This fee covers full participation, hackathon kit, and complete hospitality—including evening snacks, dinner, midnight energy refreshments, tea/coffee, and morning breakfast.",
       },
       {
         id: "faq-teams",
         question: "What is the required team size?",
         answer:
-          "Teams must consist of 3 to 4 members. You can register your full squad together, or register with 3 members and invite a 4th teammate before check-in.",
+          "A team size of exactly 4 members is compulsory. All teams must register with 1 Team Lead and 3 team members (4 members total). Solo participants or partial squads are not permitted.",
       },
       {
         id: "faq-certificate",
@@ -546,7 +546,7 @@ export const HACKATHON_CONFIG = {
         id: "faq-register",
         question: "How do we register our team?",
         answer:
-          "Click the 'REGISTER NOW' button on this page, fill out your team details, USN, and contact numbers. There are no tracks to choose during registration since the problem statements will be revealed live on-spot.",
+          "Click the 'REGISTER NOW' button on this page, fill out the team name and all 4 team members' details (Lead + 3 members). Then scan the QR code to complete the ₹1,200 team fee and enter your transaction UTR.",
       },
     ] as FaqItem[],
   },
@@ -557,7 +557,7 @@ export const HACKATHON_CONFIG = {
     headlinePost: "BUILD.\nSOLVE.\nIMPACT.",
     supportingText:
       "Join us on 25–26 September 2026 at the Malnad College Central Library. ₹25,000 cash prizes, 6 internship roles, food included, and certificates for all.",
-    buttonLabel: "REGISTER YOUR TEAM (3–4 MEMBERS) →",
+    buttonLabel: "REGISTER YOUR TEAM (4 MEMBERS) →",
     dates: "25–26 SEPTEMBER 2026",
     location: "MCE CENTRAL LIBRARY, HASSAN",
   },

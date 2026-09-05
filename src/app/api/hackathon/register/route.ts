@@ -29,8 +29,7 @@ export async function POST(request: Request) {
     const sheetPhone = cleanPhone.startsWith("'") ? cleanPhone : `'${cleanPhone}`;
 
     const paymentStatus = body.paymentStatus || "PAID";
-    const paymentAmount =
-      body.paymentAmount || (teamSize?.includes("3") ? "₹900" : "₹1,200");
+    const paymentAmount = "₹1,200";
     const rawTxnId = (body.transactionId || "").toString().trim();
 
     if (!rawTxnId) {
@@ -49,9 +48,32 @@ export async function POST(request: Request) {
     const members: Array<{ name: string; usn: string; email?: string; phone?: string }> =
       Array.isArray(body.members) ? body.members : [];
 
+    // Enforce compulsory 4-member requirement (1 Lead + 3 Members)
+    if (members.length < 3) {
+      return NextResponse.json(
+        {
+          error:
+            "Team size of 4 members is compulsory. Please provide details for all 4 team members.",
+        },
+        { status: 400 }
+      );
+    }
+
+    for (let i = 0; i < 3; i++) {
+      const m = members[i];
+      if (!m || !m.name || !m.name.trim() || !m.usn || !m.usn.trim()) {
+        return NextResponse.json(
+          {
+            error: `Member ${i + 2} details missing: Name and USN are required for all 4 members.`,
+          },
+          { status: 400 }
+        );
+      }
+    }
+
     // Construct clean roster descriptions
     const memberDescriptions = members
-      .filter((m) => m && m.name && m.name.trim())
+      .slice(0, 3)
       .map(
         (m, idx) =>
           `[M${idx + 2}] ${m.name.trim()} (${(m.usn || "N/A").trim()})${
@@ -66,7 +88,7 @@ export async function POST(request: Request) {
 
     const enrichedProjectIdea = [
       projectIdea ? projectIdea.trim() : "",
-      memberDescriptions.length > 0 ? `[TEAM: ${teamRosterDisplay}]` : "",
+      `[TEAM: ${teamRosterDisplay}]`,
       `[PAID: ${paymentAmount} • UTR: ${rawTxnId}]`,
     ]
       .filter(Boolean)
@@ -80,7 +102,7 @@ export async function POST(request: Request) {
       phone: sheetPhone,
       yearSemester: yearSemester || "N/A",
       teamName,
-      teamSize: teamSize || `Team of ${members.length + 1} Members (${paymentAmount} total)`,
+      teamSize: "Team of 4 Members (₹1,200 total)",
       trackPreference: trackPreference || "Spontaneous (Revealed On-Spot)",
       projectIdea: enrichedProjectIdea,
       paymentStatus,

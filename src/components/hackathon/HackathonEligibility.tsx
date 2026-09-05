@@ -42,10 +42,10 @@ export default function HackathonEligibility() {
                   <span>REGISTRATION FEE</span>
                 </div>
                 <div className="text-2xl font-bold text-white">
-                  ₹300 <span className="text-xs font-normal text-text-muted">/ team member</span>
+                  ₹1,200 <span className="text-xs font-normal text-text-muted">/ team of 4 (₹300/head)</span>
                 </div>
                 <p className="text-xs text-text-secondary font-light">
-                  Covers full 24-hour hackathon entry, hackathon kit, and all evaluation access.
+                  Fixed fee of ₹1,200 per team covers 24-hour entry for all 4 members, kits, and evaluation.
                 </p>
               </div>
 
