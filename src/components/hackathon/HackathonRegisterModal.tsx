@@ -17,8 +17,9 @@ import {
   QrCode,
   Sparkles,
   Users,
+  UserPlus,
+  Trash2,
   User,
-  Lock,
 } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
@@ -48,17 +49,13 @@ export default function HackathonRegisterModal({
     phone: "",
     yearSemester: "3rd Year (5th Sem)",
     teamName: "",
-    teamSize: "Team of 4 Members (₹1,200 total)",
+    teamSize: "Flexible Squad",
     trackPreference: "Spontaneous (Revealed On-Spot)",
     projectIdea: "",
   });
 
-  // Fixed 3 Additional Team Members (4 Members Total Compulsory)
-  const [members, setMembers] = useState<TeamMember[]>([
-    { name: "", usn: "", email: "", phone: "" },
-    { name: "", usn: "", email: "", phone: "" },
-    { name: "", usn: "", email: "", phone: "" },
-  ]);
+  // Additional Team Members (Member 2, Member 3, etc.)
+  const [members, setMembers] = useState<TeamMember[]>([]);
 
   const [transactionId, setTransactionId] = useState("");
   const [copiedUpi, setCopiedUpi] = useState(false);
@@ -66,9 +63,19 @@ export default function HackathonRegisterModal({
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Fixed fee: 4 members compulsory = ₹1,200
-  const totalMemberCount = 4;
-  const feeAmount = 1200;
+  // Dynamic fee calculation: 1 (Lead) + added members
+  const totalMemberCount = 1 + members.length;
+  const feeAmount = totalMemberCount * 300;
+
+  // Add another team member
+  const handleAddMember = () => {
+    setMembers((prev) => [...prev, { name: "", usn: "", email: "", phone: "" }]);
+  };
+
+  // Remove a team member
+  const handleRemoveMember = (index: number) => {
+    setMembers((prev) => prev.filter((_, i) => i !== index));
+  };
 
   // Update specific member field
   const handleMemberChange = (
@@ -137,15 +144,15 @@ export default function HackathonRegisterModal({
       return;
     }
 
-    // Validate Members 2, 3, and 4 (Compulsory)
-    for (let i = 0; i < 3; i++) {
+    // Validate any added team members
+    for (let i = 0; i < members.length; i++) {
       const m = members[i];
       if (!m.name.trim()) {
-        setErrorMessage(`Team size of 4 is compulsory. Please enter the Full Name for Member ${i + 2}.`);
+        setErrorMessage(`Please enter the Full Name for Member ${i + 2}.`);
         return;
       }
       if (!m.usn.trim()) {
-        setErrorMessage(`Team size of 4 is compulsory. Please enter the USN for Member ${i + 2}.`);
+        setErrorMessage(`Please enter the USN for Member ${i + 2}.`);
         return;
       }
     }
@@ -173,9 +180,13 @@ export default function HackathonRegisterModal({
         },
         body: JSON.stringify({
           ...formData,
+          teamSize:
+            totalMemberCount === 1
+              ? "Solo (1 Member)"
+              : `Team of ${totalMemberCount} Members (₹${feeAmount.toLocaleString("en-IN")})`,
           members,
           paymentStatus: "PAID",
-          paymentAmount: "₹1,200",
+          paymentAmount: `₹${feeAmount.toLocaleString("en-IN")}`,
           transactionId: transactionId.trim(),
         }),
       });
@@ -183,35 +194,31 @@ export default function HackathonRegisterModal({
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || "Failed to submit registration. Please try again.");
+        throw new Error(data.error || "Failed to process registration");
       }
 
       setIsSuccess(true);
     } catch (err: unknown) {
-      const msg =
-        err instanceof Error
-          ? err.message
-          : "Failed to complete registration. Please try again.";
-      setErrorMessage(msg);
+      const errObj = err as { message?: string };
+      setErrorMessage(
+        errObj.message || "An unexpected error occurred. Please try again."
+      );
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  // Copy UPI ID helper
   const handleCopyUpi = () => {
-    const upi = HACKATHON_CONFIG.payment?.upiId || "arilsrinivas8@okhdfcbank";
-    if (navigator?.clipboard) {
-      navigator.clipboard.writeText(upi);
-      setCopiedUpi(true);
-      setTimeout(() => setCopiedUpi(false), 2000);
-    }
+    navigator.clipboard.writeText(HACKATHON_CONFIG.payment.upiId);
+    setCopiedUpi(true);
+    setTimeout(() => setCopiedUpi(false), 2000);
   };
 
+  // Reset modal state
   const handleReset = () => {
     setIsSuccess(false);
     setStep("details");
-    setErrorMessage("");
-    setTransactionId("");
     setFormData({
       fullName: "",
       usn: "",
@@ -219,34 +226,28 @@ export default function HackathonRegisterModal({
       phone: "",
       yearSemester: "3rd Year (5th Sem)",
       teamName: "",
-      teamSize: "Team of 4 Members (₹1,200 total)",
+      teamSize: "Flexible Squad",
       trackPreference: "Spontaneous (Revealed On-Spot)",
       projectIdea: "",
     });
-    setMembers([
-      { name: "", usn: "", email: "", phone: "" },
-      { name: "", usn: "", email: "", phone: "" },
-      { name: "", usn: "", email: "", phone: "" },
-    ]);
+    setMembers([]);
+    setTransactionId("");
+    setErrorMessage("");
     onClose();
   };
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8 bg-black/80 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-headline"
     >
-      {/* Frosted Glass Backdrop */}
-      <div
-        className="fixed inset-0 bg-black/85 backdrop-blur-md transition-opacity animate-fade-up"
-        onClick={onClose}
-        aria-hidden="true"
-      />
+      {/* Backdrop click dismiss */}
+      <div className="fixed inset-0" onClick={onClose} />
 
-      {/* Modal Container */}
-      <div className="relative w-full max-w-2xl bg-[#0d0d10] border border-white/15 rounded-2xl shadow-2xl overflow-hidden z-10 my-4 sm:my-8">
+      {/* Modal Dialog Card */}
+      <div className="relative w-full max-w-2xl bg-[#0d0d12] border border-white/15 rounded-2xl shadow-2xl overflow-hidden z-10 my-auto text-left">
         {/* Top Accent Bar */}
         <div className="h-1 w-full bg-gradient-to-r from-primary via-cyan-400 to-primary" />
 
@@ -259,8 +260,8 @@ export default function HackathonRegisterModal({
                 {isSuccess
                   ? "CONFIRMATION // COMPLETE"
                   : step === "details"
-                  ? "STEP 1 OF 2 // TEAM REGISTRATION (4 MEMBERS COMPULSORY)"
-                  : "STEP 2 OF 2 // UPI SCANNER & PAYMENT (₹1,200)"}
+                  ? "STEP 1 OF 2 // REGISTRATION (SOLO OR SQUADS)"
+                  : `STEP 2 OF 2 // UPI SCANNER & PAYMENT (₹${feeAmount.toLocaleString("en-IN")})`}
               </span>
             </div>
             <h2
@@ -270,7 +271,7 @@ export default function HackathonRegisterModal({
               {isSuccess
                 ? "Registration & Payment Confirmed"
                 : step === "details"
-                ? "Register Your 4-Member Squad"
+                ? "Register Your Team"
                 : "Scan QR & Complete Payment"}
             </h2>
             <p className="text-xs text-text-secondary mt-1">
@@ -299,7 +300,7 @@ export default function HackathonRegisterModal({
                 <span className="w-5 h-5 rounded-full border border-current flex items-center justify-center text-[10px]">
                   {step === "payment" ? "✓" : "1"}
                 </span>
-                <span>1. 4 Team Members</span>
+                <span>1. Team Details ({totalMemberCount} {totalMemberCount === 1 ? "Member" : "Members"})</span>
               </div>
               <div className="h-[1px] flex-1 mx-3 bg-white/10" />
               <div
@@ -310,7 +311,7 @@ export default function HackathonRegisterModal({
                 <span className="w-5 h-5 rounded-full border border-current flex items-center justify-center text-[10px]">
                   2
                 </span>
-                <span>2. UPI Payment (₹1,200)</span>
+                <span>2. UPI Payment (₹{feeAmount.toLocaleString("en-IN")})</span>
               </div>
             </div>
           </div>
@@ -328,7 +329,7 @@ export default function HackathonRegisterModal({
                 Team Registration Confirmed!
               </h3>
               <p className="text-sm text-text-secondary max-w-md mx-auto leading-relaxed">
-                Thank you, <span className="text-white font-medium">{formData.fullName}</span>. Payment of <span className="text-emerald-400 font-semibold">₹1,200</span> for team <span className="text-white font-medium">{formData.teamName}</span> (4 members) has been logged and pushed to Google Sheets.
+                Thank you, <span className="text-white font-medium">{formData.fullName}</span>. Payment of <span className="text-emerald-400 font-semibold">₹{feeAmount.toLocaleString("en-IN")}</span> for team <span className="text-white font-medium">{formData.teamName}</span> ({totalMemberCount} {totalMemberCount === 1 ? "member" : "members"}) has been logged and pushed to Google Sheets.
               </p>
 
               {/* Receipt Box */}
@@ -338,11 +339,13 @@ export default function HackathonRegisterModal({
                   <span className="text-white font-medium">{formData.teamName}</span>
                 </div>
                 <div className="flex justify-between items-center text-text-secondary">
-                  <span className="text-text-muted">TEAM COMPOSITION</span>
-                  <span className="text-cyan-400 font-medium">4 Members Compulsory</span>
+                  <span className="text-text-muted">TEAM SIZE</span>
+                  <span className="text-cyan-400 font-medium">
+                    {totalMemberCount === 1 ? "Solo (1 Member)" : `${totalMemberCount} Members`} (₹{feeAmount.toLocaleString("en-IN")})
+                  </span>
                 </div>
                 <div className="pt-2 border-t border-white/10 space-y-1.5">
-                  <span className="text-text-muted block text-[10px] uppercase">REGISTERED 4-MEMBER ROSTER:</span>
+                  <span className="text-text-muted block text-[10px] uppercase">REGISTERED ROSTER:</span>
                   <div className="text-white flex items-center gap-1.5">
                     <span className="text-primary font-semibold">Lead:</span>
                     <span>{formData.fullName} ({formData.usn})</span>
@@ -356,7 +359,7 @@ export default function HackathonRegisterModal({
                 </div>
                 <div className="flex justify-between items-center text-text-secondary pt-2 border-t border-white/10">
                   <span className="text-text-muted">PAYMENT STATUS</span>
-                  <span className="text-emerald-400 font-semibold">PAID (₹1,200)</span>
+                  <span className="text-emerald-400 font-semibold">PAID (₹{feeAmount.toLocaleString("en-IN")})</span>
                 </div>
                 <div className="flex justify-between items-center text-text-secondary">
                   <span className="text-text-muted">TRANSACTION ID / UTR</span>
@@ -389,13 +392,13 @@ export default function HackathonRegisterModal({
                     <span>24H SPRINT ENTRY DETAILS</span>
                   </div>
                   <span className="text-emerald-400 font-semibold text-sm">
-                    Total: ₹1,200 (4 Members Compulsory)
+                    Total: ₹{feeAmount.toLocaleString("en-IN")} ({totalMemberCount} {totalMemberCount === 1 ? "Member" : "Members"})
                   </span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-text-secondary font-light pt-2">
                   <div className="flex items-center gap-1.5">
                     <IndianRupee className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Fixed ₹1,200 per team (₹300 × 4 members)</span>
+                    <span>Flat ₹300 per head (Any team size)</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <Utensils className="w-3.5 h-3.5 text-primary" />
@@ -404,7 +407,7 @@ export default function HackathonRegisterModal({
                 </div>
               </div>
 
-              {/* Team Name & Locked Team Size Badge */}
+              {/* Team Name & Dynamic Team Composition */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
@@ -424,14 +427,14 @@ export default function HackathonRegisterModal({
 
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-text-secondary mb-1.5">
-                    Team Composition (Fixed)
+                    Team Composition
                   </label>
                   <div className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.02] border border-white/15 text-white text-sm flex items-center justify-between">
                     <span className="font-mono text-xs text-cyan-400 font-semibold flex items-center gap-1.5">
-                      <Lock className="w-3.5 h-3.5" />
-                      <span>4 MEMBERS (COMPULSORY)</span>
+                      <Users className="w-3.5 h-3.5" />
+                      <span>{totalMemberCount === 1 ? "SOLO (1 MEMBER)" : `${totalMemberCount} MEMBERS`}</span>
                     </span>
-                    <span className="font-mono text-xs text-emerald-400">₹1,200 Total</span>
+                    <span className="font-mono text-xs text-emerald-400">₹{feeAmount.toLocaleString("en-IN")} Total</span>
                   </div>
                 </div>
               </div>
@@ -443,7 +446,7 @@ export default function HackathonRegisterModal({
                     <User className="w-3.5 h-3.5" />
                     <span>MEMBER 1 • TEAM LEAD</span>
                   </div>
-                  <span className="text-[10px] font-mono text-cyan-400 uppercase">Lead Contact</span>
+                  <span className="text-[10px] font-mono text-cyan-400 uppercase">Primary Contact</span>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
@@ -533,99 +536,131 @@ export default function HackathonRegisterModal({
                 </div>
               </div>
 
-              {/* SECTION: ALL 3 ADDITIONAL TEAM MEMBERS (COMPULSORY - NO REMOVAL) */}
+              {/* SECTION: ADDITIONAL TEAM MEMBERS (DYNAMIC ADD & REMOVE) */}
               <div className="space-y-3.5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 font-mono text-xs text-white uppercase font-semibold">
                     <Users className="w-4 h-4 text-cyan-400" />
-                    <span>TEAM MEMBERS (3 COMPULSORY)</span>
+                    <span>ADDITIONAL TEAM MEMBERS ({members.length})</span>
                   </div>
                   <span className="text-[11px] font-mono text-text-muted">
-                    Members 2, 3 & 4 Required
+                    Add teammates as needed
                   </span>
                 </div>
 
-                {members.map((member, idx) => (
-                  <div
-                    key={idx}
-                    className="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-3"
-                  >
-                    <div className="flex items-center justify-between border-b border-white/10 pb-2">
-                      <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400 font-medium">
-                        <span>MEMBER {idx + 2} DETAILS *</span>
-                      </div>
-                      <span className="text-[10px] font-mono text-text-muted uppercase">
-                        Compulsory Slot
-                      </span>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-[11px] font-mono uppercase tracking-wider text-text-secondary mb-1">
-                          Member {idx + 2} Full Name *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder={`e.g. Teammate ${idx + 2} Name`}
-                          value={member.name}
-                          onChange={(e) =>
-                            handleMemberChange(idx, "name", e.target.value)
-                          }
-                          className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-mono uppercase tracking-wider text-text-secondary mb-1">
-                          Member {idx + 2} USN / Student ID *
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder={`e.g. 4MC23CS00${idx + 2}`}
-                          value={member.usn}
-                          onChange={(e) =>
-                            handleMemberChange(idx, "usn", e.target.value.toUpperCase())
-                          }
-                          className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors uppercase font-mono"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-[11px] font-mono uppercase tracking-wider text-text-secondary mb-1">
-                          Email Address (Optional)
-                        </label>
-                        <input
-                          type="email"
-                          placeholder={`member${idx + 2}@mcehassan.ac.in`}
-                          value={member.email}
-                          onChange={(e) =>
-                            handleMemberChange(idx, "email", e.target.value)
-                          }
-                          className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-[11px] font-mono uppercase tracking-wider text-text-secondary mb-1">
-                          Phone / WhatsApp (Optional)
-                        </label>
-                        <input
-                          type="tel"
-                          placeholder="+91 98765 43210"
-                          value={member.phone}
-                          onChange={(e) =>
-                            handleMemberChange(idx, "phone", e.target.value)
-                          }
-                          className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors"
-                        />
-                      </div>
-                    </div>
+                {members.length === 0 ? (
+                  <div className="p-4 rounded-xl border border-dashed border-white/15 bg-white/[0.01] text-center space-y-2">
+                    <p className="text-xs text-text-muted font-light">
+                      Currently registering as <span className="text-white font-medium">Solo (1 Member: ₹300)</span>. Have teammates?
+                    </p>
+                    <button
+                      type="button"
+                      onClick={handleAddMember}
+                      className="px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 border border-primary/30 text-primary font-mono text-xs inline-flex items-center gap-1.5 transition-colors cursor-pointer"
+                    >
+                      <UserPlus className="w-3.5 h-3.5" />
+                      <span>+ Add Team Member (Member 2)</span>
+                    </button>
                   </div>
-                ))}
+                ) : (
+                  members.map((member, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 rounded-xl bg-white/[0.02] border border-white/10 space-y-3 relative group"
+                    >
+                      <div className="flex items-center justify-between border-b border-white/10 pb-2">
+                        <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-cyan-400 font-medium">
+                          <span>MEMBER {idx + 2} DETAILS *</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleRemoveMember(idx)}
+                          className="text-[11px] font-mono text-red-400/80 hover:text-red-300 flex items-center gap-1 px-2 py-0.5 rounded hover:bg-red-500/10 transition-colors cursor-pointer"
+                        >
+                          <Trash2 className="w-3 h-3" />
+                          <span>Remove</span>
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-[11px] font-mono uppercase tracking-wider text-text-secondary mb-1">
+                            Member {idx + 2} Full Name *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            placeholder={`e.g. Teammate ${idx + 2} Name`}
+                            value={member.name}
+                            onChange={(e) =>
+                              handleMemberChange(idx, "name", e.target.value)
+                            }
+                            className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-mono uppercase tracking-wider text-text-secondary mb-1">
+                            Member {idx + 2} USN / Student ID *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            placeholder={`e.g. 4MC23CS00${idx + 2}`}
+                            value={member.usn}
+                            onChange={(e) =>
+                              handleMemberChange(idx, "usn", e.target.value.toUpperCase())
+                            }
+                            className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors uppercase font-mono"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-[11px] font-mono uppercase tracking-wider text-text-secondary mb-1">
+                            Email Address (Optional)
+                          </label>
+                          <input
+                            type="email"
+                            placeholder={`member${idx + 2}@mcehassan.ac.in`}
+                            value={member.email}
+                            onChange={(e) =>
+                              handleMemberChange(idx, "email", e.target.value)
+                            }
+                            className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-[11px] font-mono uppercase tracking-wider text-text-secondary mb-1">
+                            Phone / WhatsApp (Optional)
+                          </label>
+                          <input
+                            type="tel"
+                            placeholder="+91 98765 43210"
+                            value={member.phone}
+                            onChange={(e) =>
+                              handleMemberChange(idx, "phone", e.target.value)
+                            }
+                            className="w-full px-3 py-2 rounded-lg bg-white/[0.04] border border-white/10 text-white placeholder:text-text-muted text-sm focus:outline-none focus:border-primary transition-colors"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
+
+                {members.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={handleAddMember}
+                    className="w-full py-2.5 rounded-xl border border-dashed border-white/20 hover:border-primary/50 text-text-secondary hover:text-white font-mono text-xs flex items-center justify-center gap-2 transition-colors bg-white/[0.01] hover:bg-white/[0.03] cursor-pointer"
+                  >
+                    <UserPlus className="w-3.5 h-3.5 text-primary" />
+                    <span>+ Add Team Member (Member {members.length + 2})</span>
+                  </button>
+                )}
               </div>
 
               {/* Primary Tech Stack / Skills */}
@@ -661,13 +696,13 @@ export default function HackathonRegisterModal({
                   type="submit"
                   className="w-full py-3.5 px-6 rounded-full bg-primary hover:bg-primary-hover text-white font-medium text-sm tracking-wide flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
-                  <span>PROCEED TO PAYMENT (₹1,200)</span>
+                  <span>PROCEED TO PAYMENT (₹{feeAmount.toLocaleString("en-IN")})</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
               </div>
 
               <p className="text-[11px] text-text-muted text-center font-mono">
-                Team size of 4 members is compulsory • ₹300 per member (₹1,200 total) • All food & certificates included
+                {totalMemberCount} {totalMemberCount === 1 ? "member" : "members"} registered • ₹300 per member (₹{feeAmount.toLocaleString("en-IN")} total) • All food & certificates included
               </p>
             </form>
           ) : (
@@ -679,12 +714,13 @@ export default function HackathonRegisterModal({
                   <span className="text-text-muted block font-mono text-[10px]">REGISTERING TEAM</span>
                   <span className="text-white font-semibold text-sm">{formData.teamName}</span>
                   <span className="text-text-muted block font-mono text-[10px] truncate max-w-xs">
-                    4 Members: {formData.fullName}, {members.map((m, idx) => m.name || `M${idx + 2}`).join(", ")}
+                    {totalMemberCount} {totalMemberCount === 1 ? "Member (Solo)" : "Members"}: {formData.fullName}
+                    {members.length > 0 && `, ${members.map((m, idx) => m.name || `M${idx + 2}`).join(", ")}`}
                   </span>
                 </div>
                 <div className="text-right">
                   <span className="text-text-muted block font-mono text-[10px]">TOTAL AMOUNT</span>
-                  <span className="text-emerald-400 font-bold text-base font-mono">₹1,200</span>
+                  <span className="text-emerald-400 font-bold text-base font-mono">₹{feeAmount.toLocaleString("en-IN")}</span>
                 </div>
               </div>
 
@@ -791,14 +827,14 @@ export default function HackathonRegisterModal({
                   ) : (
                     <>
                       <Sparkles className="w-4 h-4 text-cyan-300" />
-                      <span>CONFIRM PAYMENT & SUBMIT (₹1,200)</span>
+                      <span>CONFIRM PAYMENT & SUBMIT (₹{feeAmount.toLocaleString("en-IN")})</span>
                     </>
                   )}
                 </button>
               </div>
 
               <p className="text-[11px] text-text-muted text-center font-mono">
-                Once submitted, your 4-member roster and payment UTR are instantly pushed to Google Sheets.
+                Once submitted, your team roster and payment UTR are instantly pushed to Google Sheets.
               </p>
             </form>
           )}

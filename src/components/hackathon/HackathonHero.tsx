@@ -337,7 +337,7 @@ export default function HackathonHero({ onOpenRegister }: HackathonHeroProps) {
               </div>
               <div className="flex justify-between items-center text-text-secondary">
                 <span className="text-text-muted">TEAM & ENTRY</span>
-                <span className="text-emerald-400 font-medium">4 Members • ₹1,200 (Food Incl.)</span>
+                <span className="text-emerald-400 font-medium">Solo or Squads • ₹300/head (Food Incl.)</span>
               </div>
             </div>
           </div>

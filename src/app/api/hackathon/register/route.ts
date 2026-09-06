@@ -28,8 +28,26 @@ export async function POST(request: Request) {
     const cleanPhone = phone.toString().trim();
     const sheetPhone = cleanPhone.startsWith("'") ? cleanPhone : `'${cleanPhone}`;
 
+    const members: Array<{ name: string; usn: string; email?: string; phone?: string }> =
+      Array.isArray(body.members) ? body.members : [];
+
+    // Validate any added team members have name and USN
+    for (let i = 0; i < members.length; i++) {
+      const m = members[i];
+      if (!m || !m.name || !m.name.trim() || !m.usn || !m.usn.trim()) {
+        return NextResponse.json(
+          {
+            error: `Member ${i + 2} details missing: Name and USN are required.`,
+          },
+          { status: 400 }
+        );
+      }
+    }
+
+    const totalMembers = 1 + members.length;
     const paymentStatus = body.paymentStatus || "PAID";
-    const paymentAmount = "₹1,200";
+    const paymentAmount =
+      body.paymentAmount || `₹${(totalMembers * 300).toLocaleString("en-IN")}`;
     const rawTxnId = (body.transactionId || "").toString().trim();
 
     if (!rawTxnId) {
@@ -45,41 +63,13 @@ export async function POST(request: Request) {
     // Format transaction ID with leading quote so Google Sheets treats it as text
     const sheetTxnId = rawTxnId.startsWith("'") ? rawTxnId : `'${rawTxnId}`;
 
-    const members: Array<{ name: string; usn: string; email?: string; phone?: string }> =
-      Array.isArray(body.members) ? body.members : [];
-
-    // Enforce compulsory 4-member requirement (1 Lead + 3 Members)
-    if (members.length < 3) {
-      return NextResponse.json(
-        {
-          error:
-            "Team size of 4 members is compulsory. Please provide details for all 4 team members.",
-        },
-        { status: 400 }
-      );
-    }
-
-    for (let i = 0; i < 3; i++) {
-      const m = members[i];
-      if (!m || !m.name || !m.name.trim() || !m.usn || !m.usn.trim()) {
-        return NextResponse.json(
-          {
-            error: `Member ${i + 2} details missing: Name and USN are required for all 4 members.`,
-          },
-          { status: 400 }
-        );
-      }
-    }
-
     // Construct clean roster descriptions
-    const memberDescriptions = members
-      .slice(0, 3)
-      .map(
-        (m, idx) =>
-          `[M${idx + 2}] ${m.name.trim()} (${(m.usn || "N/A").trim()})${
-            m.phone ? ` • ${m.phone.trim()}` : ""
-          }`
-      );
+    const memberDescriptions = members.map(
+      (m, idx) =>
+        `[M${idx + 2}] ${m.name.trim()} (${(m.usn || "N/A").trim()})${
+          m.phone ? ` • ${m.phone.trim()}` : ""
+        }`
+    );
 
     const teamRosterDisplay = [
       `[Lead] ${fullName} (${usn})`,
@@ -88,11 +78,17 @@ export async function POST(request: Request) {
 
     const enrichedProjectIdea = [
       projectIdea ? projectIdea.trim() : "",
-      `[TEAM: ${teamRosterDisplay}]`,
+      memberDescriptions.length > 0 ? `[TEAM: ${teamRosterDisplay}]` : `[SOLO: ${fullName} (${usn})]`,
       `[PAID: ${paymentAmount} • UTR: ${rawTxnId}]`,
     ]
       .filter(Boolean)
       .join(" | ");
+
+    const computedTeamSize =
+      body.teamSize ||
+      (totalMembers === 1
+        ? "Solo (1 Member)"
+        : `Team of ${totalMembers} Members (${paymentAmount} total)`);
 
     const payload = {
       timestamp: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
@@ -102,13 +98,14 @@ export async function POST(request: Request) {
       phone: sheetPhone,
       yearSemester: yearSemester || "N/A",
       teamName,
-      teamSize: "Team of 4 Members (₹1,200 total)",
+      teamSize: computedTeamSize,
       trackPreference: trackPreference || "Spontaneous (Revealed On-Spot)",
       projectIdea: enrichedProjectIdea,
       paymentStatus,
       paymentAmount,
       transactionId: sheetTxnId,
       teamMembers: teamRosterDisplay,
+      memberCount: totalMembers,
       member2: members[0] ? `${members[0].name} (${members[0].usn})` : "",
       member3: members[1] ? `${members[1].name} (${members[1].usn})` : "",
       member4: members[2] ? `${members[2].name} (${members[2].usn})` : "",
