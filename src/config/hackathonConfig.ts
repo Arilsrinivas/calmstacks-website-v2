@@ -157,27 +157,44 @@ export const HACKATHON_CONFIG = {
   },
 
   prizes: {
-    sectionTag: "05 // PRIZES",
+    sectionTag: "05 // PRIZES & REWARDS",
     headingAmount: "₹50,000",
-    headingLabel: "TOTAL PRIZE POOL",
+    headingLabel: "PRIZE POOL",
+    totalLabel: "TOTAL PRIZE POOL",
     tagline: "BUILD. SOLVE. IMPACT.",
+    sprintMotto: "24 HOURS. ONE BUILD.",
     description:
-      "The ₹50,000 prize pool will be distributed across the top performing projects.",
+      "A total prize pool of ₹50,000, along with internship opportunities for outstanding participants and teams.",
+    internshipsHeading: "INTERNSHIP OPPORTUNITIES",
+    internships: {
+      paid: {
+        value: "04",
+        label: "PAID INTERNSHIPS",
+        description:
+          "Four paid internship opportunities will be offered to selected participants based on their performance during the hackathon.",
+      },
+      unpaid: {
+        value: "VARIABLE",
+        label: "UNPAID INTERNSHIPS",
+        description:
+          "Additional unpaid internship opportunities may be offered to selected participants based on performance, skills and organizational requirements.",
+      },
+    },
     items: [
       {
         number: "01",
         place: "FIRST PLACE",
-        details: "Awarded to top performing hackathon project.",
+        details: "TOP PROJECTS WILL BE REWARDED FROM THE ₹50,000 PRIZE POOL.",
       },
       {
         number: "02",
         place: "SECOND PLACE",
-        details: "Awarded to top performing hackathon project.",
+        details: "TOP PROJECTS WILL BE REWARDED FROM THE ₹50,000 PRIZE POOL.",
       },
       {
         number: "03",
         place: "THIRD PLACE",
-        details: "Awarded to top performing hackathon project.",
+        details: "TOP PROJECTS WILL BE REWARDED FROM THE ₹50,000 PRIZE POOL.",
       },
     ],
   },
