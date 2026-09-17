@@ -54,7 +54,7 @@ export const HACKATHON_CONFIG = {
     headlineLine3: "HACKATHON",
     supportingHeadline: "BUILD. SOLVE. IMPACT.",
     description:
-      "A 24-hour offline hackathon by CalmStacks, conducted in collaboration with Agamya Cyber Tech and the Department of Computer Science & Engineering, Malnad College of Engineering.",
+      "The CalmStacks 24 Hour Hackathon is an intensive offline building sprint where participants turn ideas into working solutions within 24 hours. Conducted at Malnad College of Engineering, Hassan, as part of the CSE Student Development Series.",
     metadataItems: [
       { label: "DATES", value: "25–26 SEPTEMBER 2026" },
       { label: "START", value: "11:30 AM IST" },
@@ -82,61 +82,72 @@ export const HACKATHON_CONFIG = {
     sectionTag: "01 // OVERVIEW",
     heading: "BUILD SOMETHING REAL.",
     intro:
-      "A 24-hour offline hackathon by CalmStacks, conducted in collaboration with Agamya Cyber Tech and the Department of Computer Science & Engineering, Malnad College of Engineering.",
+      "The CalmStacks 24 Hour Hackathon is an intensive offline building sprint where participants turn ideas into working solutions within 24 hours.",
     subIntro:
-      "Participants will spend 24 hours turning ideas into working solutions through coding, collaboration and problem solving.",
+      "Conducted at Malnad College of Engineering, Hassan, the event brings together CSE students to build, collaborate, solve problems and present what they create. This event is part of the CSE Student Development Series.",
   },
 
-  coreValues: [
+  whatYouWillDo: [
     {
       number: "01",
-      title: "BUILD",
-      description: "Turn ideas into working products.",
+      title: "IDEATE",
+      description: "Start with a problem and shape it into a practical solution.",
     },
     {
       number: "02",
-      title: "COLLABORATE",
-      description: "Work with people who think differently.",
+      title: "BUILD",
+      description: "Design and develop a functional prototype within 24 hours.",
     },
     {
       number: "03",
-      title: "SOLVE",
-      description: "Address meaningful problems through technology.",
+      title: "COLLABORATE",
+      description: "Work with teammates, mentors and fellow builders.",
     },
     {
       number: "04",
-      title: "COMPETE",
-      description: "Build, present and compete.",
+      title: "PRESENT",
+      description: "Demonstrate your solution and explain the impact behind it.",
     },
   ],
 
   challenge: {
-    sectionTag: "02 // SPRINT FORMAT",
+    sectionTag: "03 // THE CHALLENGE",
     heading: "THE CHALLENGE",
-    statusText: "CHALLENGE DETAILS",
-    statusBadge: "COMING SOON",
+    subheading: "24 HOURS. ONE BUILD.",
     description:
-      "Official problem statements and track details will be announced on-stage at the event kickoff. Every participant starts with a clean slate for rapid 24-hour execution.",
+      "You will receive the challenge at the beginning of the hackathon. Your task is to understand the problem, plan your approach and turn your idea into a working solution before the 24-hour sprint ends.",
+    stackTitle: "NO PRE-DEFINED STACK",
+    stackSubheading: "BUILD WITH THE TOOLS YOU KNOW.",
+    stackDescription:
+      "Use the technologies, frameworks and development tools that best suit your solution.",
   },
 
+  buildFormat: [
+    { number: "01", name: "START", desc: "Check in and understand the challenge." },
+    { number: "02", name: "PLAN", desc: "Define your idea, architecture and approach." },
+    { number: "03", name: "BUILD", desc: "Develop your working solution." },
+    { number: "04", name: "TEST", desc: "Refine your product and prepare your demonstration." },
+    { number: "05", name: "SUBMIT", desc: "Submit your completed solution before the 24-hour deadline." },
+    { number: "06", name: "PRESENT", desc: "Demonstrate your project to the evaluation panel." },
+  ],
+
   timeline: {
-    sectionTag: "03 // SPRINT PROTOCOL & TIMELINE",
-    heading: "24 HOURS.\nONE BUILD.",
-    subheading: "A 24-hour roadmap starting from kickoff to final jury evaluation.",
+    sectionTag: "04 // SPRINT PROTOCOL & TIMELINE",
+    heading: "24 HOURS.\nONE SPRINT.",
+    subheading: "A continuous 24-hour roadmap starting from check-in to final demo.",
     startMilestone: {
       date: "25 SEPTEMBER",
       time: "11:30 AM IST",
-      label: "HACKATHON BEGINS",
+      label: "CHECK-IN + HACKATHON OPENING",
     },
-    phases: [
-      { number: "01", name: "IDEATION", desc: "Problem decomposition, brainstorming and alignment." },
-      { number: "02", name: "ARCHITECTURE", desc: "System design, stack selection and repository setup." },
-      { number: "03", name: "BUILD", desc: "Core feature engineering and rapid prototype creation." },
-      { number: "04", name: "MENTORING", desc: "Checkpoints with engineers and technical feedback." },
-      { number: "05", name: "ITERATION", desc: "Refining user experience, API integrations and bug fixes." },
-      { number: "06", name: "FINAL BUILD", desc: "Feature freeze, production build and deployment." },
-      { number: "07", name: "SUBMISSION", desc: "Project link lockout and slide deck submission." },
-      { number: "08", name: "JUDGING", desc: "Live working demonstrations and Q&A before jury." },
+    steps: [
+      { number: "01", label: "CHALLENGE REVEAL", desc: "Problem statement introduction live at kickoff." },
+      { number: "02", label: "IDEATION", desc: "Brainstorming, problem decomposition and approach definition." },
+      { number: "03", label: "BUILD", desc: "Rapid prototype development and core engineering." },
+      { number: "04", label: "MENTORING", desc: "Technical feedback checkpoints with engineering leads." },
+      { number: "05", label: "TESTING + ITERATION", desc: "UX refinement, code stabilization and feature checks." },
+      { number: "06", label: "FINAL SUBMISSION", desc: "Codebase lockout and demonstration deck submission." },
+      { number: "07", label: "DEMO + EVALUATION", desc: "Live working demonstration and presentation." },
     ],
     endMilestone: {
       date: "26 SEPTEMBER",
@@ -148,47 +159,60 @@ export const HACKATHON_CONFIG = {
   prizes: {
     sectionTag: "05 // PRIZES",
     headingAmount: "₹50,000",
-    headingLabel: "PRIZE POOL",
+    headingLabel: "TOTAL PRIZE POOL",
     tagline: "BUILD. SOLVE. IMPACT.",
     description:
-      "A total prize pool of ₹50,000 awaits the teams that rise to the challenge.",
+      "The ₹50,000 prize pool will be distributed across the top performing projects.",
     items: [
       {
         number: "01",
         place: "FIRST PLACE",
-        details: "PRIZE DETAILS TO BE ANNOUNCED",
+        details: "Awarded to top performing hackathon project.",
       },
       {
         number: "02",
         place: "SECOND PLACE",
-        details: "PRIZE DETAILS TO BE ANNOUNCED",
+        details: "Awarded to top performing hackathon project.",
       },
       {
         number: "03",
         place: "THIRD PLACE",
-        details: "PRIZE DETAILS TO BE ANNOUNCED",
+        details: "Awarded to top performing hackathon project.",
       },
     ],
   },
 
   collaborations: {
-    sectionTag: "05 // PARTNERSHIP",
+    sectionTag: "06 // PARTNERSHIP & COLLABORATION",
     heading: "IN COLLABORATION WITH",
     partners: [
       {
         number: "01",
         name: "AGAMYA CYBER TECH",
-        description: "Cybersecurity-focused organization based in Karnataka.",
+        tagline: "SMART SECURITY FOR SMART PEOPLE.",
+        description:
+          "Agamya Cyber Tech is a cybersecurity company focused on services including Vulnerability Assessment and Penetration Testing (VAPT), information security audits, compliance, digital forensics, network security and cybersecurity training.",
         website: "https://agamyacybertech.com/",
         cta: "VISIT AGAMYA CYBER TECH →",
         logo: "/assets/partners/agamya-cyber-tech-logo.png",
         alt: "Agamya Cyber Tech",
+        services: [
+          "Cybersecurity services",
+          "VAPT",
+          "Information Security Audits",
+          "Compliance",
+          "Digital Forensics",
+          "Network Security",
+          "Cybersecurity Training",
+        ],
       },
       {
         number: "02",
         name: "DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING",
         institution: "MALNAD COLLEGE OF ENGINEERING",
-        description: "Premier autonomous engineering institution in Hassan, Karnataka.",
+        tagline: "ESTABLISHED IN 1983–84 • NBA ACCREDITED",
+        description:
+          "The Department of Computer Science & Engineering at Malnad College of Engineering is the academic department supporting the event as part of the CSE Student Development Series. Established in 1983–84, the department offers the B.E. Computer Science & Engineering programme, is accredited by NBA, and supports research and innovation in computer networking, AI, machine learning, deep learning and cloud computing.",
         website: "https://www.mcehassan.ac.in/",
         cta: "VISIT MCE →",
         logo: "/assets/partners/mce-logo.png",
@@ -198,95 +222,137 @@ export const HACKATHON_CONFIG = {
   },
 
   eligibility: {
-    sectionTag: "06 // ELIGIBILITY & PARTICIPATION",
-    heading: "WHO IS THIS FOR?",
+    sectionTag: "07 // ELIGIBILITY & PARTICIPATION",
+    heading: "OPEN TO CSE STUDENTS",
     subheading: "BE A PART OF SOMETHING BIGGER.",
-    badge: "OPEN TO CSE STUDENTS",
     description:
-      "This hackathon is open to CSE students of Malnad College of Engineering. Come together, build something meaningful, and put your skills to the test in a 24-hour offline sprint.",
+      "The hackathon is open to Computer Science & Engineering students of Malnad College of Engineering. Come together, build something meaningful and put your technical skills to the test in a 24-hour offline sprint.",
     cardTitle: "CSE STUDENT HACKATHON",
-    cardDescription: "Open to CSE students of Malnad College of Engineering.",
+    cardDescription:
+      "Open to Computer Science & Engineering students of Malnad College of Engineering.",
     seriesLabel: ["CSE", "STUDENT", "DEVELOPMENT", "SERIES"],
-    footerNote: "MORE PARTICIPATION DETAILS COMING SOON",
+    institutionLabel: ["MALNAD", "COLLEGE OF", "ENGINEERING"],
+  },
+
+  participation: {
+    whoShouldJoinTitle: "WHO SHOULD JOIN?",
+    whoShouldJoinSubtitle: "STUDENTS WHO WANT TO:",
+    reasons: [
+      "BUILD REAL PROJECTS",
+      "SOLVE PROBLEMS",
+      "LEARN BY DOING",
+      "WORK UNDER PRESSURE",
+      "COLLABORATE",
+      "PRESENT THEIR IDEAS",
+    ],
+    whatToBringTitle: "WHAT TO BRING",
+    itemsToBring: [
+      "YOUR LAPTOP",
+      "YOUR DEVELOPMENT TOOLS",
+      "YOUR IDEAS",
+      "YOUR TEAMMATES",
+      "YOUR BUILDING MINDSET",
+    ],
   },
 
   venue: {
-    sectionTag: "07 // VENUE & LOCATION",
+    sectionTag: "08 // VENUE & LOCATION",
     heading: "SEE YOU AT MCE.",
     institution: "MALNAD COLLEGE OF ENGINEERING",
+    addressLines: [
+      "No. 21, Salagame Road,",
+      "Rangoli Halla,",
+      "Hassan, Karnataka – 573202",
+    ],
     location: "HASSAN, KARNATAKA",
-    format: "OFFLINE HACKATHON",
-    ctaLabel: "VIEW LOCATION →",
+    format: "OFFLINE 24 HOUR HACKATHON",
+    ctaLabel: "GET DIRECTIONS →",
     mapsUrl: "https://www.google.com/maps/search/?api=1&query=Malnad+College+of+Engineering+Hassan",
   },
 
   faq: {
-    sectionTag: "08 // INTEL & FAQ",
+    sectionTag: "09 // INTEL & FAQ",
     heading: "FREQUENTLY ASKED QUESTIONS",
     subheading: "Everything you need to know about the 24-hour sprint at MCE Hassan.",
     items: [
       {
         id: "faq-dates",
         question: "WHEN IS THE HACKATHON?",
-        answer: "25–26 September 2026.",
+        answer:
+          "25–26 September 2026. The 24-hour sprint begins at 11:30 AM IST on 25 September and concludes at 11:30 AM IST on 26 September.",
       },
       {
-        id: "faq-time",
-        question: "WHAT TIME DOES IT START?",
-        answer: "11:30 AM IST on 25 September 2026.",
+        id: "faq-venue",
+        question: "WHERE IS IT BEING HELD?",
+        answer: "Malnad College of Engineering, Hassan, Karnataka.",
+      },
+      {
+        id: "faq-format",
+        question: "IS IT ONLINE?",
+        answer: "No. This is an offline, in-person hackathon.",
       },
       {
         id: "faq-duration",
         question: "HOW LONG IS THE HACKATHON?",
-        answer: "24 hours.",
-      },
-      {
-        id: "faq-format",
-        question: "IS IT ONLINE OR OFFLINE?",
-        answer: "Offline.",
-      },
-      {
-        id: "faq-venue",
-        question: "WHERE IS THE HACKATHON?",
-        answer: "Malnad College of Engineering, Hassan, Karnataka.",
+        answer: "24 continuous hours.",
       },
       {
         id: "faq-prizes",
         question: "WHAT IS THE PRIZE POOL?",
-        answer: "₹50,000.",
+        answer: "The total prize pool is ₹50,000.",
       },
       {
-        id: "faq-organizer",
-        question: "WHO IS ORGANIZING THE HACKATHON?",
-        answer: "CalmStacks.",
-      },
-      {
-        id: "faq-collaboration",
-        question: "WHO IS THE EVENT IN COLLABORATION WITH?",
+        id: "faq-eligibility",
+        question: "WHO CAN PARTICIPATE?",
         answer:
-          "Agamya Cyber Tech and the Department of Computer Science & Engineering, Malnad College of Engineering.",
+          "The hackathon is open to CSE students of Malnad College of Engineering.",
+      },
+      {
+        id: "faq-bring",
+        question: "WHAT SHOULD I BRING?",
+        answer:
+          "Bring your laptop, development tools and anything you need to build your project.",
+      },
+      {
+        id: "faq-stack",
+        question: "WHAT CAN WE BUILD WITH?",
+        answer:
+          "Participants can use the development technologies and tools appropriate for their solution.",
+      },
+      {
+        id: "faq-challenge",
+        question: "WHEN WILL THE CHALLENGE BE REVEALED?",
+        answer: "The challenge will be introduced at the beginning of the hackathon.",
+      },
+      {
+        id: "faq-submission",
+        question: "WHAT HAPPENS AFTER SUBMISSION?",
+        answer:
+          "Projects will be demonstrated and evaluated as part of the final hackathon phase.",
       },
     ] as FaqItem[],
   },
 
   finalCta: {
-    line1: "YOU HAVE\n24 HOURS.",
+    line1: "YOU HAVE",
     line2: "24 HOURS.",
     question1: "WHAT WILL",
     question2: "YOU BUILD?",
     dates: "25–26 SEPTEMBER 2026",
-    startTime: "STARTS 11:30 AM IST",
+    startTime: "11:30 AM IST",
     prizePool: "₹50,000 PRIZE POOL",
     location: "MALNAD COLLEGE OF ENGINEERING, HASSAN",
     collaborationText: "IN COLLABORATION WITH AGAMYA CYBER TECH × MCE CSE",
-    buttonLabel: "REGISTER FOR THE HACKATHON →",
+    buttonLabel: "REGISTER NOW →",
   },
 
   footer: {
     brandName: "CALMSTACKS",
     eventTitle: "24 HOUR HACKATHON",
     dates: "25–26 SEPTEMBER 2026",
-    location: "MALNAD COLLEGE OF ENGINEERING, HASSAN",
+    location: "MALNAD COLLEGE OF ENGINEERING, HASSAN, KARNATAKA",
+    collaborationText: "IN COLLABORATION WITH AGAMYA CYBER TECH + MCE CSE",
+    seriesText: "CSE STUDENT DEVELOPMENT SERIES",
     links: [
       { label: "Instagram", href: "https://instagram.com/calmstacks" },
       { label: "LinkedIn", href: "https://linkedin.com/company/calmstacks" },

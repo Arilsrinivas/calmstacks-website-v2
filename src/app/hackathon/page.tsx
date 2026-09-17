@@ -6,6 +6,7 @@ import HackathonHero from "@/components/hackathon/HackathonHero";
 import HackathonAbout from "@/components/hackathon/HackathonAbout";
 import HackathonPillars from "@/components/hackathon/HackathonPillars";
 import HackathonChallenges from "@/components/hackathon/HackathonChallenges";
+import HackathonBuildRules from "@/components/hackathon/HackathonBuildRules";
 import HackathonTimeline from "@/components/hackathon/HackathonTimeline";
 import HackathonPrizes from "@/components/hackathon/HackathonPrizes";
 import HackathonCollaborations from "@/components/hackathon/HackathonCollaborations";
@@ -28,39 +29,42 @@ export default function HackathonPage() {
       {/* Event Header Navigation */}
       <HackathonNav onOpenRegister={handleOpenRegister} />
 
-      {/* Main Sections */}
+      {/* Main Page Content */}
       <main id="main-content">
-        {/* Hero Section */}
+        {/* Hero Section & Real-time Telemetry Countdown */}
         <HackathonHero onOpenRegister={handleOpenRegister} />
 
-        {/* Section 01: About The Hackathon */}
+        {/* Section 01: About Overview */}
         <HackathonAbout />
 
-        {/* Section 02: Core Values (Build, Collaborate, Solve, Compete) */}
+        {/* Section 02: What You'll Do */}
         <HackathonPillars />
 
-        {/* Section 03: The Challenge */}
+        {/* Section 03: The Challenge & Tech Stack Policy */}
         <HackathonChallenges />
 
-        {/* Section 04: 24 Hour Timeline */}
+        {/* Section 04: The Build Stages */}
+        <HackathonBuildRules />
+
+        {/* Section 05: 24-Hour Timeline */}
         <HackathonTimeline />
 
-        {/* Section 05: Prize Pool */}
+        {/* Section 06: Prize Pool (₹50,000 Total Prize Pool) */}
         <HackathonPrizes />
 
-        {/* Section 06: In Collaboration With */}
+        {/* Section 07: Collaborations & Institutional Profiles */}
         <HackathonCollaborations />
 
-        {/* Section 07: Who Is This For? (Eligibility) */}
+        {/* Section 08: Eligibility & Participation Guidelines */}
         <HackathonEligibility />
 
-        {/* Section 08: See You At MCE (Venue) */}
+        {/* Section 09: Venue & Directions */}
         <HackathonVenue />
 
-        {/* Section 09: FAQ */}
+        {/* Section 10: FAQ */}
         <HackathonFaq />
 
-        {/* Section 10: Final Call to Action */}
+        {/* Section 11: Final Call to Action */}
         <HackathonFinalCta onOpenRegister={handleOpenRegister} />
       </main>
 

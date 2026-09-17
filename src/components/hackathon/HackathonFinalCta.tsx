@@ -11,7 +11,7 @@ export default function HackathonFinalCta({ onOpenRegister }: HackathonFinalCtaP
   const { finalCta } = HACKATHON_CONFIG;
 
   return (
-    <section className="relative py-28 sm:py-36 md:py-44 bg-black border-t border-white/[0.08] overflow-hidden">
+    <section className="relative py-24 sm:py-32 bg-black border-t border-white/10 overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-10">
         <div
@@ -35,7 +35,7 @@ export default function HackathonFinalCta({ onOpenRegister }: HackathonFinalCtaP
 
         {/* Massive Typography Headline */}
         <div className="space-y-2 select-none">
-          <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[104px] font-bold text-white tracking-tight uppercase leading-[0.92]">
+          <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[104px] font-extrabold text-white tracking-tight uppercase leading-[0.92]">
             <span className="block text-text-muted font-mono font-light text-4xl sm:text-6xl md:text-7xl lg:text-[80px]">
               {finalCta.line1}
             </span>
@@ -76,12 +76,12 @@ export default function HackathonFinalCta({ onOpenRegister }: HackathonFinalCtaP
           {finalCta.collaborationText}
         </div>
 
-        {/* Large Primary CTA Button */}
+        {/* Primary CTA Button */}
         <div className="pt-2 flex justify-center">
           <button
             type="button"
             onClick={onOpenRegister}
-            className="w-full sm:w-auto px-10 py-5 rounded-full bg-primary hover:bg-primary-hover text-white font-mono text-sm font-bold tracking-wider flex items-center justify-center gap-3 transition-all transform active:scale-95 shadow-xl shadow-primary/25 cursor-pointer"
+            className="w-full sm:w-auto px-10 py-5 rounded-full bg-primary hover:bg-primary-hover text-white font-mono text-xs font-bold tracking-wider flex items-center justify-center gap-3 transition-all transform active:scale-95 shadow-xl shadow-primary/25 cursor-pointer"
           >
             <span>{finalCta.buttonLabel}</span>
           </button>

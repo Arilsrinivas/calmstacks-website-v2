@@ -13,7 +13,7 @@ export default function HackathonFooter() {
   return (
     <footer className="relative py-16 bg-[#08080a] border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-12 border-b border-white/[0.08]">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-12 border-b border-white/10">
           {/* Brand & Event Title */}
           <div className="space-y-2">
             <div className="flex items-center gap-3">
@@ -31,6 +31,9 @@ export default function HackathonFooter() {
             </p>
             <p className="font-mono text-xs text-text-muted">
               {footer.location}
+            </p>
+            <p className="font-mono text-[11px] text-primary font-semibold uppercase">
+              {footer.seriesText}
             </p>
           </div>
 
@@ -61,10 +64,10 @@ export default function HackathonFooter() {
           </div>
         </div>
 
-        {/* Bottom Copyright */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-text-muted">
+        {/* Bottom Copyright & Collaborator Notice */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-text-muted uppercase">
           <div>{footer.copyright}</div>
-          <div>IN COLLABORATION WITH AGAMYA CYBER TECH × MCE CSE</div>
+          <div>{footer.collaborationText}</div>
         </div>
       </div>
     </footer>

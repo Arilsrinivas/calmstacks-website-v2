@@ -3,18 +3,18 @@
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export default function HackathonPillars() {
-  const { coreValues } = HACKATHON_CONFIG;
+  const { whatYouWillDo } = HACKATHON_CONFIG;
 
   return (
-    <section className="relative py-24 sm:py-32 bg-black border-t border-white/[0.08]">
+    <section className="relative py-16 sm:py-24 bg-black border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="font-mono text-xs text-primary uppercase tracking-widest mb-10">
-          CORE VALUES // ETHOS
+          02 // WHAT YOU'LL DO
         </div>
 
         {/* 4 Large Editorial Columns */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {coreValues.map((item) => (
+          {whatYouWillDo.map((item) => (
             <div
               key={item.number}
               className="border-t border-white/15 pt-8 pb-4 flex flex-col justify-between space-y-6 group hover:border-primary transition-colors duration-300"
@@ -31,7 +31,7 @@ export default function HackathonPillars() {
                 </p>
               </div>
 
-              <div className="w-full h-[1px] bg-white/[0.08] group-hover:bg-primary/50 transition-colors" />
+              <div className="w-full h-[1px] bg-white/10 group-hover:bg-primary/50 transition-colors" />
             </div>
           ))}
         </div>

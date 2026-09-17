@@ -6,7 +6,7 @@ export default function HackathonPrizes() {
   const { prizes } = HACKATHON_CONFIG;
 
   return (
-    <section id="prizes" className="relative py-16 sm:py-20 lg:py-24 bg-black border-t border-white/10">
+    <section id="prizes" className="relative py-16 sm:py-24 bg-black border-t border-white/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Tag */}
         <div className="font-mono text-xs text-primary uppercase tracking-widest mb-6">
@@ -45,7 +45,7 @@ export default function HackathonPrizes() {
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs font-bold text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
-                    {item.number}
+                    RANK {item.number}
                   </span>
                 </div>
 
@@ -56,7 +56,7 @@ export default function HackathonPrizes() {
 
               <div className="pt-4 border-t border-white/10 space-y-1">
                 <p className="font-mono text-[11px] text-text-muted tracking-wider uppercase">
-                  PRIZE DETAILS
+                  RECOGNITION
                 </p>
                 <p className="font-mono text-xs font-semibold text-primary tracking-wider uppercase">
                   {item.details}

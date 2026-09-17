@@ -13,14 +13,14 @@ export default function HackathonFaq() {
   };
 
   return (
-    <section id="faq" className="relative py-24 sm:py-32 bg-black border-t border-white/[0.08]">
+    <section id="faq" className="relative py-16 sm:py-24 bg-black border-t border-white/10">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center pb-16 border-b border-white/[0.08]">
+        <div className="text-center pb-12 sm:pb-16 border-b border-white/10">
           <div className="font-mono text-xs text-primary uppercase tracking-widest mb-3">
             {faq.sectionTag}
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-white uppercase leading-tight mb-4">
+          <h2 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-white uppercase leading-tight mb-4">
             {faq.heading}
           </h2>
           <p className="text-sm sm:text-base text-text-secondary font-light max-w-md mx-auto">
@@ -29,7 +29,7 @@ export default function HackathonFaq() {
         </div>
 
         {/* Expandable Accordion List */}
-        <div className="divide-y divide-white/[0.08]">
+        <div className="divide-y divide-white/10">
           {faq.items.map((item, index) => {
             const isOpen = openId === item.id;
 
@@ -42,8 +42,8 @@ export default function HackathonFaq() {
                   aria-expanded={isOpen}
                 >
                   <div className="flex items-start gap-4">
-                    <span className="font-mono text-xs text-primary font-medium mt-1">
-                      0{index + 1}
+                    <span className="font-mono text-xs text-primary font-bold mt-1">
+                      {index < 9 ? `0${index + 1}` : index + 1}
                     </span>
                     <span className="text-lg sm:text-xl font-bold text-white group-hover:text-primary transition-colors tracking-tight uppercase">
                       {item.question}

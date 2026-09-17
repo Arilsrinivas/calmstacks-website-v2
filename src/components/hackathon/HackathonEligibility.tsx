@@ -3,18 +3,18 @@
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export default function HackathonEligibility() {
-  const { eligibility } = HACKATHON_CONFIG;
+  const { eligibility, participation } = HACKATHON_CONFIG;
 
   return (
-    <section id="eligibility" className="relative py-16 sm:py-20 lg:py-24 bg-black border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="eligibility" className="relative py-16 sm:py-24 bg-black border-t border-white/10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-16">
         {/* Section Tag */}
-        <div className="font-mono text-xs text-primary uppercase tracking-widest mb-6">
+        <div className="font-mono text-xs text-primary uppercase tracking-widest mb-2">
           {eligibility.sectionTag}
         </div>
 
         {/* Section Header Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pb-12 sm:pb-16 border-b border-white/10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start pb-12 border-b border-white/10">
           <div className="lg:col-span-6 space-y-4">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white uppercase leading-[1.02]">
               {eligibility.heading}
@@ -27,7 +27,7 @@ export default function HackathonEligibility() {
           <div className="lg:col-span-6 space-y-6">
             <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-primary/10 border border-primary/30 text-primary font-mono text-xs font-semibold tracking-wider">
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span>{eligibility.badge}</span>
+              <span>{eligibility.heading}</span>
             </div>
 
             <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-light">
@@ -37,31 +37,65 @@ export default function HackathonEligibility() {
         </div>
 
         {/* Large Bordered Information Card */}
-        <div className="pt-12 sm:pt-16">
-          <div className="p-8 sm:p-12 rounded-2xl border border-white/15 bg-white/[0.02] flex flex-col md:flex-row items-start md:items-center justify-between gap-8 hover:border-primary/40 transition-colors">
-            {/* Left Side Info */}
-            <div className="space-y-3 max-w-xl">
-              <h3 className="text-2xl sm:text-3xl font-extrabold text-white uppercase tracking-tight">
-                {eligibility.cardTitle}
-              </h3>
-              <p className="text-sm sm:text-base text-text-secondary font-light leading-relaxed">
-                {eligibility.cardDescription}
-              </p>
-            </div>
-
-            {/* Right Side Technical Label */}
-            <div className="font-mono text-xs sm:text-sm font-bold text-primary tracking-widest uppercase border-l-2 border-primary pl-4 py-1 space-y-1">
-              {eligibility.seriesLabel.map((line, idx) => (
-                <div key={idx}>{line}</div>
-              ))}
-            </div>
+        <div className="p-8 sm:p-12 rounded-2xl border border-white/15 bg-white/[0.02] flex flex-col md:flex-row items-start md:items-center justify-between gap-8 hover:border-primary/40 transition-colors">
+          <div className="space-y-3 max-w-xl">
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-white uppercase tracking-tight">
+              {eligibility.cardTitle}
+            </h3>
+            <p className="text-sm sm:text-base text-text-secondary font-light leading-relaxed">
+              {eligibility.cardDescription}
+            </p>
           </div>
 
-          {/* Footer Note */}
-          <div className="mt-6 text-center">
-            <span className="font-mono text-xs text-text-muted tracking-widest uppercase">
-              {eligibility.footerNote}
-            </span>
+          <div className="font-mono text-xs sm:text-sm font-bold text-primary tracking-widest uppercase border-l-2 border-primary pl-4 py-1 space-y-1">
+            {eligibility.seriesLabel.map((line, idx) => (
+              <div key={idx}>{line}</div>
+            ))}
+          </div>
+        </div>
+
+        {/* Participation Breakdown: Who Should Join & What To Bring */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-4">
+          {/* Who Should Join Card */}
+          <div className="p-8 rounded-2xl border border-white/15 bg-white/[0.02] space-y-6">
+            <div>
+              <div className="font-mono text-xs text-primary font-bold tracking-widest uppercase mb-1">
+                {participation.whoShouldJoinSubtitle}
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white uppercase tracking-tight">
+                {participation.whoShouldJoinTitle}
+              </h3>
+            </div>
+
+            <ul className="space-y-3 font-mono text-xs text-white">
+              {participation.reasons.map((reason, i) => (
+                <li key={reason} className="flex items-center gap-3">
+                  <span className="text-primary font-bold">0{i + 1}</span>
+                  <span className="tracking-wider">{reason}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* What To Bring Card */}
+          <div className="p-8 rounded-2xl border border-white/15 bg-white/[0.02] space-y-6">
+            <div>
+              <div className="font-mono text-xs text-primary font-bold tracking-widest uppercase mb-1">
+                PREPARATION & ESSENTIALS
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-extrabold text-white uppercase tracking-tight">
+                {participation.whatToBringTitle}
+              </h3>
+            </div>
+
+            <ul className="space-y-3 font-mono text-xs text-white">
+              {participation.itemsToBring.map((item, i) => (
+                <li key={item} className="flex items-center gap-3">
+                  <span className="text-primary font-bold">0{i + 1}</span>
+                  <span className="tracking-wider">{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
