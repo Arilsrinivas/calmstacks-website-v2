@@ -275,7 +275,7 @@ export default function HackathonRegisterModal({
                 : "Scan QR & Complete Payment"}
             </h2>
             <p className="text-xs text-text-secondary mt-1">
-              Central Library, Malnad College • 25–26 September 2026 (Starts 2:00 PM)
+              Malnad College of Engineering • 25–26 September 2026 (Starts 11:30 AM IST)
             </p>
           </div>
 
@@ -367,7 +367,7 @@ export default function HackathonRegisterModal({
                 </div>
                 <div className="flex justify-between items-center text-text-secondary pt-1 border-t border-white/10">
                   <span className="text-text-muted">REPORTING TIME</span>
-                  <span className="text-white">01:00 PM • 25 SEPT 2026 (MCE Library)</span>
+                  <span className="text-white">10:30 AM • 25 SEPT 2026 (MCE Hassan)</span>
                 </div>
               </div>
 

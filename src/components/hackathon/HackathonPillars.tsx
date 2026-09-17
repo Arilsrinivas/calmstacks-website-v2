@@ -3,45 +3,35 @@
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export default function HackathonPillars() {
-  const { pillars } = HACKATHON_CONFIG;
+  const { coreValues } = HACKATHON_CONFIG;
 
   return (
     <section className="relative py-24 sm:py-32 bg-black border-t border-white/[0.08]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="font-mono text-xs text-primary uppercase tracking-widest mb-6">
-          {pillars.sectionTag}
+        <div className="font-mono text-xs text-primary uppercase tracking-widest mb-10">
+          CORE VALUES // ETHOS
         </div>
 
-        {/* 3-Column Editorial Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-white/[0.08] border-y border-white/[0.08]">
-          {pillars.items.map((item, index) => (
+        {/* 4 Large Editorial Columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {coreValues.map((item) => (
             <div
-              key={item.title}
-              className="py-10 md:py-14 px-4 sm:px-6 md:px-6 lg:px-8 flex flex-col justify-between group overflow-hidden"
+              key={item.number}
+              className="border-t border-white/15 pt-8 pb-4 flex flex-col justify-between space-y-6 group hover:border-primary transition-colors duration-300"
             >
-              {/* Pillar Number */}
-              <div className="font-mono text-xs text-text-muted mb-8">
-                0{index + 1} {"//"} CODE OF CONDUCT
-              </div>
-
-              {/* Pillar Typography */}
-              <div className="space-y-4">
-                <h3 className="text-2xl sm:text-3xl md:text-2xl lg:text-3xl xl:text-4xl font-bold tracking-tight text-white uppercase group-hover:text-primary transition-colors duration-300 break-words leading-tight">
+              <div>
+                <div className="font-mono text-xs font-semibold text-primary tracking-widest mb-6">
+                  {item.number}
+                </div>
+                <h3 className="text-3xl sm:text-4xl font-bold tracking-tight text-white uppercase mb-3 group-hover:text-primary transition-colors">
                   {item.title}
                 </h3>
-                <p className="font-mono text-xs sm:text-sm text-primary tracking-wide">
-                  {item.subtitle}
-                </p>
-                <p className="text-xs sm:text-sm text-text-secondary font-light leading-relaxed pt-2">
+                <p className="text-sm text-text-secondary leading-relaxed font-light">
                   {item.description}
                 </p>
               </div>
 
-              {/* Minimal Bottom Geometric Accent */}
-              <div className="pt-10">
-                <div className="w-12 h-[1px] bg-white/20 group-hover:w-full group-hover:bg-primary transition-all duration-500" />
-              </div>
+              <div className="w-full h-[1px] bg-white/[0.08] group-hover:bg-primary/50 transition-colors" />
             </div>
           ))}
         </div>

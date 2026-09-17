@@ -8,38 +8,10 @@ export interface HackathonTrack {
   focusAreas: string[];
 }
 
-export interface TimelineMilestone {
-  time: string;
-  title: string;
-  phase: string;
-  category: "CHECK-IN" | "IDEATION" | "BUILD" | "REVIEW" | "SUBMISSION" | "JURY";
-  description: string;
-  modality: string;
-  status?: "upcoming" | "active" | "completed";
-}
-
-export interface SprintModality {
-  number: string;
-  title: string;
-  subtitle: string;
-  details: string;
-  keyPoints: string[];
-}
-
-export interface PrizeItem {
-  place: string;
-  rankNumber: string;
-  title: string;
-  reward: string;
-  details: string;
-  highlight?: string;
-}
-
 export interface FaqItem {
   id: string;
   question: string;
   answer: string;
-  category?: string;
 }
 
 export const HACKATHON_CONFIG = {
@@ -50,19 +22,18 @@ export const HACKATHON_CONFIG = {
     series: "CSE Student Development Series",
     organizer: "CALMSTACKS",
     dates: "25–26 SEPTEMBER 2026",
-    startTime: "02:00 PM IST",
-    startDateIso: "2026-09-25T14:00:00+05:30",
-    endDateIso: "2026-09-26T14:00:00+05:30",
-    format: "24-HOUR OFFLINE SPRINT (STARTS 2:00 PM)",
-    venue: "CENTRAL LIBRARY, MALNAD COLLEGE OF ENGINEERING",
-    venueShort: "Malnad College Library",
+    startTime: "11:30 AM IST",
+    startDateIso: "2026-09-25T11:30:00+05:30",
+    endDateIso: "2026-09-26T11:30:00+05:30",
+    format: "OFFLINE",
+    venue: "MALNAD COLLEGE OF ENGINEERING",
+    venueShort: "Malnad College of Engineering",
     city: "HASSAN, KARNATAKA",
-    department: "Central Library & Department of CSE",
+    department: "Department of Computer Science & Engineering",
     coordinates: "13.0072° N, 76.0964° E",
-    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Malnad+College+of+Engineering+Library+Hassan",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Malnad+College+of+Engineering+Hassan",
     registrationOpen: true,
-    prizePoolTotal: "₹25,000",
-    internshipsCount: "2 Paid + 4 Unpaid",
+    prizePoolTotal: "₹50,000",
     feePerMember: "₹300 / head",
     teamSizeLimit: "Flexible (Solo or Squads)",
     foodIncluded: "Full Meals, Snacks & Refreshments Included",
@@ -83,494 +54,237 @@ export const HACKATHON_CONFIG = {
     headlineLine3: "HACKATHON",
     supportingHeadline: "BUILD. SOLVE. IMPACT.",
     description:
-      "A 24-hour offline hackathon held in the Malnad College Central Library. Turn ideas into working prototypes with ₹25,000 cash prizes, paid internships, full catering, and certificates for all.",
+      "A 24-hour offline hackathon by CalmStacks, conducted in collaboration with Agamya Cyber Tech and the Department of Computer Science & Engineering, Malnad College of Engineering.",
     metadataItems: [
       { label: "DATES", value: "25–26 SEPTEMBER 2026" },
-      { label: "VENUE", value: "MALNAD COLLEGE LIBRARY" },
-      { label: "PRIZE POOL", value: "₹25,000 + INTERNSHIPS" },
-      { label: "FEE & FOOD", value: "₹300 / HEAD • FOOD INCL." },
+      { label: "START", value: "11:30 AM IST" },
+      { label: "VENUE", value: "MALNAD COLLEGE OF ENGINEERING" },
+      { label: "LOCATION", value: "HASSAN, KARNATAKA" },
+      { label: "PRIZE POOL", value: "₹50,000" },
+      { label: "FORMAT", value: "OFFLINE" },
     ],
-    primaryCta: "REGISTER NOW",
-    secondaryCta: "EXPLORE TIMELINE",
+    primaryCta: "REGISTER NOW →",
+    secondaryCta: "EXPLORE HACKATHON ↓",
   },
+
+  telemetry: [
+    { label: "EVENT", value: "24H OFFLINE SPRINT" },
+    { label: "DATE", value: "25–26 SEPTEMBER 2026" },
+    { label: "START", value: "11:30 AM IST" },
+    { label: "DURATION", value: "24 HOURS" },
+    { label: "FORMAT", value: "OFFLINE" },
+    { label: "VENUE", value: "MALNAD COLLEGE OF ENGINEERING" },
+    { label: "LOCATION", value: "HASSAN, KARNATAKA" },
+    { label: "PRIZE POOL", value: "₹50,000" },
+  ],
 
   about: {
     sectionTag: "01 // OVERVIEW",
     heading: "BUILD SOMETHING REAL.",
     intro:
-      "The CalmStacks 24-Hour Hackathon is an intensive offline innovation sprint hosted at the prestigious Central Library of Malnad College of Engineering, Hassan, under the CSE Student Development Series.",
+      "A 24-hour offline hackathon by CalmStacks, conducted in collaboration with Agamya Cyber Tech and the Department of Computer Science & Engineering, Malnad College of Engineering.",
     subIntro:
-      "24 hours of uninterrupted building, senior industry mentorship, ₹25,000 in cash prizes, 6 high-value internship opportunities (2 Paid + 4 Unpaid), and complete catering with food, drinks, and snacks included for all participants.",
-    features: [
-      {
-        number: "01",
-        title: "24 HOURS IN MCE LIBRARY",
-        description:
-          "An uninterrupted 24-hour sprint in a focused, air-conditioned library environment with high-speed connectivity and power backups.",
-      },
-      {
-        number: "02",
-        title: "₹25K PRIZE + 6 INTERNSHIPS",
-        description:
-          "₹25,000 cash prize pool alongside 2 Paid Internships and 4 Unpaid Internships at CalmStacks for top performers.",
-      },
-      {
-        number: "03",
-        title: "SOLO OR SQUADS",
-        description:
-          "Form teams of any size or participate solo (₹300/head). Assemble teammates with complementary skills in frontend, backend, AI, UI/UX, or systems design.",
-      },
-      {
-        number: "04",
-        title: "FOOD & CERTIFICATES INCLUDED",
-        description:
-          "All meals, tea/coffee, midnight energy snacks, and official Certificates of Participation provided to every attendee.",
-      },
-    ],
+      "Participants will spend 24 hours turning ideas into working solutions through coding, collaboration and problem solving.",
   },
 
-  challenges: {
+  coreValues: [
+    {
+      number: "01",
+      title: "BUILD",
+      description: "Turn ideas into working products.",
+    },
+    {
+      number: "02",
+      title: "COLLABORATE",
+      description: "Work with people who think differently.",
+    },
+    {
+      number: "03",
+      title: "SOLVE",
+      description: "Address meaningful problems through technology.",
+    },
+    {
+      number: "04",
+      title: "COMPETE",
+      description: "Build, present and compete.",
+    },
+  ],
+
+  challenge: {
     sectionTag: "02 // SPRINT FORMAT",
-    heading: "100% SPONTANEOUS • LIVE PROBLEM DROP",
+    heading: "THE CHALLENGE",
+    statusText: "CHALLENGE DETAILS",
+    statusBadge: "COMING SOON",
     description:
-      "There are no predefined tracks. The official problem statements will be unveiled live on-stage during the 2:00 PM kickoff at the MCE Central Library. Every team starts with a completely clean slate, testing true spontaneous engineering, creativity, and rapid 24-hour execution.",
-    tracks: [
-      {
-        id: "live-drop",
-        number: "01",
-        title: "LIVE PROBLEM DROP",
-        tagline: "Unveiled on-stage at 02:00 PM, 25th September",
-        description:
-          "Problem statements are kept strictly confidential until kickoff. All teams receive the challenge brief at the exact same second, testing real-time problem comprehension and creative agility.",
-        tags: ["Live Reveal at 2:00 PM", "MCE Central Library", "Equal Ground"],
-        focusAreas: ["Instant ideation", "Problem decomposition", "Fast alignment"],
-      },
-      {
-        id: "clean-slate",
-        number: "02",
-        title: "CLEAN SLATE PROTOCOL",
-        tagline: "Zero pre-built repos — build 100% from scratch",
-        description:
-          "To guarantee spontaneous authenticity, all code repositories must be created fresh on-site after the problem announcement. Pre-written codebases and existing repositories are strictly barred.",
-        tags: ["Fresh Git Init", "Timestamped Commits", "Pure 24H Sprint"],
-        focusAreas: ["Code integrity", "Original design", "Authentic development"],
-      },
-      {
-        id: "open-stack",
-        number: "03",
-        title: "OPEN STACK FREEDOM",
-        tagline: "Build with any language, framework, or AI toolchain",
-        description:
-          "No technology constraints. Choose the best stack for the problem: Next.js, Python, Flutter, cloud backends, microservices, or custom AI models. Whatever solves the problem fastest and best.",
-        tags: ["Any Tech Stack", "Full-Stack Web", "Mobile & Cloud", "AI / LLM Toolchains"],
-        focusAreas: ["Modern toolchains", "Fast prototyping", "Robust architecture"],
-      },
-      {
-        id: "rapid-prototype",
-        number: "04",
-        title: "24-HOUR PROTOTYPING",
-        tagline: "From spontaneous prompt to live working deployment",
-        description:
-          "Translate a surprise problem statement into a working prototype with live deployment, intuitive UI/UX, and demonstrable real-world utility within 24 continuous hours.",
-        tags: ["Live Deployed URL", "Working Demo", "Jury Evaluation"],
-        focusAreas: ["Sprint execution", "Production polish", "Effective pitching"],
-      },
-    ] as HackathonTrack[],
+      "Official problem statements and track details will be announced on-stage at the event kickoff. Every participant starts with a clean slate for rapid 24-hour execution.",
   },
 
   timeline: {
     sectionTag: "03 // SPRINT PROTOCOL & TIMELINE",
-    heading: "24 HOURS.\nTIMELINE & MODALITIES.",
-    subheading:
-      "A structured 24-hour roadmap with designated checkpoints, mentorship rounds, meal breaks, and evaluation modalities.",
-    milestones: [
-      {
-        time: "01:00 PM",
-        phase: "DAY 1 • CHECK-IN",
-        title: "REPORTING & STATION ALLOCATION",
-        category: "CHECK-IN",
-        description:
-          "Arrival at Malnad College Central Library. Registration verification, Wi-Fi onboarding, desk allocation, and welcome kit distribution.",
-        modality: "Identity check against registered USN, network test & team table setup.",
-      },
-      {
-        time: "02:00 PM",
-        phase: "DAY 1 • KICKOFF",
-        title: "OPENING CEREMONY & PROBLEM DROP",
-        category: "IDEATION",
-        description:
-          "Official opening ceremony by Calmstacks & CSE Department. Spontaneous release of the live challenge problem statements and rubric criteria.",
-        modality: "Problem statements announced live on-stage; teams enter 1-hour spontaneous ideation and architecture freeze.",
-      },
-      {
-        time: "03:00 PM",
-        phase: "DAY 1 • SPRINT START",
-        title: "THE 24-HOUR BUILD COMMENCES",
-        category: "BUILD",
-        description:
-          "Sprint timer starts. Repository initialization, task distribution, wireframing, and active software development underway.",
-        modality: "Code repositories created on GitHub; sprint timer countdown activated.",
-      },
-      {
-        time: "05:30 PM",
-        phase: "DAY 1 • HOSPITALITY",
-        title: "EVENING SNACKS & TEA BREAK",
-        category: "CHECK-IN",
-        description:
-          "Hot tea, coffee, and evening snacks served to all registered participants in the library refreshment zone.",
-        modality: "Evening refreshments included; casual peer networking allowed.",
-      },
-      {
-        time: "08:00 PM",
-        phase: "DAY 1 • CHECKPOINT 1",
-        title: "MENTORSHIP & ARCHITECTURE REVIEW",
-        category: "REVIEW",
-        description:
-          "Senior CalmStacks engineers and faculty mentors conduct desk-side reviews to evaluate system architecture, clear technical blockers, and guide execution.",
-        modality: "Mandatory milestone check: Mentors grade design feasibility and technical trajectory.",
-      },
-      {
-        time: "09:30 PM",
-        phase: "DAY 1 • HOSPITALITY",
-        title: "DINNER BUFFET & RECHARGE",
-        category: "CHECK-IN",
-        description:
-          "Dinner buffet served on-site, followed by hot tea and coffee to power through the night.",
-        modality: "Full dinner provided for all participants.",
-      },
-      {
-        time: "01:00 AM",
-        phase: "NIGHT SPRINT",
-        title: "MIDNIGHT ENERGY FUEL & SPRINT",
-        category: "BUILD",
-        description:
-          "Midnight energy snacks and refreshments served. Intensive overnight coding sprint in the quiet library environment.",
-        modality: "Core feature completion and backend API integrations.",
-      },
-      {
-        time: "06:30 AM",
-        phase: "DAY 2 • CHECKPOINT 2",
-        title: "PRE-DAWN CODE & FEATURE FREEZE",
-        category: "REVIEW",
-        description:
-          "Final feature commits locked. Teams shift to polishing user interfaces, fixing bugs, and deploying prototypes to live URLs.",
-        modality: "Second progress verification: Deployment link validation and demo rehearsal.",
-      },
-      {
-        time: "08:30 AM",
-        phase: "DAY 2 • HOSPITALITY",
-        title: "BREAKFAST & FINAL POLISH",
-        category: "CHECK-IN",
-        description:
-          "Fresh breakfast served. Teams run final tests, rehearse live demos, and finalize submission slide decks.",
-        modality: "Breakfast provided; demo slide deck preparation.",
-      },
-      {
-        time: "12:00 PM",
-        phase: "DAY 2 • SUBMISSION",
-        title: "FINAL SUBMISSION LOCKOUT",
-        category: "SUBMISSION",
-        description:
-          "Final project repositories, live preview URLs, and presentation slide decks submitted to the portal.",
-        modality: "Strict code lockout at 12:00 PM. No commits accepted post deadline.",
-      },
-      {
-        time: "12:30 PM",
-        phase: "DAY 2 • FINALE",
-        title: "LIVE JURY DEMOS & AWARD CEREMONY",
-        category: "JURY",
-        description:
-          "5-minute live demo + 3-minute jury Q&A in the auditorium. Grand prize ceremony awarding ₹25,000, 6 internship offers, and certificates for all.",
-        modality: "Live evaluation by panel of industry judges; trophy and certificate distribution.",
-      },
-    ] as TimelineMilestone[],
+    heading: "24 HOURS.\nONE BUILD.",
+    subheading: "A 24-hour roadmap starting from kickoff to final jury evaluation.",
+    startMilestone: {
+      date: "25 SEPTEMBER",
+      time: "11:30 AM IST",
+      label: "HACKATHON BEGINS",
+    },
+    phases: [
+      { number: "01", name: "IDEATION", desc: "Problem decomposition, brainstorming and alignment." },
+      { number: "02", name: "ARCHITECTURE", desc: "System design, stack selection and repository setup." },
+      { number: "03", name: "BUILD", desc: "Core feature engineering and rapid prototype creation." },
+      { number: "04", name: "MENTORING", desc: "Checkpoints with engineers and technical feedback." },
+      { number: "05", name: "ITERATION", desc: "Refining user experience, API integrations and bug fixes." },
+      { number: "06", name: "FINAL BUILD", desc: "Feature freeze, production build and deployment." },
+      { number: "07", name: "SUBMISSION", desc: "Project link lockout and slide deck submission." },
+      { number: "08", name: "JUDGING", desc: "Live working demonstrations and Q&A before jury." },
+    ],
+    endMilestone: {
+      date: "26 SEPTEMBER",
+      time: "11:30 AM IST",
+      label: "24-HOUR SPRINT ENDS",
+    },
+  },
 
-    modalities: [
+  prizes: {
+    sectionTag: "04 // RECOGNITION & REWARDS",
+    heading: "₹50,000\nPRIZE POOL",
+    prizePoolLabel: "PRIZE POOL",
+    tagline: "BUILD. SOLVE. IMPACT.",
+    items: [
       {
         number: "01",
-        title: "FLEXIBLE TEAM SPRINT ENTRY",
-        subtitle: "Solo or Squads • ₹300/head",
-        details:
-          "Participants can enter solo or form teams of any size. The registration fee is flat ₹300 per member, which covers 24-hour venue access, full catering (dinner, breakfast, snacks, tea/coffee, midnight fuel), and participation certificates.",
-        keyPoints: [
-          "Solo or any squad size",
-          "Flat ₹300 fee per member",
-          "All meals, drinks & snacks included",
-        ],
+        place: "FIRST PLACE",
+        details: "PRIZE DETAILS TO BE ANNOUNCED",
       },
       {
         number: "02",
-        title: "DEVELOPMENT ENVIRONMENT",
-        subtitle: "MCE Central Library",
-        details:
-          "All building occurs in-person within the air-conditioned MCE Central Library. Teams must bring their own laptops and chargers. High-speed network access and power backup are provided.",
-        keyPoints: [
-          "Central Library venue",
-          "Continuous power backup",
-          "Dedicated workstation desks",
-        ],
+        place: "SECOND PLACE",
+        details: "PRIZE DETAILS TO BE ANNOUNCED",
       },
       {
         number: "03",
-        title: "CODE INTEGRITY & LICENSING",
-        subtitle: "Fresh Repositories Only",
-        details:
-          "All prototype code must be authored during the 24-hour sprint. Open-source packages, public APIs, and LLMs are permitted with proper attribution. Pre-built applications are strictly disqualified.",
-        keyPoints: [
-          "Fresh GitHub repository",
-          "Public APIs & SDKs permitted",
-          "Plagiarism checks enforced",
-        ],
-      },
-      {
-        number: "04",
-        title: "2-ROUND MENTORSHIP REVIEW",
-        subtitle: "Structured Progress Gates",
-        details:
-          "Mentors evaluate teams in two structured checkpoint rounds (Day 1 Evening and Day 2 Dawn) to ensure progress, guide architecture, and validate working software components.",
-        keyPoints: [
-          "Checkpoint 1: Architecture review",
-          "Checkpoint 2: Deployment check",
-          "Direct engineer mentorship",
-        ],
-      },
-      {
-        number: "05",
-        title: "JURY DEMOS & SCORING RUBRIC",
-        subtitle: "5-Min Live Demonstration",
-        details:
-          "Each team presents a 5-minute live working demonstration followed by 3 minutes of technical Q&A with the jury. Scoring is weighted across Innovation (25%), Technical Depth (35%), UI/UX (20%), and Practical Impact (20%).",
-        keyPoints: [
-          "Live working software demo",
-          "No pure slide-deck pitches",
-          "Transparent rubric scoring",
-        ],
-      },
-      {
-        number: "06",
-        title: "REWARDS & INTERNSHIPS",
-        subtitle: "₹25,000 Pool + 6 Roles",
-        details:
-          "₹25,000 total cash prizes awarded to podium winners. 2 Paid Internships and 4 Unpaid Internships granted at CalmStacks for top performers. Official Certificates of Participation awarded to ALL attendees.",
-        keyPoints: [
-          "₹25,000 cash pool",
-          "2 Paid + 4 Unpaid internships",
-          "Certificates for every participant",
-        ],
-      },
-    ] as SprintModality[],
-  },
-
-  pillars: {
-    sectionTag: "04 // CULTURE",
-    heading: "THE SPRINT ETHOS",
-    items: [
-      {
-        title: "BUILD",
-        subtitle: "Turn ideas into working products.",
-        description:
-          "Slides do not solve problems—functional code does. We prioritize functional execution, solid architecture, and usable interfaces.",
-      },
-      {
-        title: "COLLABORATE",
-        subtitle: "Work with your team and mentors.",
-        description:
-          "Brainstorm with CalmStacks engineers and faculty mentors. The best solutions emerge when frontend, backend, and domain thinkers unite.",
-      },
-      {
-        title: "COMPETE",
-        subtitle: "Demonstrate impact and win.",
-        description:
-          "Pitch your live demo to judges, defend your architectural choices, and compete for ₹25,000, internship roles, and recognition.",
+        place: "THIRD PLACE",
+        details: "PRIZE DETAILS TO BE ANNOUNCED",
       },
     ],
   },
 
-  prizes: {
-    sectionTag: "05 // RECOGNITION & REWARDS",
-    heading: "₹25,000 CASH POOL.\n+ 6 INTERNSHIPS.",
-    subheading:
-      "A total cash prize pool of ₹25,000, 2 Paid Internships, 4 Unpaid Internships for top performers, and Certificates of Participation for all attendees.",
-    prizePoolTotal: "₹25,000",
-    internshipsSummary: "2 Paid Internships + 4 Unpaid Internships",
-    certificateNotice: "OFFICIAL CERTIFICATE OF PARTICIPATION FOR ALL",
-    items: [
+  collaborations: {
+    sectionTag: "05 // PARTNERSHIP",
+    heading: "IN COLLABORATION WITH",
+    partners: [
       {
-        place: "1ST PLACE",
-        rankNumber: "01",
-        title: "CHAMPIONSHIP WINNER",
-        reward: "Cash Prize + Paid Internship (CalmStacks)",
-        details:
-          "Highest cash award from the ₹25,000 pool, direct Paid Internship offer at CalmStacks, winner trophy, and priority startup incubation.",
-        highlight: "Top Cash Prize + Paid Role",
+        number: "01",
+        name: "AGAMYA CYBER TECH",
+        description: "Cybersecurity-focused organization based in Karnataka.",
+        website: "https://agamyacybertech.com/",
+        cta: "VISIT AGAMYA CYBER TECH →",
+        logo: "/assets/partners/agamya-cyber-tech-logo.png",
+        alt: "Agamya Cyber Tech",
       },
       {
-        place: "2ND PLACE",
-        rankNumber: "02",
-        title: "FIRST RUNNER UP",
-        reward: "Cash Prize + Paid Internship (CalmStacks)",
-        details:
-          "Substantial cash award from the ₹25,000 pool, direct Paid Internship offer at CalmStacks, runner-up trophy, and engineering mentorship.",
-        highlight: "Cash Reward + Paid Role",
-      },
-      {
-        place: "3RD PLACE",
-        rankNumber: "03",
-        title: "SECOND RUNNER UP",
-        reward: "Cash Prize + Merit Recognition",
-        details:
-          "Cash prize from the pool, merit trophy, recognition certificate, and preferential review for upcoming CalmStacks opportunities.",
-        highlight: "Cash Award + Merit Trophy",
-      },
-    ] as PrizeItem[],
-    specialPerks: [
-      {
-        title: "2 PAID INTERNSHIPS",
-        subtitle: "Direct placement at CalmStacks with monthly compensation.",
-        tag: "CAREER ACCELERATOR",
-      },
-      {
-        title: "4 UNPAID INTERNSHIPS",
-        subtitle: "Exclusive project internship roles for standout performers in the 24-hour sprint.",
-        tag: "TOP PERFORMERS",
-      },
-      {
-        title: "CERTIFICATES FOR ALL",
-        subtitle: "Verified Certificate of Participation awarded to every registered attendee.",
-        tag: "100% OF PARTICIPANTS",
-      },
-      {
-        title: "FULL FOOD & SNACKS",
-        subtitle: "All meals, tea/coffee, snacks, and midnight refreshments included throughout 24H.",
-        tag: "ALL INCLUSIVE",
+        number: "02",
+        name: "DEPARTMENT OF COMPUTER SCIENCE & ENGINEERING",
+        institution: "MALNAD COLLEGE OF ENGINEERING",
+        description: "Premier autonomous engineering institution in Hassan, Karnataka.",
+        website: "https://www.mcehassan.ac.in/",
+        cta: "VISIT MCE →",
+        logo: "/assets/partners/mce-logo.png",
+        alt: "Malnad College of Engineering",
       },
     ],
   },
 
   eligibility: {
-    sectionTag: "06 // ELIGIBILITY & REGISTRATION",
-    heading: "WHO CAN PARTICIPATE?",
-    primaryAudience: "Open to students participating solo or in squads of any size.",
-    eventContext:
-      "Held in the Central Library of Malnad College of Engineering, Hassan, under the CSE Student Development Series.",
-    teamConfiguration: {
-      title: "Team Structure & Fee Details",
-      details:
-        "Participants can register solo or in teams of any size. The registration fee is flat ₹300 per team member, which includes all food, snacks, midnight refreshments, and certificates.",
-      requirements: [
-        "Team size: Flexible (Solo or squads of any size)",
-        "Registration fee: ₹300 per team member",
-        "Full food, dinner, breakfast & snacks included for all 24 hours",
-        "Certificate of Participation awarded to ALL participating team members",
-        "Valid college Student ID card required at check-in",
-        "Bring your own development laptops, chargers, and extension strips",
-        "All code must be written within the 24-hour hackathon window",
-      ],
-    },
+    sectionTag: "06 // ELIGIBILITY & PARTICIPATION",
+    heading: "WHO IS THIS FOR?",
+    statusText: "ELIGIBILITY DETAILS",
+    statusBadge: "COMING SOON",
+    description: "Open to passionate developers, designers, and innovators ready to spend 24 hours building impactful software.",
   },
 
   venue: {
-    sectionTag: "07 // CAMPUS & VENUE",
-    heading: "MCE CENTRAL LIBRARY.\nHASSAN, KARNATAKA.",
+    sectionTag: "07 // VENUE & LOCATION",
+    heading: "SEE YOU AT MCE.",
     institution: "MALNAD COLLEGE OF ENGINEERING",
-    department: "Central Library & Department of CSE",
-    city: "HASSAN, KARNATAKA",
-    pincode: "573202",
-    coordinates: "13.0072° N, 76.0964° E",
-    ctaLabel: "VIEW LIBRARY LOCATION ON MAPS",
-    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Malnad+College+of+Engineering+Library+Hassan",
-    amenities: [
-      "Quiet, air-conditioned Central Library workspaces",
-      "High-speed campus network access & power backup",
-      "Dedicated charging points at every team table",
-      "Full food, meals, tea/coffee & midnight fuel station",
-      "Dedicated jury presentation & project demo area",
-      "On-site mentor desks for round-the-clock guidance",
-    ],
+    location: "HASSAN, KARNATAKA",
+    format: "OFFLINE HACKATHON",
+    ctaLabel: "VIEW LOCATION →",
+    mapsUrl: "https://www.google.com/maps/search/?api=1&query=Malnad+College+of+Engineering+Hassan",
   },
 
   faq: {
     sectionTag: "08 // INTEL & FAQ",
     heading: "FREQUENTLY ASKED QUESTIONS",
-    subheading: "Everything you need to know about the 24-hour sprint at MCE Library.",
+    subheading: "Everything you need to know about the 24-hour sprint at MCE Hassan.",
     items: [
       {
         id: "faq-dates",
-        question: "When and where is the hackathon taking place?",
-        answer:
-          "The hackathon will take place on 25th and 26th September 2026 at the Central Library, Malnad College of Engineering, Hassan, Karnataka. It starts at 2:00 PM on Friday, 25th September, and runs for 24 continuous hours until 2:00 PM on Saturday, 26th September.",
+        question: "WHEN IS THE HACKATHON?",
+        answer: "25–26 September 2026.",
+      },
+      {
+        id: "faq-time",
+        question: "WHAT TIME DOES IT START?",
+        answer: "11:30 AM IST on 25 September 2026.",
+      },
+      {
+        id: "faq-duration",
+        question: "HOW LONG IS THE HACKATHON?",
+        answer: "24 hours.",
+      },
+      {
+        id: "faq-format",
+        question: "IS IT ONLINE OR OFFLINE?",
+        answer: "Offline.",
+      },
+      {
+        id: "faq-venue",
+        question: "WHERE IS THE HACKATHON?",
+        answer: "Malnad College of Engineering, Hassan, Karnataka.",
       },
       {
         id: "faq-prizes",
-        question: "What is the prize pool and internship opportunities?",
-        answer:
-          "The hackathon features a ₹25,000 cash prize pool divided among top winning teams, plus 2 Paid Internships at CalmStacks, 4 Unpaid Internships for standout performers, and Certificates of Participation for all attendees.",
+        question: "WHAT IS THE PRIZE POOL?",
+        answer: "₹50,000.",
       },
       {
-        id: "faq-fee-food",
-        question: "What is the registration fee and is food included?",
-        answer:
-          "The registration fee is flat ₹300 per member. This fee covers full participation, hackathon kit, and complete hospitality—including evening snacks, dinner, midnight energy refreshments, tea/coffee, and morning breakfast.",
+        id: "faq-organizer",
+        question: "WHO IS ORGANIZING THE HACKATHON?",
+        answer: "CalmStacks.",
       },
       {
-        id: "faq-teams",
-        question: "What is the required team size?",
+        id: "faq-collaboration",
+        question: "WHO IS THE EVENT IN COLLABORATION WITH?",
         answer:
-          "You can participate solo or form a team of any size. There is no restriction on team size. Each member registers at ₹300/head with all food, drinks, and certificates included.",
-      },
-      {
-        id: "faq-certificate",
-        question: "Will every participant receive a certificate?",
-        answer:
-          "Yes! Every registered participant who attends and submits a working project will receive an official Certificate of Participation from CalmStacks and the Department of CSE.",
-      },
-      {
-        id: "faq-offline",
-        question: "Is the hackathon fully in-person/offline?",
-        answer:
-          "Yes, it is a 100% offline, on-campus 24-hour hackathon held in the Malnad College Central Library to foster intense collaboration, active building, and live mentor interaction.",
-      },
-      {
-        id: "faq-bring",
-        question: "What do we need to bring?",
-        answer:
-          "Each team member should bring their laptop, chargers, extension cords, valid college student ID card, and any specialized hardware (if building in the IoT/Open Innovation track).",
-      },
-      {
-        id: "faq-tracks",
-        question: "Are there predefined tracks or problem statements?",
-        answer:
-          "No. There are no predefined tracks. Calmstacks 24H is 100% spontaneous. The problem statements will be revealed live on-stage at the event kickoff (02:00 PM on 25th September at MCE Central Library). Every team starts from a clean slate at the exact same moment.",
-      },
-      {
-        id: "faq-register",
-        question: "How do we register our team?",
-        answer:
-          "Click the 'REGISTER NOW' button on this page, fill out your team details, and add as many team members as you need. Then scan the QR code to complete the fee (₹300 × number of members) and enter your transaction UTR.",
+          "Agamya Cyber Tech and the Department of Computer Science & Engineering, Malnad College of Engineering.",
       },
     ] as FaqItem[],
   },
 
   finalCta: {
-    headlinePre: "24 HOURS IN THE LIBRARY.",
-    headlineHours: "₹25,000 PRIZES.",
-    headlinePost: "BUILD.\nSOLVE.\nIMPACT.",
-    supportingText:
-      "Join us on 25–26 September 2026 at the Malnad College Central Library. ₹25,000 cash prizes, 6 internship roles, food included, and certificates for all.",
-    buttonLabel: "REGISTER YOUR TEAM →",
+    line1: "YOU HAVE\n24 HOURS.",
+    line2: "24 HOURS.",
+    question1: "WHAT WILL",
+    question2: "YOU BUILD?",
     dates: "25–26 SEPTEMBER 2026",
-    location: "MCE CENTRAL LIBRARY, HASSAN",
+    startTime: "STARTS 11:30 AM IST",
+    prizePool: "₹50,000 PRIZE POOL",
+    location: "MALNAD COLLEGE OF ENGINEERING, HASSAN",
+    collaborationText: "IN COLLABORATION WITH AGAMYA CYBER TECH × MCE CSE",
+    buttonLabel: "REGISTER FOR THE HACKATHON →",
   },
 
   footer: {
     brandName: "CALMSTACKS",
     eventTitle: "24 HOUR HACKATHON",
-    parentSeries: "CSE Student Development Series",
+    dates: "25–26 SEPTEMBER 2026",
+    location: "MALNAD COLLEGE OF ENGINEERING, HASSAN",
     links: [
       { label: "Instagram", href: "https://instagram.com/calmstacks" },
       { label: "LinkedIn", href: "https://linkedin.com/company/calmstacks" },
-      { label: "Calmstacks Home", href: "/" },
+      { label: "CalmStacks", href: "/" },
     ],
-    copyright: "© 2026 CALMSTACKS. ALL RIGHTS RESERVED.",
+    copyright: "© CALMSTACKS",
   },
 };

@@ -4,10 +4,11 @@ import { useState } from "react";
 import HackathonNav from "@/components/hackathon/HackathonNav";
 import HackathonHero from "@/components/hackathon/HackathonHero";
 import HackathonAbout from "@/components/hackathon/HackathonAbout";
+import HackathonPillars from "@/components/hackathon/HackathonPillars";
 import HackathonChallenges from "@/components/hackathon/HackathonChallenges";
 import HackathonTimeline from "@/components/hackathon/HackathonTimeline";
-import HackathonPillars from "@/components/hackathon/HackathonPillars";
 import HackathonPrizes from "@/components/hackathon/HackathonPrizes";
+import HackathonCollaborations from "@/components/hackathon/HackathonCollaborations";
 import HackathonEligibility from "@/components/hackathon/HackathonEligibility";
 import HackathonVenue from "@/components/hackathon/HackathonVenue";
 import HackathonFaq from "@/components/hackathon/HackathonFaq";
@@ -22,52 +23,51 @@ export default function HackathonPage() {
     setRegisterModalOpen(true);
   };
 
-  const handleSelectTrack = () => {
-    setRegisterModalOpen(true);
-  };
-
   return (
-    <div className="min-h-screen bg-black text-white selection:bg-primary/30 selection:text-white relative">
+    <div className="min-h-screen bg-black text-white selection:bg-primary/30 selection:text-white relative font-sans antialiased overflow-x-hidden">
       {/* Event Header Navigation */}
       <HackathonNav onOpenRegister={handleOpenRegister} />
 
       {/* Main Sections */}
-      <main>
-        {/* Section 1: Hero */}
+      <main id="main-content">
+        {/* Hero Section */}
         <HackathonHero onOpenRegister={handleOpenRegister} />
 
-        {/* Section 2: About The Hackathon */}
+        {/* Section 01: About The Hackathon */}
         <HackathonAbout />
 
-        {/* Section 3: The Challenge & Tracks */}
-        <HackathonChallenges onSelectTrack={handleSelectTrack} />
-
-        {/* Section 4: 24 Hour Timeline */}
-        <HackathonTimeline />
-
-        {/* Section 5: Build / Collaborate / Compete Pillars */}
+        {/* Section 02: Core Values (Build, Collaborate, Solve, Compete) */}
         <HackathonPillars />
 
-        {/* Section 6: Prizes */}
+        {/* Section 03: The Challenge */}
+        <HackathonChallenges />
+
+        {/* Section 04: 24 Hour Timeline */}
+        <HackathonTimeline />
+
+        {/* Section 05: Prize Pool */}
         <HackathonPrizes />
 
-        {/* Section 7: Who Can Participate (Eligibility) */}
+        {/* Section 06: In Collaboration With */}
+        <HackathonCollaborations />
+
+        {/* Section 07: Who Is This For? (Eligibility) */}
         <HackathonEligibility />
 
-        {/* Section 8: Venue (MCE Hassan) */}
+        {/* Section 08: See You At MCE (Venue) */}
         <HackathonVenue />
 
-        {/* Section 9: FAQ */}
+        {/* Section 09: FAQ */}
         <HackathonFaq />
 
-        {/* Section 10: Final CTA */}
+        {/* Section 10: Final Call to Action */}
         <HackathonFinalCta onOpenRegister={handleOpenRegister} />
       </main>
 
       {/* Event Footer */}
       <HackathonFooter />
 
-      {/* Interactive Registration Modal */}
+      {/* Registration Modal */}
       <HackathonRegisterModal
         isOpen={registerModalOpen}
         onClose={() => setRegisterModalOpen(false)}

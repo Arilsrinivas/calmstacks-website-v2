@@ -12,7 +12,7 @@ export default function HackathonFinalCta({ onOpenRegister }: HackathonFinalCtaP
 
   return (
     <section className="relative py-28 sm:py-36 md:py-44 bg-black border-t border-white/[0.08] overflow-hidden">
-      {/* Background Subtle Geometric Grid Accents */}
+      {/* Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-10">
         <div
           className="w-full h-full"
@@ -26,58 +26,65 @@ export default function HackathonFinalCta({ onOpenRegister }: HackathonFinalCtaP
         />
       </div>
 
-      {/* Center Subtle Electric Blue Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[140px] pointer-events-none" />
-
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-10">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-12">
         {/* Monospace Indicator Tag */}
-        <div className="inline-flex items-center gap-2 font-mono text-xs text-primary uppercase tracking-widest px-3 py-1.5 rounded-full border border-primary/25 bg-primary/[0.04]">
+        <div className="inline-flex items-center gap-2 font-mono text-xs text-primary uppercase tracking-widest px-4 py-2 rounded-full border border-primary/30 bg-primary/[0.05]">
           <Terminal className="w-3.5 h-3.5" />
-          <span>CALMSTACKS 24H INITIATIVE // CALL FOR BUILDERS</span>
+          <span>CALMSTACKS 24H SPRINT // FINAL CALL FOR BUILDERS</span>
         </div>
 
-        {/* Massive Typography Stack */}
+        {/* Massive Typography Headline */}
         <div className="space-y-2 select-none">
           <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[104px] font-bold text-white tracking-tight uppercase leading-[0.92]">
             <span className="block text-text-muted font-mono font-light text-4xl sm:text-6xl md:text-7xl lg:text-[80px]">
-              {finalCta.headlinePre}
+              {finalCta.line1}
             </span>
-            <span className="block text-primary">
-              {finalCta.headlineHours}
-            </span>
-            <span className="block mt-4 text-white">
-              WHAT
-            </span>
-            <span className="block text-white/90">
-              WILL YOU
+            <span className="block text-primary mb-4">
+              {finalCta.line2}
             </span>
             <span className="block text-white">
-              BUILD?
+              {finalCta.question1}
+            </span>
+            <span className="block text-white">
+              {finalCta.question2}
             </span>
           </h2>
         </div>
 
-        {/* Supporting Text */}
-        <p className="text-lg sm:text-xl text-text-secondary max-w-xl mx-auto font-light leading-relaxed">
-          {finalCta.supportingText}
-        </p>
+        {/* Event Key Info Grid */}
+        <div className="max-w-2xl mx-auto p-6 rounded-2xl border border-white/15 bg-white/[0.02] grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono text-xs text-center">
+          <div>
+            <div className="text-text-muted text-[10px] uppercase">DATES</div>
+            <div className="text-white font-bold mt-1">{finalCta.dates}</div>
+          </div>
+          <div>
+            <div className="text-text-muted text-[10px] uppercase">START TIME</div>
+            <div className="text-cyan-400 font-bold mt-1">{finalCta.startTime}</div>
+          </div>
+          <div>
+            <div className="text-text-muted text-[10px] uppercase">PRIZE POOL</div>
+            <div className="text-primary font-bold mt-1">{finalCta.prizePool}</div>
+          </div>
+          <div>
+            <div className="text-text-muted text-[10px] uppercase">VENUE</div>
+            <div className="text-white font-bold mt-1">MCE HASSAN</div>
+          </div>
+        </div>
 
-        {/* Large Prominent CTA Button */}
-        <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+        {/* Collaboration Notice */}
+        <div className="font-mono text-xs text-text-secondary tracking-widest uppercase">
+          {finalCta.collaborationText}
+        </div>
+
+        {/* Large Primary CTA Button */}
+        <div className="pt-2 flex justify-center">
           <button
             type="button"
             onClick={onOpenRegister}
-            className="w-full sm:w-auto px-10 py-5 rounded-full bg-primary hover:bg-primary-hover text-white font-mono text-sm font-bold tracking-wider flex items-center justify-center gap-3 transition-all transform active:scale-95 shadow-xl shadow-primary/25 hover:shadow-primary/40 cursor-pointer"
+            className="w-full sm:w-auto px-10 py-5 rounded-full bg-primary hover:bg-primary-hover text-white font-mono text-sm font-bold tracking-wider flex items-center justify-center gap-3 transition-all transform active:scale-95 shadow-xl shadow-primary/25 cursor-pointer"
           >
             <span>{finalCta.buttonLabel}</span>
           </button>
-        </div>
-
-        {/* Event Metadata Banner */}
-        <div className="pt-8 border-t border-white/[0.08] max-w-xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 font-mono text-xs text-text-muted">
-          <span className="text-white font-semibold">{finalCta.dates}</span>
-          <span className="hidden sm:inline text-white/20">•</span>
-          <span>{finalCta.location}</span>
         </div>
       </div>
     </section>

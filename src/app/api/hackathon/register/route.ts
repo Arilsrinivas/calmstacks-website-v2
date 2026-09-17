@@ -190,8 +190,8 @@ Year & Sem: ${yearSemester}
 Track: Spontaneous (Revealed On-Spot)
 Project / Skills: ${projectIdea || "N/A"}
 -----------------------------------
-Venue: Central Library, Malnad College of Engineering
-Dates: 25-26 September 2026 (Starts 2:00 PM)
+Venue: Malnad College of Engineering, Hassan
+Dates: 25-26 September 2026 (Starts 11:30 AM IST)
           `,
         }),
       });

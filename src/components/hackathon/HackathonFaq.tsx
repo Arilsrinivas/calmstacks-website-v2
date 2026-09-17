@@ -6,7 +6,6 @@ import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export default function HackathonFaq() {
   const { faq } = HACKATHON_CONFIG;
-  // Keep first item open by default for immediate discoverability
   const [openId, setOpenId] = useState<string | null>(faq.items[0]?.id || null);
 
   const toggleFaq = (id: string) => {
@@ -46,7 +45,7 @@ export default function HackathonFaq() {
                     <span className="font-mono text-xs text-primary font-medium mt-1">
                       0{index + 1}
                     </span>
-                    <span className="text-lg sm:text-xl font-bold text-white group-hover:text-primary transition-colors tracking-tight">
+                    <span className="text-lg sm:text-xl font-bold text-white group-hover:text-primary transition-colors tracking-tight uppercase">
                       {item.question}
                     </span>
                   </div>
@@ -62,24 +61,13 @@ export default function HackathonFaq() {
 
                 {/* Collapsible Answer */}
                 {isOpen && (
-                  <div className="pl-10 pr-6 pt-3 pb-2 text-sm sm:text-base text-text-secondary font-light leading-relaxed animate-fade-up">
+                  <div className="pl-10 pr-6 pt-3 pb-2 text-sm sm:text-base text-text-secondary font-light leading-relaxed animate-in fade-in duration-200">
                     {item.answer}
                   </div>
                 )}
               </div>
             );
           })}
-        </div>
-
-        {/* Footer Support Query */}
-        <div className="mt-16 p-6 rounded-xl border border-white/[0.08] bg-white/[0.01] text-center font-mono text-xs text-text-muted space-y-2">
-          <div>HAVE AN UNANSWERED QUERY? REACH OUT TO THE CALMSTACKS TEAM</div>
-          <a
-            href="mailto:calmstacksdigital@gmail.com"
-            className="text-primary hover:underline font-medium"
-          >
-            calmstacksdigital@gmail.com
-          </a>
         </div>
       </div>
     </section>

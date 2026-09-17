@@ -1,25 +1,34 @@
 import type { Metadata } from "next";
-import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export const metadata: Metadata = {
-  title: `${HACKATHON_CONFIG.meta.name} | MCE Hassan — ${HACKATHON_CONFIG.meta.tagline}`,
-  description: `${HACKATHON_CONFIG.hero.description} Hosted at ${HACKATHON_CONFIG.meta.venue}, ${HACKATHON_CONFIG.meta.city}. Part of the ${HACKATHON_CONFIG.meta.series}.`,
+  title: "CalmStacks 24 Hour Hackathon 2026 | MCE Hassan",
+  description:
+    "Join the CalmStacks 24 Hour Hackathon at Malnad College of Engineering, Hassan on 25–26 September 2026. Build, solve and compete for a ₹50,000 prize pool.",
   keywords: [
     "hackathon",
-    "Calmstacks hackathon",
+    "CalmStacks hackathon",
     "24 hour hackathon",
     "Malnad College of Engineering",
     "MCE Hassan",
+    "Agamya Cyber Tech",
     "CSE Student Development Series",
     "coding competition",
     "software engineering",
     "offline hackathon",
+    "₹50,000 prize pool",
   ],
   openGraph: {
-    title: `${HACKATHON_CONFIG.meta.name} — ${HACKATHON_CONFIG.meta.tagline}`,
-    description: HACKATHON_CONFIG.hero.description,
+    title: "CALMSTACKS 24 HOUR HACKATHON",
+    description:
+      "24 hours. One build. ₹50,000 prize pool. 25–26 September 2026 at Malnad College of Engineering, Hassan.",
     type: "website",
     url: "https://calmstacks.com/hackathon",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CALMSTACKS 24 HOUR HACKATHON",
+    description:
+      "24 hours. One build. ₹50,000 prize pool. 25–26 September 2026 at Malnad College of Engineering, Hassan.",
   },
 };
 

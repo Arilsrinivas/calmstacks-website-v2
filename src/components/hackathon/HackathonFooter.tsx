@@ -4,7 +4,7 @@ import { ArrowUpRight, ArrowUp } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
 export default function HackathonFooter() {
-  const { footer, meta } = HACKATHON_CONFIG;
+  const { footer } = HACKATHON_CONFIG;
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -12,7 +12,7 @@ export default function HackathonFooter() {
 
   return (
     <footer className="relative py-16 bg-[#08080a] border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pb-12 border-b border-white/[0.08]">
           {/* Brand & Event Title */}
           <div className="space-y-2">
@@ -22,16 +22,19 @@ export default function HackathonFooter() {
                 alt="Calmstacks Logo"
                 className="h-6 w-auto"
               />
-              <span className="text-xl font-bold tracking-tight text-white">
+              <span className="text-xl font-bold tracking-tight text-white font-mono uppercase">
                 {footer.brandName}
               </span>
             </div>
             <p className="font-mono text-xs text-text-secondary">
-              {footer.eventTitle} • {meta.series}
+              {footer.eventTitle} • {footer.dates}
+            </p>
+            <p className="font-mono text-xs text-text-muted">
+              {footer.location}
             </p>
           </div>
 
-          {/* Social Links */}
+          {/* Social Links & Back to Top */}
           <div className="flex flex-wrap items-center gap-6 font-mono text-xs text-text-secondary">
             {footer.links.map((link) => (
               <a
@@ -46,7 +49,6 @@ export default function HackathonFooter() {
               </a>
             ))}
 
-            {/* Back to Top */}
             <button
               type="button"
               onClick={scrollToTop}
@@ -59,12 +61,10 @@ export default function HackathonFooter() {
           </div>
         </div>
 
-        {/* Bottom Credits & Copyright */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-text-muted">
+        {/* Bottom Copyright */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-text-muted">
           <div>{footer.copyright}</div>
-          <div className="text-center sm:text-right">
-            HOSTED AT MALNAD COLLEGE OF ENGINEERING, HASSAN
-          </div>
+          <div>IN COLLABORATION WITH AGAMYA CYBER TECH × MCE CSE</div>
         </div>
       </div>
     </footer>
