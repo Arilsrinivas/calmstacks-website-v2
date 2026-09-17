@@ -146,10 +146,12 @@ export const HACKATHON_CONFIG = {
   },
 
   prizes: {
-    sectionTag: "04 // RECOGNITION & REWARDS",
-    heading: "₹50,000\nPRIZE POOL",
-    prizePoolLabel: "PRIZE POOL",
+    sectionTag: "05 // PRIZES",
+    headingAmount: "₹50,000",
+    headingLabel: "PRIZE POOL",
     tagline: "BUILD. SOLVE. IMPACT.",
+    description:
+      "A total prize pool of ₹50,000 awaits the teams that rise to the challenge.",
     items: [
       {
         number: "01",
@@ -198,9 +200,14 @@ export const HACKATHON_CONFIG = {
   eligibility: {
     sectionTag: "06 // ELIGIBILITY & PARTICIPATION",
     heading: "WHO IS THIS FOR?",
-    statusText: "ELIGIBILITY DETAILS",
-    statusBadge: "COMING SOON",
-    description: "Open to passionate developers, designers, and innovators ready to spend 24 hours building impactful software.",
+    subheading: "BE A PART OF SOMETHING BIGGER.",
+    badge: "OPEN TO CSE STUDENTS",
+    description:
+      "This hackathon is open to CSE students of Malnad College of Engineering. Come together, build something meaningful, and put your skills to the test in a 24-hour offline sprint.",
+    cardTitle: "CSE STUDENT HACKATHON",
+    cardDescription: "Open to CSE students of Malnad College of Engineering.",
+    seriesLabel: ["CSE", "STUDENT", "DEVELOPMENT", "SERIES"],
+    footerNote: "MORE PARTICIPATION DETAILS COMING SOON",
   },
 
   venue: {
