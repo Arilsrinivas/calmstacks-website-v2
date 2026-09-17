@@ -54,7 +54,7 @@ export const HACKATHON_CONFIG = {
     headlineLine3: "HACKATHON",
     supportingHeadline: "BUILD. SOLVE. IMPACT.",
     description:
-      "The CalmStacks 24 Hour Hackathon is an intensive offline building sprint where participants turn ideas into working solutions within 24 hours. Conducted at Malnad College of Engineering, Hassan, as part of the CSE Student Development Series.",
+      "The CalmStacks 24 Hour Hackathon is an intensive offline building sprint where participants turn ideas into working solutions within 24 hours. Open to students from any college, conducted at Malnad College of Engineering, Hassan, as part of the CSE Student Development Series.",
     metadataItems: [
       { label: "DATES", value: "25–26 SEPTEMBER 2026" },
       { label: "START", value: "11:30 AM IST" },
@@ -84,7 +84,7 @@ export const HACKATHON_CONFIG = {
     intro:
       "The CalmStacks 24 Hour Hackathon is an intensive offline building sprint where participants turn ideas into working solutions within 24 hours.",
     subIntro:
-      "Conducted at Malnad College of Engineering, Hassan, the event brings together CSE students to build, collaborate, solve problems and present what they create. This event is part of the CSE Student Development Series.",
+      "Conducted at Malnad College of Engineering, Hassan, as part of the CSE Student Development Series, the event brings together passionate students from any college, branch, or year to build, collaborate, solve problems and present what they create.",
   },
 
   whatYouWillDo: [
@@ -223,15 +223,22 @@ export const HACKATHON_CONFIG = {
 
   eligibility: {
     sectionTag: "07 // ELIGIBILITY & PARTICIPATION",
-    heading: "OPEN TO CSE STUDENTS",
+    heading: "OPEN TO ALL STUDENTS",
     subheading: "BE A PART OF SOMETHING BIGGER.",
+    badge: "OPEN TO ALL STUDENTS",
     description:
-      "The hackathon is open to Computer Science & Engineering students of Malnad College of Engineering. Come together, build something meaningful and put your technical skills to the test in a 24-hour offline sprint.",
-    cardTitle: "CSE STUDENT HACKATHON",
+      "The CalmStacks 24 Hour Hackathon is open to students from any college, regardless of branch or year. If you're passionate about building, solving real problems and creating meaningful solutions, you're welcome to join.",
+    cardTitle: "OPEN HACKATHON",
     cardDescription:
-      "Open to Computer Science & Engineering students of Malnad College of Engineering.",
-    seriesLabel: ["CSE", "STUDENT", "DEVELOPMENT", "SERIES"],
-    institutionLabel: ["MALNAD", "COLLEGE OF", "ENGINEERING"],
+      "The CalmStacks 24 Hour Hackathon is open to students from any college, regardless of branch or year. If you're passionate about building, solving real problems and creating meaningful solutions, you're welcome to join.",
+    prominentMotto: "ANY COLLEGE. ANY BRANCH. ANY YEAR.",
+    seriesLabel: [
+      "CSE",
+      "STUDENT",
+      "DEVELOPMENT",
+      "SERIES",
+    ],
+    seriesSubtext: "AN INITIATIVE BY CALMSTACKS AT MALNAD COLLEGE OF ENGINEERING",
   },
 
   participation: {
@@ -239,20 +246,26 @@ export const HACKATHON_CONFIG = {
     whoShouldJoinSubtitle: "STUDENTS WHO WANT TO:",
     reasons: [
       "BUILD REAL PROJECTS",
-      "SOLVE PROBLEMS",
+      "SOLVE MEANINGFUL PROBLEMS",
       "LEARN BY DOING",
       "WORK UNDER PRESSURE",
-      "COLLABORATE",
+      "COLLABORATE WITH DIVERSE MINDS",
       "PRESENT THEIR IDEAS",
+      "GAIN EXPOSURE AND NETWORK",
+      "BE PART OF A THRIVING TECH COMMUNITY",
     ],
+    whoShouldJoinFooter: "ANY COLLEGE. ANY BRANCH. ANY YEAR.",
     whatToBringTitle: "WHAT TO BRING",
+    whatToBringSubtitle: "PREPARATION & ESSENTIALS",
     itemsToBring: [
       "YOUR LAPTOP",
       "YOUR DEVELOPMENT TOOLS",
       "YOUR IDEAS",
       "YOUR TEAMMATES",
-      "YOUR BUILDING MINDSET",
+      "A CHARGER & ESSENTIAL ACCESSORIES",
+      "ENTHUSIASM AND A PROBLEM-SOLVING MINDSET",
     ],
+    whatToBringFooter: "IDEAS + PEOPLE + 24 HOURS = IMPACT",
   },
 
   venue: {
@@ -305,7 +318,7 @@ export const HACKATHON_CONFIG = {
         id: "faq-eligibility",
         question: "WHO CAN PARTICIPATE?",
         answer:
-          "The hackathon is open to CSE students of Malnad College of Engineering.",
+          "Students from any college, any branch and any year can participate.",
       },
       {
         id: "faq-bring",
