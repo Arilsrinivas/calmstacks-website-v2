@@ -63,12 +63,17 @@ export default function HackathonRegisterModal({
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  // Team size limit: Maximum 4 members in total (1 Lead + up to 3 additional members)
+  const MAX_TEAM_MEMBERS = 4;
+  const MAX_ADDITIONAL_MEMBERS = MAX_TEAM_MEMBERS - 1; // 3 additional members
+
   // Dynamic fee calculation: 1 (Lead) + added members
   const totalMemberCount = 1 + members.length;
   const feeAmount = totalMemberCount * 300;
 
-  // Add another team member
+  // Add another team member (up to max 4 total members)
   const handleAddMember = () => {
+    if (members.length >= MAX_ADDITIONAL_MEMBERS) return;
     setMembers((prev) => [...prev, { name: "", usn: "", email: "", phone: "" }]);
   };
 
@@ -155,6 +160,11 @@ export default function HackathonRegisterModal({
         setErrorMessage(`Please enter the USN for Member ${i + 2}.`);
         return;
       }
+    }
+
+    if (members.length > MAX_ADDITIONAL_MEMBERS) {
+      setErrorMessage(`Maximum team size is ${MAX_TEAM_MEMBERS} members (1 Lead + ${MAX_ADDITIONAL_MEMBERS} Teammates).`);
+      return;
     }
 
     setStep("payment");
@@ -432,7 +442,7 @@ export default function HackathonRegisterModal({
                   <div className="w-full px-3.5 py-2.5 rounded-lg bg-white/[0.02] border border-white/15 text-white text-sm flex items-center justify-between">
                     <span className="font-mono text-xs text-cyan-400 font-semibold flex items-center gap-1.5">
                       <Users className="w-3.5 h-3.5" />
-                      <span>{totalMemberCount === 1 ? "SOLO (1 MEMBER)" : `${totalMemberCount} MEMBERS`}</span>
+                      <span>{totalMemberCount === 1 ? "SOLO (1 MEMBER)" : `${totalMemberCount} OF ${MAX_TEAM_MEMBERS} MEMBERS`}</span>
                     </span>
                     <span className="font-mono text-xs text-emerald-400">₹{feeAmount.toLocaleString("en-IN")} Total</span>
                   </div>
@@ -536,22 +546,24 @@ export default function HackathonRegisterModal({
                 </div>
               </div>
 
-              {/* SECTION: ADDITIONAL TEAM MEMBERS (DYNAMIC ADD & REMOVE) */}
+              {/* SECTION: ADDITIONAL TEAM MEMBERS (DYNAMIC ADD & REMOVE - MAX 4 MEMBERS TOTAL) */}
               <div className="space-y-3.5">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2 font-mono text-xs text-white uppercase font-semibold">
                     <Users className="w-4 h-4 text-cyan-400" />
-                    <span>ADDITIONAL TEAM MEMBERS ({members.length})</span>
+                    <span>ADDITIONAL TEAM MEMBERS ({members.length} / {MAX_ADDITIONAL_MEMBERS})</span>
                   </div>
                   <span className="text-[11px] font-mono text-text-muted">
-                    Add teammates as needed
+                    {totalMemberCount < MAX_TEAM_MEMBERS
+                      ? `Max ${MAX_TEAM_MEMBERS} members per squad`
+                      : `Max squad size reached (4/4)`}
                   </span>
                 </div>
 
                 {members.length === 0 ? (
                   <div className="p-4 rounded-xl border border-dashed border-white/15 bg-white/[0.01] text-center space-y-2">
                     <p className="text-xs text-text-muted font-light">
-                      Currently registering as <span className="text-white font-medium">Solo (1 Member: ₹300)</span>. Have teammates?
+                      Currently registering as <span className="text-white font-medium">Solo (1 Member: ₹300)</span>. Have teammates? (Up to 4 members total)
                     </p>
                     <button
                       type="button"
@@ -559,7 +571,7 @@ export default function HackathonRegisterModal({
                       className="px-4 py-2 rounded-lg bg-primary/10 hover:bg-primary/20 border border-primary/30 text-primary font-mono text-xs inline-flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <UserPlus className="w-3.5 h-3.5" />
-                      <span>+ Add Team Member (Member 2)</span>
+                      <span>+ Add Team Member (Member 2 of {MAX_TEAM_MEMBERS})</span>
                     </button>
                   </div>
                 ) : (
@@ -651,15 +663,22 @@ export default function HackathonRegisterModal({
                   ))
                 )}
 
-                {members.length > 0 && (
+                {members.length > 0 && members.length < MAX_ADDITIONAL_MEMBERS && (
                   <button
                     type="button"
                     onClick={handleAddMember}
                     className="w-full py-2.5 rounded-xl border border-dashed border-white/20 hover:border-primary/50 text-text-secondary hover:text-white font-mono text-xs flex items-center justify-center gap-2 transition-colors bg-white/[0.01] hover:bg-white/[0.03] cursor-pointer"
                   >
                     <UserPlus className="w-3.5 h-3.5 text-primary" />
-                    <span>+ Add Team Member (Member {members.length + 2})</span>
+                    <span>+ Add Team Member (Member {members.length + 2} of {MAX_TEAM_MEMBERS})</span>
                   </button>
+                )}
+
+                {members.length >= MAX_ADDITIONAL_MEMBERS && (
+                  <div className="p-3 rounded-xl border border-primary/30 bg-primary/[0.04] text-center font-mono text-xs text-primary flex items-center justify-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-primary" />
+                    <span>Maximum team size reached (4 of 4 members)</span>
+                  </div>
                 )}
               </div>
 

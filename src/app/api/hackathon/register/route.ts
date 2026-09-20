@@ -44,6 +44,15 @@ export async function POST(request: Request) {
       }
     }
 
+    if (members.length > 3) {
+      return NextResponse.json(
+        {
+          error: "Maximum team size is 4 members (1 Lead + up to 3 teammates).",
+        },
+        { status: 400 }
+      );
+    }
+
     const totalMembers = 1 + members.length;
     const paymentStatus = body.paymentStatus || "PAID";
     const paymentAmount =

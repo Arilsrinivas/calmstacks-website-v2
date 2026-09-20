@@ -35,7 +35,7 @@ export const HACKATHON_CONFIG = {
     registrationOpen: true,
     prizePoolTotal: "₹50,000",
     feePerMember: "₹300 / head",
-    teamSizeLimit: "Flexible (Solo or Squads)",
+    teamSizeLimit: "Flexible (1 to 4 Members)",
     foodIncluded: "Full Meals, Snacks & Refreshments Included",
     certificates: "Certificates for All Participants",
   },
