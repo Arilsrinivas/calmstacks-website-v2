@@ -81,13 +81,6 @@ export default function HackathonNav({ onOpenRegister }: HackathonNavProps) {
 
         {/* Right Action: Register CTA */}
         <div className="hidden md:flex items-center gap-4">
-          <button
-            type="button"
-            onClick={onOpenRegister}
-            className="font-mono text-xs font-semibold px-5 py-2.5 rounded-full bg-white text-black hover:bg-white/90 transition-all tracking-wider flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer"
-          >
-            <span>REGISTER NOW</span>
-          </button>
         </div>
 
         {/* Mobile Hamburger Toggle */}
