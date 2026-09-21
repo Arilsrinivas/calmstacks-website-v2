@@ -15,14 +15,6 @@ import HackathonVenue from "@/components/hackathon/HackathonVenue";
 import HackathonFaq from "@/components/hackathon/HackathonFaq";
 import HackathonFinalCta from "@/components/hackathon/HackathonFinalCta";
 import HackathonFooter from "@/components/hackathon/HackathonFooter";
-import HackathonRegisterModal from "@/components/hackathon/HackathonRegisterModal";
-
-export default function HackathonPage() {
-  const [registerModalOpen, setRegisterModalOpen] = useState(false);
-
-  const handleOpenRegister = () => {
-    setRegisterModalOpen(true);
-  };
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-primary/30 selection:text-white relative font-sans antialiased overflow-x-hidden">
