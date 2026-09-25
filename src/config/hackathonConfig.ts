@@ -114,12 +114,50 @@ export const HACKATHON_CONFIG = {
     sectionTag: "03 // THE CHALLENGE",
     heading: "THE CHALLENGE",
     subheading: "24 HOURS. ONE BUILD.",
-    description:
+    lockedDescription:
       "You will receive the challenge at the beginning of the hackathon. Your task is to understand the problem, plan your approach and turn your idea into a working solution before the 24-hour sprint ends.",
     stackTitle: "NO PRE-DEFINED STACK",
     stackSubheading: "BUILD WITH THE TOOLS YOU KNOW.",
     stackDescription:
       "Use the technologies, frameworks and development tools that best suit your solution.",
+
+    // Official Problem Statement (revealed when unlocked from Admin Panel)
+    problemStatement: {
+      track: "CYBERSECURITY & AI",
+      title: "AI-Assisted Intelligent Data Recovery and Digital Evidence Reconstruction",
+      tags: ["CYBERSECURITY", "AI / ML", "DIGITAL FORENSICS", "STORAGE INTEGRITY"],
+      background:
+        "Accidental deletion, file-system corruption, damaged storage, ransomware incidents, and malicious attempts to destroy evidence can result in partial or complete loss of important data. Traditional recovery tools often focus only on retrieving recoverable files, while recovered data may be fragmented, corrupted, duplicated, or difficult to interpret.",
+      statement:
+        "Design and develop an AI-assisted data recovery solution that can help identify, reconstruct, classify, and prioritize recoverable digital information from damaged, deleted, or partially corrupted storage data. The system should go beyond simple file recovery by using intelligent analysis to determine relationships between recovered fragments, assess data integrity, and assist investigators or users in understanding what information can realistically be restored.",
+      keyObjectives: [
+        {
+          number: "01",
+          title: "Intelligent Fragment Reconstruction",
+          desc: "Analyze and piece together fragmented file chunks, binary headers, and dangling clusters.",
+        },
+        {
+          number: "02",
+          title: "Data Integrity & Corruption Assessment",
+          desc: "Determine which portions of recovered data are intact, damaged, or corrupted.",
+        },
+        {
+          number: "03",
+          title: "Classification & Prioritization",
+          desc: "Group and prioritize high-value artifacts (documents, database logs, photos, system traces).",
+        },
+        {
+          number: "04",
+          title: "Investigative Decision Support",
+          desc: "Provide actionable insights to help investigators or users understand what can realistically be restored.",
+        },
+      ],
+      deliverables: [
+        "Working functional prototype (CLI, Web interface, or Desktop tool)",
+        "Demonstration on sample corrupted, fragmented, or deleted storage data",
+        "Technical architecture presentation explaining the AI and reconstruction models used",
+      ],
+    },
   },
 
   buildFormat: [

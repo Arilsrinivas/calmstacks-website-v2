@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { ArrowUpRight, ArrowUp } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
 
@@ -51,6 +52,13 @@ export default function HackathonFooter() {
                 <ArrowUpRight className="w-3 h-3 text-text-muted" />
               </a>
             ))}
+
+            <Link
+              href="/hackathon/admin"
+              className="hover:text-primary transition-colors flex items-center gap-1 text-text-muted text-[11px]"
+            >
+              <span>ADMIN CONSOLE</span>
+            </Link>
 
             <button
               type="button"
