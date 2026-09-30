@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import {
   Download,
@@ -9,48 +9,44 @@ import {
   Calendar,
   MapPin,
   Clock,
-  Layers,
   Search,
-  ExternalLink,
   ShieldCheck,
   FileArchive,
   Sparkles,
+  Users,
+  Trophy,
 } from "lucide-react";
 import { HACKATHON_CONFIG } from "@/config/hackathonConfig";
+import participantsData from "@/config/hackathonParticipants.json";
 
-const PARTICIPANTS = [
-  { name: "Abhishek H D", file: "abhishek.png" },
-  { name: "Akanksha", file: "akanksha.png" },
-  { name: "Ashwini", file: "ashwini.png" },
-  { name: "Deepika", file: "deepika.png" },
-  { name: "Dhathri", file: "dhathri.png" },
-  { name: "Ganavi", file: "ganavi.png" },
-  { name: "Giridhar", file: "giridhar.png" },
-  { name: "Gnanesh", file: "gnanesh.png" },
-  { name: "Greeshma", file: "greeshma.png" },
-  { name: "Jayasham", file: "jayasham.png" },
-  { name: "Jaydev", file: "jaydev.png" },
-  { name: "Jeevanmai", file: "jeevanmai.png" },
-  { name: "Lohith", file: "lohith.png" },
-  { name: "Meghana", file: "meghana.png" },
-  { name: "Monisha", file: "monisha.png" },
-  { name: "Nithya", file: "nithya.png" },
-  { name: "Samhith", file: "samhith.png" },
-  { name: "Sukruth", file: "sukruth.png" },
-  { name: "Zaid", file: "zaid.png" },
-];
+interface Participant {
+  num: string;
+  team: string;
+  member: string;
+  name: string;
+  file: string;
+}
 
 export default function HackathonCompleted() {
   const [searchQuery, setSearchQuery] = useState("");
-  const zipDownloadUrl = "/certificates/CalmStacks_Hackathon_2026_Certificates.zip";
+  const zipDownloadUrl = "/certificates/CalmStacks_24Hour_Hackathon_All_Certificates.zip";
 
-  const filteredParticipants = PARTICIPANTS.filter((p) =>
-    p.name.toLowerCase().includes(searchQuery.toLowerCase().trim())
-  );
+  const participants: Participant[] = participantsData as Participant[];
+
+  const filteredParticipants = useMemo(() => {
+    if (!searchQuery.trim()) return participants;
+    const query = searchQuery.toLowerCase().trim();
+    return participants.filter(
+      (p) =>
+        p.name.toLowerCase().includes(query) ||
+        p.team.toLowerCase().includes(query) ||
+        p.num.includes(query)
+    );
+  }, [searchQuery, participants]);
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-primary/30 selection:text-white font-sans antialiased overflow-x-hidden">
-      {/* Top Concluded Header Navigation */}
+      {/* Top Navigation */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-white/[0.08]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
           <div className="flex items-center gap-4">
@@ -72,7 +68,7 @@ export default function HackathonCompleted() {
             <div className="hidden sm:flex items-center gap-2 pl-4 border-l border-white/15">
               <span className="inline-block w-2 h-2 rounded-full bg-emerald-400" />
               <span className="font-mono text-[10px] uppercase tracking-widest text-emerald-400 font-semibold">
-                EVENT CONCLUDED // SEPT 2026
+                EVENT CONCLUDED // 25–26 SEPT 2026
               </span>
             </div>
           </div>
@@ -87,20 +83,20 @@ export default function HackathonCompleted() {
 
             <a
               href={zipDownloadUrl}
-              download="CalmStacks_Hackathon_2026_Certificates.zip"
+              download="CalmStacks_24Hour_Hackathon_All_Certificates.zip"
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary hover:bg-primary/90 text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-md shadow-primary/20 hover:scale-105 active:scale-95"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>DOWNLOAD CERTIFICATES</span>
+              <span>DOWNLOAD CERTIFICATES (.ZIP)</span>
             </a>
           </div>
         </div>
       </header>
 
-      {/* Hero Section: Event Completion Announcement */}
+      {/* Hero Section: Completion Announcement */}
       <section className="relative pt-32 sm:pt-40 pb-20 border-b border-white/10 overflow-hidden">
-        {/* Subtle Background Glows */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-primary/10 blur-[130px] rounded-full pointer-events-none" />
+        {/* Subtle Ambient Glows */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[350px] bg-primary/10 blur-[130px] rounded-full pointer-events-none" />
         <div className="absolute top-1/3 right-1/4 w-[350px] h-[250px] bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
@@ -119,7 +115,7 @@ export default function HackathonCompleted() {
               </span>
             </h1>
             <p className="max-w-3xl mx-auto text-base sm:text-lg text-text-secondary font-light leading-relaxed">
-              The CalmStacks 24-Hour Hackathon at Malnad College of Engineering, Hassan has officially concluded. Over 24 intensive hours, builders pushed limits to engineer AI-driven digital recovery and forensic solutions.
+              The CalmStacks 24-Hour Hackathon at Malnad College of Engineering, Hassan has officially concluded. Across 24 intensive hours, 76 teams and 250 participants engineered AI-driven solutions for digital evidence reconstruction and intelligent data recovery.
             </p>
           </div>
 
@@ -130,6 +126,10 @@ export default function HackathonCompleted() {
               <span>24 CONSECUTIVE HOURS</span>
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/10 bg-white/[0.02]">
+              <Users className="w-3.5 h-3.5 text-primary" />
+              <span>250 PARTICIPANTS • 76 TEAMS</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/10 bg-white/[0.02]">
               <Calendar className="w-3.5 h-3.5 text-primary" />
               <span>25–26 SEPTEMBER 2026</span>
             </div>
@@ -138,7 +138,7 @@ export default function HackathonCompleted() {
               <span>MCE HASSAN, KARNATAKA</span>
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/10 bg-white/[0.02]">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <Trophy className="w-3.5 h-3.5 text-emerald-400" />
               <span>₹50,000 PRIZE POOL & INTERNSHIPS</span>
             </div>
           </div>
@@ -166,7 +166,7 @@ export default function HackathonCompleted() {
                 PARTICIPATION CERTIFICATES
               </h2>
               <p className="text-sm sm:text-base text-text-secondary leading-relaxed">
-                All certificates of completion for participating teams and builders have been verified and packaged into an official high-resolution archive (.ZIP).
+                Official certificates of participation for all 250 registered builders and teams have been verified, signed by the organizers & faculty coordinators, and packaged into a high-resolution archive (.ZIP).
               </p>
             </div>
 
@@ -174,7 +174,7 @@ export default function HackathonCompleted() {
             <div className="pt-2 flex flex-col items-center justify-center gap-4">
               <a
                 href={zipDownloadUrl}
-                download="CalmStacks_Hackathon_2026_Certificates.zip"
+                download="CalmStacks_24Hour_Hackathon_All_Certificates.zip"
                 className="inline-flex items-center gap-3 px-8 py-5 rounded-2xl bg-gradient-to-r from-primary to-blue-600 hover:from-primary/90 hover:to-blue-600/90 text-white font-mono text-sm sm:text-base font-bold uppercase tracking-wider shadow-xl shadow-primary/25 hover:shadow-primary/40 hover:scale-105 active:scale-95 transition-all cursor-pointer"
               >
                 <Download className="w-5 h-5" />
@@ -184,12 +184,12 @@ export default function HackathonCompleted() {
               <div className="flex flex-wrap items-center justify-center gap-4 font-mono text-xs text-text-muted">
                 <span className="flex items-center gap-1.5">
                   <FileArchive className="w-3.5 h-3.5 text-primary" />
-                  <span>FILE SIZE: ~32 MB</span>
+                  <span>ARCHIVE SIZE: ~74 MB</span>
                 </span>
                 <span>•</span>
-                <span>19 INDIVIDUAL CERTIFICATES</span>
+                <span>250 OFFICIAL CERTIFICATES</span>
                 <span>•</span>
-                <span>HIGH-RESOLUTION PNG</span>
+                <span>HIGH-RESOLUTION JPG</span>
               </div>
             </div>
           </div>
@@ -202,53 +202,55 @@ export default function HackathonCompleted() {
                   HONOR ROLL
                 </span>
                 <h3 className="text-2xl font-bold text-white uppercase font-mono tracking-tight mt-1">
-                  OFFICIAL PARTICIPANTS ({PARTICIPANTS.length})
+                  OFFICIAL PARTICIPANTS ({participants.length})
                 </h3>
                 <p className="text-xs text-text-muted font-mono mt-1">
-                  The certificates for all listed participants are included in the downloadable ZIP bundle.
+                  Search by your name or team ID (e.g. HACK-044) to verify your participation.
                 </p>
               </div>
 
               {/* Search Filter */}
-              <div className="relative w-full sm:w-64">
+              <div className="relative w-full sm:w-72">
                 <Search className="w-4 h-4 text-text-muted absolute left-3 top-1/2 -translate-y-1/2" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search participant name..."
+                  placeholder="Search name, team (e.g. HACK-001)..."
                   className="w-full pl-9 pr-3 py-2 rounded-lg border border-white/15 bg-white/5 font-mono text-xs text-white placeholder-text-muted focus:outline-none focus:border-primary transition-colors"
                 />
               </div>
             </div>
 
             {/* Participants Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-              {filteredParticipants.map((p, index) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 max-h-[550px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-white/10">
+              {filteredParticipants.map((p) => (
                 <div
-                  key={p.name}
+                  key={p.file}
                   className="p-4 rounded-xl border border-white/10 bg-white/[0.02] hover:border-primary/40 hover:bg-white/[0.04] transition-all flex items-center justify-between gap-3 group"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs text-text-muted w-6">
-                      {String(index + 1).padStart(2, "0")}
+                    <span className="font-mono text-xs text-text-muted w-7 shrink-0">
+                      #{p.num}
                     </span>
                     <div className="space-y-0.5">
                       <div className="font-medium text-sm text-white group-hover:text-primary transition-colors">
                         {p.name}
                       </div>
-                      <div className="font-mono text-[10px] text-text-muted uppercase flex items-center gap-1">
+                      <div className="font-mono text-[10px] text-text-muted uppercase flex items-center gap-1.5">
+                        <span className="text-primary font-semibold">{p.team}</span>
+                        <span>•</span>
                         <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-                        <span>Verified Certificate</span>
+                        <span>Verified</span>
                       </div>
                     </div>
                   </div>
 
                   <a
                     href={zipDownloadUrl}
-                    download="CalmStacks_Hackathon_2026_Certificates.zip"
-                    title={`Download certificate for ${p.name}`}
-                    className="p-2 rounded-lg border border-white/10 hover:border-primary text-text-muted hover:text-white transition-colors"
+                    download="CalmStacks_24Hour_Hackathon_All_Certificates.zip"
+                    title={`Download certificate bundle for ${p.name}`}
+                    className="p-2 rounded-lg border border-white/10 hover:border-primary text-text-muted hover:text-white transition-colors shrink-0"
                   >
                     <Download className="w-3.5 h-3.5" />
                   </a>

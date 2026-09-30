@@ -1,0 +1,1752 @@
+[
+  {
+    "num": "001",
+    "team": "HACK-001",
+    "member": "M1",
+    "name": "Harish H H",
+    "file": "001_HACK-001-M1_Harish_H_H.jpg"
+  },
+  {
+    "num": "002",
+    "team": "HACK-001",
+    "member": "M2",
+    "name": "Manyashree K S",
+    "file": "002_HACK-001-M2_Manyashree_K_S.jpg"
+  },
+  {
+    "num": "003",
+    "team": "HACK-002",
+    "member": "M1",
+    "name": "Santhosh J R",
+    "file": "003_HACK-002-M1_Santhosh_J_R.jpg"
+  },
+  {
+    "num": "004",
+    "team": "HACK-003",
+    "member": "M1",
+    "name": "Vismaya K M",
+    "file": "004_HACK-003-M1_Vismaya_K_M.jpg"
+  },
+  {
+    "num": "005",
+    "team": "HACK-003",
+    "member": "M2",
+    "name": "Sinchana C S",
+    "file": "005_HACK-003-M2_Sinchana_C_S.jpg"
+  },
+  {
+    "num": "006",
+    "team": "HACK-003",
+    "member": "M3",
+    "name": "Tulasi GE",
+    "file": "006_HACK-003-M3_Tulasi_GE.jpg"
+  },
+  {
+    "num": "007",
+    "team": "HACK-003",
+    "member": "M4",
+    "name": "Sowjanya L K",
+    "file": "007_HACK-003-M4_Sowjanya_L_K.jpg"
+  },
+  {
+    "num": "008",
+    "team": "HACK-004",
+    "member": "M1",
+    "name": "NIREEKSHA",
+    "file": "008_HACK-004-M1_NIREEKSHA.jpg"
+  },
+  {
+    "num": "009",
+    "team": "HACK-004",
+    "member": "M2",
+    "name": "LIKITHA D M",
+    "file": "009_HACK-004-M2_LIKITHA_D_M.jpg"
+  },
+  {
+    "num": "010",
+    "team": "HACK-004",
+    "member": "M3",
+    "name": "LAKSHMI Y B",
+    "file": "010_HACK-004-M3_LAKSHMI_Y_B.jpg"
+  },
+  {
+    "num": "011",
+    "team": "HACK-004",
+    "member": "M4",
+    "name": "LATHASHREE C K",
+    "file": "011_HACK-004-M4_LATHASHREE_C_K.jpg"
+  },
+  {
+    "num": "012",
+    "team": "HACK-005",
+    "member": "M1",
+    "name": "Deekshith G",
+    "file": "012_HACK-005-M1_Deekshith_G.jpg"
+  },
+  {
+    "num": "013",
+    "team": "HACK-005",
+    "member": "M2",
+    "name": "Kiran M S",
+    "file": "013_HACK-005-M2_Kiran_M_S.jpg"
+  },
+  {
+    "num": "014",
+    "team": "HACK-005",
+    "member": "M3",
+    "name": "Bhavish B N",
+    "file": "014_HACK-005-M3_Bhavish_B_N.jpg"
+  },
+  {
+    "num": "015",
+    "team": "HACK-005",
+    "member": "M4",
+    "name": "Charan Gowda H D",
+    "file": "015_HACK-005-M4_Charan_Gowda_H_D.jpg"
+  },
+  {
+    "num": "016",
+    "team": "HACK-006",
+    "member": "M1",
+    "name": "Varshitha K S",
+    "file": "016_HACK-006-M1_Varshitha_K_S.jpg"
+  },
+  {
+    "num": "017",
+    "team": "HACK-006",
+    "member": "M2",
+    "name": "Spandana Y",
+    "file": "017_HACK-006-M2_Spandana_Y.jpg"
+  },
+  {
+    "num": "018",
+    "team": "HACK-006",
+    "member": "M3",
+    "name": "Rishitha",
+    "file": "018_HACK-006-M3_Rishitha.jpg"
+  },
+  {
+    "num": "019",
+    "team": "HACK-006",
+    "member": "M4",
+    "name": "Raksha K R",
+    "file": "019_HACK-006-M4_Raksha_K_R.jpg"
+  },
+  {
+    "num": "020",
+    "team": "HACK-007",
+    "member": "M1",
+    "name": "Pooja H K",
+    "file": "020_HACK-007-M1_Pooja_H_K.jpg"
+  },
+  {
+    "num": "021",
+    "team": "HACK-007",
+    "member": "M2",
+    "name": "Misba Khanum",
+    "file": "021_HACK-007-M2_Misba_Khanum.jpg"
+  },
+  {
+    "num": "022",
+    "team": "HACK-007",
+    "member": "M3",
+    "name": "Nidhi K C",
+    "file": "022_HACK-007-M3_Nidhi_K_C.jpg"
+  },
+  {
+    "num": "023",
+    "team": "HACK-007",
+    "member": "M4",
+    "name": "Mizba Begum",
+    "file": "023_HACK-007-M4_Mizba_Begum.jpg"
+  },
+  {
+    "num": "024",
+    "team": "HACK-008",
+    "member": "M1",
+    "name": "Abhishek Patil",
+    "file": "024_HACK-008-M1_Abhishek_Patil.jpg"
+  },
+  {
+    "num": "025",
+    "team": "HACK-008",
+    "member": "M2",
+    "name": "DHEERAJ MAHALTKAR",
+    "file": "025_HACK-008-M2_DHEERAJ_MAHALTKAR.jpg"
+  },
+  {
+    "num": "026",
+    "team": "HACK-008",
+    "member": "M3",
+    "name": "Devika D",
+    "file": "026_HACK-008-M3_Devika_D.jpg"
+  },
+  {
+    "num": "027",
+    "team": "HACK-009",
+    "member": "M1",
+    "name": "Fateen Ahmed",
+    "file": "027_HACK-009-M1_Fateen_Ahmed.jpg"
+  },
+  {
+    "num": "028",
+    "team": "HACK-009",
+    "member": "M2",
+    "name": "Harsha P Vasista",
+    "file": "028_HACK-009-M2_Harsha_P_Vasista.jpg"
+  },
+  {
+    "num": "029",
+    "team": "HACK-009",
+    "member": "M3",
+    "name": "Incharra M",
+    "file": "029_HACK-009-M3_Incharra_M.jpg"
+  },
+  {
+    "num": "030",
+    "team": "HACK-009",
+    "member": "M4",
+    "name": "H S Harshith Salian",
+    "file": "030_HACK-009-M4_H_S_Harshith_Salian.jpg"
+  },
+  {
+    "num": "031",
+    "team": "HACK-010",
+    "member": "M1",
+    "name": "Suhas H S",
+    "file": "031_HACK-010-M1_Suhas_H_S.jpg"
+  },
+  {
+    "num": "032",
+    "team": "HACK-010",
+    "member": "M2",
+    "name": "Skanda Koushik K R",
+    "file": "032_HACK-010-M2_Skanda_Koushik_K_R.jpg"
+  },
+  {
+    "num": "033",
+    "team": "HACK-010",
+    "member": "M3",
+    "name": "Sukruth R Gowda",
+    "file": "033_HACK-010-M3_Sukruth_R_Gowda.jpg"
+  },
+  {
+    "num": "034",
+    "team": "HACK-010",
+    "member": "M4",
+    "name": "Samhith M",
+    "file": "034_HACK-010-M4_Samhith_M.jpg"
+  },
+  {
+    "num": "035",
+    "team": "HACK-011",
+    "member": "M1",
+    "name": "Chandanshree",
+    "file": "035_HACK-011-M1_Chandanshree.jpg"
+  },
+  {
+    "num": "036",
+    "team": "HACK-012",
+    "member": "M1",
+    "name": "Parinitha Gowda",
+    "file": "036_HACK-012-M1_Parinitha_Gowda.jpg"
+  },
+  {
+    "num": "037",
+    "team": "HACK-012",
+    "member": "M2",
+    "name": "Manyatha A K",
+    "file": "037_HACK-012-M2_Manyatha_A_K.jpg"
+  },
+  {
+    "num": "038",
+    "team": "HACK-012",
+    "member": "M3",
+    "name": "Shreya Raj LK",
+    "file": "038_HACK-012-M3_Shreya_Raj_LK.jpg"
+  },
+  {
+    "num": "039",
+    "team": "HACK-012",
+    "member": "M4",
+    "name": "Vismitha Gowda TS",
+    "file": "039_HACK-012-M4_Vismitha_Gowda_TS.jpg"
+  },
+  {
+    "num": "040",
+    "team": "HACK-013",
+    "member": "M1",
+    "name": "Pragna Murthy",
+    "file": "040_HACK-013-M1_Pragna_Murthy.jpg"
+  },
+  {
+    "num": "041",
+    "team": "HACK-013",
+    "member": "M2",
+    "name": "Sakshi K M",
+    "file": "041_HACK-013-M2_Sakshi_K_M.jpg"
+  },
+  {
+    "num": "042",
+    "team": "HACK-013",
+    "member": "M3",
+    "name": "Saanvi P",
+    "file": "042_HACK-013-M3_Saanvi_P.jpg"
+  },
+  {
+    "num": "043",
+    "team": "HACK-013",
+    "member": "M4",
+    "name": "Sinchana M",
+    "file": "043_HACK-013-M4_Sinchana_M.jpg"
+  },
+  {
+    "num": "044",
+    "team": "HACK-014",
+    "member": "M1",
+    "name": "Thanushree J",
+    "file": "044_HACK-014-M1_Thanushree_J.jpg"
+  },
+  {
+    "num": "045",
+    "team": "HACK-014",
+    "member": "M2",
+    "name": "Jayalakshmi G",
+    "file": "045_HACK-014-M2_Jayalakshmi_G.jpg"
+  },
+  {
+    "num": "046",
+    "team": "HACK-014",
+    "member": "M3",
+    "name": "Likhitha",
+    "file": "046_HACK-014-M3_Likhitha.jpg"
+  },
+  {
+    "num": "047",
+    "team": "HACK-015",
+    "member": "M1",
+    "name": "Kavana S",
+    "file": "047_HACK-015-M1_Kavana_S.jpg"
+  },
+  {
+    "num": "048",
+    "team": "HACK-015",
+    "member": "M2",
+    "name": "Monisha S M",
+    "file": "048_HACK-015-M2_Monisha_S_M.jpg"
+  },
+  {
+    "num": "049",
+    "team": "HACK-015",
+    "member": "M3",
+    "name": "Manya V",
+    "file": "049_HACK-015-M3_Manya_V.jpg"
+  },
+  {
+    "num": "050",
+    "team": "HACK-016",
+    "member": "M1",
+    "name": "Deepak Poojari",
+    "file": "050_HACK-016-M1_Deepak_Poojari.jpg"
+  },
+  {
+    "num": "051",
+    "team": "HACK-016",
+    "member": "M2",
+    "name": "Rajat N Gouda",
+    "file": "051_HACK-016-M2_Rajat_N_Gouda.jpg"
+  },
+  {
+    "num": "052",
+    "team": "HACK-016",
+    "member": "M3",
+    "name": "Chandan M Naik",
+    "file": "052_HACK-016-M3_Chandan_M_Naik.jpg"
+  },
+  {
+    "num": "053",
+    "team": "HACK-016",
+    "member": "M4",
+    "name": "Vinay M Patgar",
+    "file": "053_HACK-016-M4_Vinay_M_Patgar.jpg"
+  },
+  {
+    "num": "054",
+    "team": "HACK-017",
+    "member": "M1",
+    "name": "Prashanth G",
+    "file": "054_HACK-017-M1_Prashanth_G.jpg"
+  },
+  {
+    "num": "055",
+    "team": "HACK-017",
+    "member": "M2",
+    "name": "Dinesh",
+    "file": "055_HACK-017-M2_Dinesh.jpg"
+  },
+  {
+    "num": "056",
+    "team": "HACK-017",
+    "member": "M3",
+    "name": "Usha p",
+    "file": "056_HACK-017-M3_Usha_p.jpg"
+  },
+  {
+    "num": "057",
+    "team": "HACK-017",
+    "member": "M4",
+    "name": "Divya B L",
+    "file": "057_HACK-017-M4_Divya_B_L.jpg"
+  },
+  {
+    "num": "058",
+    "team": "HACK-018",
+    "member": "M1",
+    "name": "Rakshith P Bangre",
+    "file": "058_HACK-018-M1_Rakshith_P_Bangre.jpg"
+  },
+  {
+    "num": "059",
+    "team": "HACK-018",
+    "member": "M2",
+    "name": "SANTHOSH DS",
+    "file": "059_HACK-018-M2_SANTHOSH_DS.jpg"
+  },
+  {
+    "num": "060",
+    "team": "HACK-019",
+    "member": "M1",
+    "name": "Sumukha H S",
+    "file": "060_HACK-019-M1_Sumukha_H_S.jpg"
+  },
+  {
+    "num": "061",
+    "team": "HACK-019",
+    "member": "M2",
+    "name": "Shrirangaraju D",
+    "file": "061_HACK-019-M2_Shrirangaraju_D.jpg"
+  },
+  {
+    "num": "062",
+    "team": "HACK-019",
+    "member": "M3",
+    "name": "Yashawanth H M",
+    "file": "062_HACK-019-M3_Yashawanth_H_M.jpg"
+  },
+  {
+    "num": "063",
+    "team": "HACK-019",
+    "member": "M4",
+    "name": "Sudeep R",
+    "file": "063_HACK-019-M4_Sudeep_R.jpg"
+  },
+  {
+    "num": "064",
+    "team": "HACK-020",
+    "member": "M1",
+    "name": "Jnanesh J P",
+    "file": "064_HACK-020-M1_Jnanesh_J_P.jpg"
+  },
+  {
+    "num": "065",
+    "team": "HACK-021",
+    "member": "M1",
+    "name": "CHIRAG P",
+    "file": "065_HACK-021-M1_CHIRAG_P.jpg"
+  },
+  {
+    "num": "066",
+    "team": "HACK-021",
+    "member": "M2",
+    "name": "OMKAR MATHAD",
+    "file": "066_HACK-021-M2_OMKAR_MATHAD.jpg"
+  },
+  {
+    "num": "067",
+    "team": "HACK-021",
+    "member": "M3",
+    "name": "ABHIGNA KG",
+    "file": "067_HACK-021-M3_ABHIGNA_KG.jpg"
+  },
+  {
+    "num": "068",
+    "team": "HACK-021",
+    "member": "M4",
+    "name": "DHANUSH Y",
+    "file": "068_HACK-021-M4_DHANUSH_Y.jpg"
+  },
+  {
+    "num": "069",
+    "team": "HACK-022",
+    "member": "M1",
+    "name": "Greeshma B S",
+    "file": "069_HACK-022-M1_Greeshma_B_S.jpg"
+  },
+  {
+    "num": "070",
+    "team": "HACK-022",
+    "member": "M2",
+    "name": "Chaya Patel M S",
+    "file": "070_HACK-022-M2_Chaya_Patel_M_S.jpg"
+  },
+  {
+    "num": "071",
+    "team": "HACK-022",
+    "member": "M3",
+    "name": "Meghana Vanditha",
+    "file": "071_HACK-022-M3_Meghana_Vanditha.jpg"
+  },
+  {
+    "num": "072",
+    "team": "HACK-022",
+    "member": "M4",
+    "name": "Dhanyashree N",
+    "file": "072_HACK-022-M4_Dhanyashree_N.jpg"
+  },
+  {
+    "num": "073",
+    "team": "HACK-023",
+    "member": "M1",
+    "name": "KEERTHAN BHATT",
+    "file": "073_HACK-023-M1_KEERTHAN_BHATT.jpg"
+  },
+  {
+    "num": "074",
+    "team": "HACK-024",
+    "member": "M1",
+    "name": "Impana M M",
+    "file": "074_HACK-024-M1_Impana_M_M.jpg"
+  },
+  {
+    "num": "075",
+    "team": "HACK-024",
+    "member": "M2",
+    "name": "Maanya B K",
+    "file": "075_HACK-024-M2_Maanya_B_K.jpg"
+  },
+  {
+    "num": "076",
+    "team": "HACK-024",
+    "member": "M3",
+    "name": "Ruchitha B M",
+    "file": "076_HACK-024-M3_Ruchitha_B_M.jpg"
+  },
+  {
+    "num": "077",
+    "team": "HACK-024",
+    "member": "M4",
+    "name": "Manasa S R",
+    "file": "077_HACK-024-M4_Manasa_S_R.jpg"
+  },
+  {
+    "num": "078",
+    "team": "HACK-025",
+    "member": "M1",
+    "name": "Advaith S",
+    "file": "078_HACK-025-M1_Advaith_S.jpg"
+  },
+  {
+    "num": "079",
+    "team": "HACK-025",
+    "member": "M2",
+    "name": "Adithya G",
+    "file": "079_HACK-025-M2_Adithya_G.jpg"
+  },
+  {
+    "num": "080",
+    "team": "HACK-025",
+    "member": "M3",
+    "name": "MB Kushal",
+    "file": "080_HACK-025-M3_MB_Kushal.jpg"
+  },
+  {
+    "num": "081",
+    "team": "HACK-026",
+    "member": "M1",
+    "name": "Vedanth N",
+    "file": "081_HACK-026-M1_Vedanth_N.jpg"
+  },
+  {
+    "num": "082",
+    "team": "HACK-026",
+    "member": "M2",
+    "name": "Prajwal L",
+    "file": "082_HACK-026-M2_Prajwal_L.jpg"
+  },
+  {
+    "num": "083",
+    "team": "HACK-026",
+    "member": "M3",
+    "name": "Ujwal Khatiwada",
+    "file": "083_HACK-026-M3_Ujwal_Khatiwada.jpg"
+  },
+  {
+    "num": "084",
+    "team": "HACK-026",
+    "member": "M4",
+    "name": "Balaji Naidu J",
+    "file": "084_HACK-026-M4_Balaji_Naidu_J.jpg"
+  },
+  {
+    "num": "085",
+    "team": "HACK-027",
+    "member": "M1",
+    "name": "Praveen Nadig D R",
+    "file": "085_HACK-027-M1_Praveen_Nadig_D_R.jpg"
+  },
+  {
+    "num": "086",
+    "team": "HACK-027",
+    "member": "M2",
+    "name": "Shrinidhi R N",
+    "file": "086_HACK-027-M2_Shrinidhi_R_N.jpg"
+  },
+  {
+    "num": "087",
+    "team": "HACK-027",
+    "member": "M3",
+    "name": "N D Hithesh",
+    "file": "087_HACK-027-M3_N_D_Hithesh.jpg"
+  },
+  {
+    "num": "088",
+    "team": "HACK-027",
+    "member": "M4",
+    "name": "Karthik N K",
+    "file": "088_HACK-027-M4_Karthik_N_K.jpg"
+  },
+  {
+    "num": "089",
+    "team": "HACK-028",
+    "member": "M1",
+    "name": "Yashas K Gowda",
+    "file": "089_HACK-028-M1_Yashas_K_Gowda.jpg"
+  },
+  {
+    "num": "090",
+    "team": "HACK-028",
+    "member": "M2",
+    "name": "Suryadev M N",
+    "file": "090_HACK-028-M2_Suryadev_M_N.jpg"
+  },
+  {
+    "num": "091",
+    "team": "HACK-028",
+    "member": "M3",
+    "name": "Rameez Shareef",
+    "file": "091_HACK-028-M3_Rameez_Shareef.jpg"
+  },
+  {
+    "num": "092",
+    "team": "HACK-028",
+    "member": "M4",
+    "name": "Maanika N",
+    "file": "092_HACK-028-M4_Maanika_N.jpg"
+  },
+  {
+    "num": "093",
+    "team": "HACK-029",
+    "member": "M1",
+    "name": "Swathi H D",
+    "file": "093_HACK-029-M1_Swathi_H_D.jpg"
+  },
+  {
+    "num": "094",
+    "team": "HACK-029",
+    "member": "M2",
+    "name": "Yashaswini",
+    "file": "094_HACK-029-M2_Yashaswini.jpg"
+  },
+  {
+    "num": "095",
+    "team": "HACK-029",
+    "member": "M3",
+    "name": "Smitha S",
+    "file": "095_HACK-029-M3_Smitha_S.jpg"
+  },
+  {
+    "num": "096",
+    "team": "HACK-030",
+    "member": "M1",
+    "name": "Harini HR",
+    "file": "096_HACK-030-M1_Harini_HR.jpg"
+  },
+  {
+    "num": "097",
+    "team": "HACK-030",
+    "member": "M2",
+    "name": "Ananya M",
+    "file": "097_HACK-030-M2_Ananya_M.jpg"
+  },
+  {
+    "num": "098",
+    "team": "HACK-030",
+    "member": "M3",
+    "name": "Keerthana KN",
+    "file": "098_HACK-030-M3_Keerthana_KN.jpg"
+  },
+  {
+    "num": "099",
+    "team": "HACK-030",
+    "member": "M4",
+    "name": "Prajwal s",
+    "file": "099_HACK-030-M4_Prajwal_s.jpg"
+  },
+  {
+    "num": "100",
+    "team": "HACK-031",
+    "member": "M1",
+    "name": "Abhishek G P",
+    "file": "100_HACK-031-M1_Abhishek_G_P.jpg"
+  },
+  {
+    "num": "101",
+    "team": "HACK-031",
+    "member": "M2",
+    "name": "Vishwanath Archak M R",
+    "file": "101_HACK-031-M2_Vishwanath_Archak_M_R.jpg"
+  },
+  {
+    "num": "102",
+    "team": "HACK-031",
+    "member": "M3",
+    "name": "Ashith Naren Makanahalli",
+    "file": "102_HACK-031-M3_Ashith_Naren_Makanahalli.jpg"
+  },
+  {
+    "num": "103",
+    "team": "HACK-031",
+    "member": "M4",
+    "name": "T V Cheluvaraj",
+    "file": "103_HACK-031-M4_T_V_Cheluvaraj.jpg"
+  },
+  {
+    "num": "104",
+    "team": "HACK-032",
+    "member": "M1",
+    "name": "Divyashree M Kanumappa",
+    "file": "104_HACK-032-M1_Divyashree_M_Kanumappa.jpg"
+  },
+  {
+    "num": "105",
+    "team": "HACK-032",
+    "member": "M2",
+    "name": "Hayavadana S Hayagreev",
+    "file": "105_HACK-032-M2_Hayavadana_S_Hayagreev.jpg"
+  },
+  {
+    "num": "106",
+    "team": "HACK-033",
+    "member": "M1",
+    "name": "Vikas Navi",
+    "file": "106_HACK-033-M1_Vikas_Navi.jpg"
+  },
+  {
+    "num": "107",
+    "team": "HACK-033",
+    "member": "M2",
+    "name": "Maruthi J",
+    "file": "107_HACK-033-M2_Maruthi_J.jpg"
+  },
+  {
+    "num": "108",
+    "team": "HACK-034",
+    "member": "M1",
+    "name": "Amogha NP",
+    "file": "108_HACK-034-M1_Amogha_NP.jpg"
+  },
+  {
+    "num": "109",
+    "team": "HACK-034",
+    "member": "M2",
+    "name": "Bharath D Gowda",
+    "file": "109_HACK-034-M2_Bharath_D_Gowda.jpg"
+  },
+  {
+    "num": "110",
+    "team": "HACK-034",
+    "member": "M3",
+    "name": "Ananya HR",
+    "file": "110_HACK-034-M3_Ananya_HR.jpg"
+  },
+  {
+    "num": "111",
+    "team": "HACK-034",
+    "member": "M4",
+    "name": "Aniket Gajendra Kumbhar",
+    "file": "111_HACK-034-M4_Aniket_Gajendra_Kumbhar.jpg"
+  },
+  {
+    "num": "112",
+    "team": "HACK-035",
+    "member": "M1",
+    "name": "Chetan s Habagonde",
+    "file": "112_HACK-035-M1_Chetan_s_Habagonde.jpg"
+  },
+  {
+    "num": "113",
+    "team": "HACK-035",
+    "member": "M2",
+    "name": "Drshan M H",
+    "file": "113_HACK-035-M2_Drshan_M_H.jpg"
+  },
+  {
+    "num": "114",
+    "team": "HACK-035",
+    "member": "M3",
+    "name": "Shivraj a mallade",
+    "file": "114_HACK-035-M3_Shivraj_a_mallade.jpg"
+  },
+  {
+    "num": "115",
+    "team": "HACK-036",
+    "member": "M1",
+    "name": "AnuPriya U V",
+    "file": "115_HACK-036-M1_AnuPriya_U_V.jpg"
+  },
+  {
+    "num": "116",
+    "team": "HACK-036",
+    "member": "M2",
+    "name": "Bhoomika K B",
+    "file": "116_HACK-036-M2_Bhoomika_K_B.jpg"
+  },
+  {
+    "num": "117",
+    "team": "HACK-036",
+    "member": "M3",
+    "name": "Manya G Karle",
+    "file": "117_HACK-036-M3_Manya_G_Karle.jpg"
+  },
+  {
+    "num": "118",
+    "team": "HACK-036",
+    "member": "M4",
+    "name": "Meghana H A",
+    "file": "118_HACK-036-M4_Meghana_H_A.jpg"
+  },
+  {
+    "num": "119",
+    "team": "HACK-037",
+    "member": "M1",
+    "name": "Manasa M S",
+    "file": "119_HACK-037-M1_Manasa_M_S.jpg"
+  },
+  {
+    "num": "120",
+    "team": "HACK-037",
+    "member": "M2",
+    "name": "Surabhi C D",
+    "file": "120_HACK-037-M2_Surabhi_C_D.jpg"
+  },
+  {
+    "num": "121",
+    "team": "HACK-037",
+    "member": "M3",
+    "name": "Prajna A",
+    "file": "121_HACK-037-M3_Prajna_A.jpg"
+  },
+  {
+    "num": "122",
+    "team": "HACK-037",
+    "member": "M4",
+    "name": "Reena L",
+    "file": "122_HACK-037-M4_Reena_L.jpg"
+  },
+  {
+    "num": "123",
+    "team": "HACK-038",
+    "member": "M1",
+    "name": "DISHA",
+    "file": "123_HACK-038-M1_DISHA.jpg"
+  },
+  {
+    "num": "124",
+    "team": "HACK-038",
+    "member": "M2",
+    "name": "AMULYA GM",
+    "file": "124_HACK-038-M2_AMULYA_GM.jpg"
+  },
+  {
+    "num": "125",
+    "team": "HACK-038",
+    "member": "M3",
+    "name": "PADMAPRIYA V",
+    "file": "125_HACK-038-M3_PADMAPRIYA_V.jpg"
+  },
+  {
+    "num": "126",
+    "team": "HACK-038",
+    "member": "M4",
+    "name": "RAKSHITHA M",
+    "file": "126_HACK-038-M4_RAKSHITHA_M.jpg"
+  },
+  {
+    "num": "127",
+    "team": "HACK-039",
+    "member": "M1",
+    "name": "Sujan K Gowda",
+    "file": "127_HACK-039-M1_Sujan_K_Gowda.jpg"
+  },
+  {
+    "num": "128",
+    "team": "HACK-039",
+    "member": "M2",
+    "name": "Tejaswini H R",
+    "file": "128_HACK-039-M2_Tejaswini_H_R.jpg"
+  },
+  {
+    "num": "129",
+    "team": "HACK-039",
+    "member": "M3",
+    "name": "Vinay T D",
+    "file": "129_HACK-039-M3_Vinay_T_D.jpg"
+  },
+  {
+    "num": "130",
+    "team": "HACK-039",
+    "member": "M4",
+    "name": "Saanvi B M",
+    "file": "130_HACK-039-M4_Saanvi_B_M.jpg"
+  },
+  {
+    "num": "131",
+    "team": "HACK-040",
+    "member": "M1",
+    "name": "Usha R",
+    "file": "131_HACK-040-M1_Usha_R.jpg"
+  },
+  {
+    "num": "132",
+    "team": "HACK-041",
+    "member": "M1",
+    "name": "MONISHA K",
+    "file": "132_HACK-041-M1_MONISHA_K.jpg"
+  },
+  {
+    "num": "133",
+    "team": "HACK-041",
+    "member": "M2",
+    "name": "Keerthana KP",
+    "file": "133_HACK-041-M2_Keerthana_KP.jpg"
+  },
+  {
+    "num": "134",
+    "team": "HACK-042",
+    "member": "M1",
+    "name": "Sanath H B",
+    "file": "134_HACK-042-M1_Sanath_H_B.jpg"
+  },
+  {
+    "num": "135",
+    "team": "HACK-042",
+    "member": "M2",
+    "name": "Nikhil M K",
+    "file": "135_HACK-042-M2_Nikhil_M_K.jpg"
+  },
+  {
+    "num": "136",
+    "team": "HACK-042",
+    "member": "M3",
+    "name": "Sushmitha K S",
+    "file": "136_HACK-042-M3_Sushmitha_K_S.jpg"
+  },
+  {
+    "num": "137",
+    "team": "HACK-042",
+    "member": "M4",
+    "name": "Shravya Vernekar",
+    "file": "137_HACK-042-M4_Shravya_Vernekar.jpg"
+  },
+  {
+    "num": "138",
+    "team": "HACK-043",
+    "member": "M1",
+    "name": "Tejas C K",
+    "file": "138_HACK-043-M1_Tejas_C_K.jpg"
+  },
+  {
+    "num": "139",
+    "team": "HACK-043",
+    "member": "M2",
+    "name": "Vikas B",
+    "file": "139_HACK-043-M2_Vikas_B.jpg"
+  },
+  {
+    "num": "140",
+    "team": "HACK-043",
+    "member": "M3",
+    "name": "Yashwanth K R",
+    "file": "140_HACK-043-M3_Yashwanth_K_R.jpg"
+  },
+  {
+    "num": "141",
+    "team": "HACK-043",
+    "member": "M4",
+    "name": "Ullas Gowda J S",
+    "file": "141_HACK-043-M4_Ullas_Gowda_J_S.jpg"
+  },
+  {
+    "num": "142",
+    "team": "HACK-044",
+    "member": "M1",
+    "name": "Rakshitha",
+    "file": "142_HACK-044-M1_Rakshitha.jpg"
+  },
+  {
+    "num": "143",
+    "team": "HACK-044",
+    "member": "M2",
+    "name": "Prarthana R K",
+    "file": "143_HACK-044-M2_Prarthana_R_K.jpg"
+  },
+  {
+    "num": "144",
+    "team": "HACK-044",
+    "member": "M3",
+    "name": "Dhanyashree S",
+    "file": "144_HACK-044-M3_Dhanyashree_S.jpg"
+  },
+  {
+    "num": "145",
+    "team": "HACK-044",
+    "member": "M4",
+    "name": "Supraja K M",
+    "file": "145_HACK-044-M4_Supraja_K_M.jpg"
+  },
+  {
+    "num": "146",
+    "team": "HACK-045",
+    "member": "M1",
+    "name": "Aryika S jain",
+    "file": "146_HACK-045-M1_Aryika_S_jain.jpg"
+  },
+  {
+    "num": "147",
+    "team": "HACK-045",
+    "member": "M2",
+    "name": "Adhya Divakar",
+    "file": "147_HACK-045-M2_Adhya_Divakar.jpg"
+  },
+  {
+    "num": "148",
+    "team": "HACK-045",
+    "member": "M3",
+    "name": "Harshitha C J",
+    "file": "148_HACK-045-M3_Harshitha_C_J.jpg"
+  },
+  {
+    "num": "149",
+    "team": "HACK-046",
+    "member": "M1",
+    "name": "Tanmay Shetty C",
+    "file": "149_HACK-046-M1_Tanmay_Shetty_C.jpg"
+  },
+  {
+    "num": "150",
+    "team": "HACK-046",
+    "member": "M2",
+    "name": "Chilton surangba",
+    "file": "150_HACK-046-M2_Chilton_surangba.jpg"
+  },
+  {
+    "num": "151",
+    "team": "HACK-047",
+    "member": "M1",
+    "name": "Adithya C M",
+    "file": "151_HACK-047-M1_Adithya_C_M.jpg"
+  },
+  {
+    "num": "152",
+    "team": "HACK-047",
+    "member": "M2",
+    "name": "Gouramma kalppanavar",
+    "file": "152_HACK-047-M2_Gouramma_kalppanavar.jpg"
+  },
+  {
+    "num": "153",
+    "team": "HACK-047",
+    "member": "M3",
+    "name": "Sujatha banakar",
+    "file": "153_HACK-047-M3_Sujatha_banakar.jpg"
+  },
+  {
+    "num": "154",
+    "team": "HACK-048",
+    "member": "M1",
+    "name": "Revanth S",
+    "file": "154_HACK-048-M1_Revanth_S.jpg"
+  },
+  {
+    "num": "155",
+    "team": "HACK-048",
+    "member": "M2",
+    "name": "Eakanth J",
+    "file": "155_HACK-048-M2_Eakanth_J.jpg"
+  },
+  {
+    "num": "156",
+    "team": "HACK-049",
+    "member": "M1",
+    "name": "Badagi Lokamurthy",
+    "file": "156_HACK-049-M1_Badagi_Lokamurthy.jpg"
+  },
+  {
+    "num": "157",
+    "team": "HACK-049",
+    "member": "M2",
+    "name": "Anusha M R",
+    "file": "157_HACK-049-M2_Anusha_M_R.jpg"
+  },
+  {
+    "num": "158",
+    "team": "HACK-049",
+    "member": "M3",
+    "name": "Keerthana R",
+    "file": "158_HACK-049-M3_Keerthana_R.jpg"
+  },
+  {
+    "num": "159",
+    "team": "HACK-049",
+    "member": "M4",
+    "name": "Anurag A Aralimarad",
+    "file": "159_HACK-049-M4_Anurag_A_Aralimarad.jpg"
+  },
+  {
+    "num": "160",
+    "team": "HACK-050",
+    "member": "M1",
+    "name": "Syed Arham Pasha",
+    "file": "160_HACK-050-M1_Syed_Arham_Pasha.jpg"
+  },
+  {
+    "num": "161",
+    "team": "HACK-050",
+    "member": "M2",
+    "name": "Puneeth N",
+    "file": "161_HACK-050-M2_Puneeth_N.jpg"
+  },
+  {
+    "num": "162",
+    "team": "HACK-050",
+    "member": "M3",
+    "name": "Muhammed Mustaqheem",
+    "file": "162_HACK-050-M3_Muhammed_Mustaqheem.jpg"
+  },
+  {
+    "num": "163",
+    "team": "HACK-050",
+    "member": "M4",
+    "name": "Harsha B M",
+    "file": "163_HACK-050-M4_Harsha_B_M.jpg"
+  },
+  {
+    "num": "164",
+    "team": "HACK-051",
+    "member": "M1",
+    "name": "Lakshmi R",
+    "file": "164_HACK-051-M1_Lakshmi_R.jpg"
+  },
+  {
+    "num": "165",
+    "team": "HACK-051",
+    "member": "M2",
+    "name": "Manya H C",
+    "file": "165_HACK-051-M2_Manya_H_C.jpg"
+  },
+  {
+    "num": "166",
+    "team": "HACK-051",
+    "member": "M3",
+    "name": "Prerana H S",
+    "file": "166_HACK-051-M3_Prerana_H_S.jpg"
+  },
+  {
+    "num": "167",
+    "team": "HACK-051",
+    "member": "M4",
+    "name": "Nisha S",
+    "file": "167_HACK-051-M4_Nisha_S.jpg"
+  },
+  {
+    "num": "168",
+    "team": "HACK-052",
+    "member": "M1",
+    "name": "Dhanush D Prabhu",
+    "file": "168_HACK-052-M1_Dhanush_D_Prabhu.jpg"
+  },
+  {
+    "num": "169",
+    "team": "HACK-052",
+    "member": "M2",
+    "name": "Ganashree KS",
+    "file": "169_HACK-052-M2_Ganashree_KS.jpg"
+  },
+  {
+    "num": "170",
+    "team": "HACK-052",
+    "member": "M3",
+    "name": "Manasa T",
+    "file": "170_HACK-052-M3_Manasa_T.jpg"
+  },
+  {
+    "num": "171",
+    "team": "HACK-053",
+    "member": "M1",
+    "name": "Adithya S Shetty",
+    "file": "171_HACK-053-M1_Adithya_S_Shetty.jpg"
+  },
+  {
+    "num": "172",
+    "team": "HACK-053",
+    "member": "M2",
+    "name": "Hamsa N",
+    "file": "172_HACK-053-M2_Hamsa_N.jpg"
+  },
+  {
+    "num": "173",
+    "team": "HACK-053",
+    "member": "M3",
+    "name": "Dhanyakumar K N",
+    "file": "173_HACK-053-M3_Dhanyakumar_K_N.jpg"
+  },
+  {
+    "num": "174",
+    "team": "HACK-054",
+    "member": "M1",
+    "name": "UJWAL K V",
+    "file": "174_HACK-054-M1_UJWAL_K_V.jpg"
+  },
+  {
+    "num": "175",
+    "team": "HACK-054",
+    "member": "M2",
+    "name": "Tarun Gowda M V",
+    "file": "175_HACK-054-M2_Tarun_Gowda_M_V.jpg"
+  },
+  {
+    "num": "176",
+    "team": "HACK-054",
+    "member": "M3",
+    "name": "Tejas Naik",
+    "file": "176_HACK-054-M3_Tejas_Naik.jpg"
+  },
+  {
+    "num": "177",
+    "team": "HACK-054",
+    "member": "M4",
+    "name": "Yashas Gowda H M",
+    "file": "177_HACK-054-M4_Yashas_Gowda_H_M.jpg"
+  },
+  {
+    "num": "178",
+    "team": "HACK-055",
+    "member": "M1",
+    "name": "LAKSHYA KHAJURIA",
+    "file": "178_HACK-055-M1_LAKSHYA_KHAJURIA.jpg"
+  },
+  {
+    "num": "179",
+    "team": "HACK-055",
+    "member": "M2",
+    "name": "AJINKYA SANJAY PAVALE",
+    "file": "179_HACK-055-M2_AJINKYA_SANJAY_PAVALE.jpg"
+  },
+  {
+    "num": "180",
+    "team": "HACK-056",
+    "member": "M1",
+    "name": "Paresh R",
+    "file": "180_HACK-056-M1_Paresh_R.jpg"
+  },
+  {
+    "num": "181",
+    "team": "HACK-056",
+    "member": "M2",
+    "name": "Hitesh TG",
+    "file": "181_HACK-056-M2_Hitesh_TG.jpg"
+  },
+  {
+    "num": "182",
+    "team": "HACK-057",
+    "member": "M1",
+    "name": "Sachin A",
+    "file": "182_HACK-057-M1_Sachin_A.jpg"
+  },
+  {
+    "num": "183",
+    "team": "HACK-057",
+    "member": "M2",
+    "name": "Jagadeesh Nayak V",
+    "file": "183_HACK-057-M2_Jagadeesh_Nayak_V.jpg"
+  },
+  {
+    "num": "184",
+    "team": "HACK-057",
+    "member": "M3",
+    "name": "Siddesha M K",
+    "file": "184_HACK-057-M3_Siddesha_M_K.jpg"
+  },
+  {
+    "num": "185",
+    "team": "HACK-057",
+    "member": "M4",
+    "name": "Yashwanth G A",
+    "file": "185_HACK-057-M4_Yashwanth_G_A.jpg"
+  },
+  {
+    "num": "186",
+    "team": "HACK-058",
+    "member": "M1",
+    "name": "Apoorva H U",
+    "file": "186_HACK-058-M1_Apoorva_H_U.jpg"
+  },
+  {
+    "num": "187",
+    "team": "HACK-058",
+    "member": "M2",
+    "name": "G Eramma",
+    "file": "187_HACK-058-M2_G_Eramma.jpg"
+  },
+  {
+    "num": "188",
+    "team": "HACK-058",
+    "member": "M3",
+    "name": "Amrutha J S",
+    "file": "188_HACK-058-M3_Amrutha_J_S.jpg"
+  },
+  {
+    "num": "189",
+    "team": "HACK-059",
+    "member": "M1",
+    "name": "Nandeesh",
+    "file": "189_HACK-059-M1_Nandeesh.jpg"
+  },
+  {
+    "num": "190",
+    "team": "HACK-059",
+    "member": "M2",
+    "name": "Sudeep Biradar",
+    "file": "190_HACK-059-M2_Sudeep_Biradar.jpg"
+  },
+  {
+    "num": "191",
+    "team": "HACK-059",
+    "member": "M3",
+    "name": "Gowtham K R",
+    "file": "191_HACK-059-M3_Gowtham_K_R.jpg"
+  },
+  {
+    "num": "192",
+    "team": "HACK-059",
+    "member": "M4",
+    "name": "Manoj",
+    "file": "192_HACK-059-M4_Manoj.jpg"
+  },
+  {
+    "num": "193",
+    "team": "HACK-060",
+    "member": "M1",
+    "name": "Varsha D",
+    "file": "193_HACK-060-M1_Varsha_D.jpg"
+  },
+  {
+    "num": "194",
+    "team": "HACK-060",
+    "member": "M2",
+    "name": "Sonika M S",
+    "file": "194_HACK-060-M2_Sonika_M_S.jpg"
+  },
+  {
+    "num": "195",
+    "team": "HACK-061",
+    "member": "M1",
+    "name": "Priyadarshini HM",
+    "file": "195_HACK-061-M1_Priyadarshini_HM.jpg"
+  },
+  {
+    "num": "196",
+    "team": "HACK-061",
+    "member": "M2",
+    "name": "Pruthvi H M",
+    "file": "196_HACK-061-M2_Pruthvi_H_M.jpg"
+  },
+  {
+    "num": "197",
+    "team": "HACK-061",
+    "member": "M3",
+    "name": "Sanika R",
+    "file": "197_HACK-061-M3_Sanika_R.jpg"
+  },
+  {
+    "num": "198",
+    "team": "HACK-061",
+    "member": "M4",
+    "name": "Sharanya P",
+    "file": "198_HACK-061-M4_Sharanya_P.jpg"
+  },
+  {
+    "num": "199",
+    "team": "HACK-062",
+    "member": "M1",
+    "name": "Nihal Chengappa B.S",
+    "file": "199_HACK-062-M1_Nihal_Chengappa_B.S.jpg"
+  },
+  {
+    "num": "200",
+    "team": "HACK-062",
+    "member": "M2",
+    "name": "Chandana",
+    "file": "200_HACK-062-M2_Chandana.jpg"
+  },
+  {
+    "num": "201",
+    "team": "HACK-063",
+    "member": "M1",
+    "name": "Kishor E",
+    "file": "201_HACK-063-M1_Kishor_E.jpg"
+  },
+  {
+    "num": "202",
+    "team": "HACK-063",
+    "member": "M2",
+    "name": "Imaan Afsar Sharieff",
+    "file": "202_HACK-063-M2_Imaan_Afsar_Sharieff.jpg"
+  },
+  {
+    "num": "203",
+    "team": "HACK-063",
+    "member": "M3",
+    "name": "Thanmayi S K",
+    "file": "203_HACK-063-M3_Thanmayi_S_K.jpg"
+  },
+  {
+    "num": "204",
+    "team": "HACK-063",
+    "member": "M4",
+    "name": "Rahul D",
+    "file": "204_HACK-063-M4_Rahul_D.jpg"
+  },
+  {
+    "num": "205",
+    "team": "HACK-064",
+    "member": "M1",
+    "name": "Chandan Vasishta G",
+    "file": "205_HACK-064-M1_Chandan_Vasishta_G.jpg"
+  },
+  {
+    "num": "206",
+    "team": "HACK-064",
+    "member": "M2",
+    "name": "Kushal Aradhya YR",
+    "file": "206_HACK-064-M2_Kushal_Aradhya_YR.jpg"
+  },
+  {
+    "num": "207",
+    "team": "HACK-064",
+    "member": "M3",
+    "name": "Anya B S",
+    "file": "207_HACK-064-M3_Anya_B_S.jpg"
+  },
+  {
+    "num": "208",
+    "team": "HACK-064",
+    "member": "M4",
+    "name": "G V Nithya Sree",
+    "file": "208_HACK-064-M4_G_V_Nithya_Sree.jpg"
+  },
+  {
+    "num": "209",
+    "team": "HACK-065",
+    "member": "M1",
+    "name": "Kritik Munot",
+    "file": "209_HACK-065-M1_Kritik_Munot.jpg"
+  },
+  {
+    "num": "210",
+    "team": "HACK-065",
+    "member": "M2",
+    "name": "Anjana V",
+    "file": "210_HACK-065-M2_Anjana_V.jpg"
+  },
+  {
+    "num": "211",
+    "team": "HACK-066",
+    "member": "M1",
+    "name": "Gagan AM",
+    "file": "211_HACK-066-M1_Gagan_AM.jpg"
+  },
+  {
+    "num": "212",
+    "team": "HACK-066",
+    "member": "M2",
+    "name": "Aditya M Kuradi",
+    "file": "212_HACK-066-M2_Aditya_M_Kuradi.jpg"
+  },
+  {
+    "num": "213",
+    "team": "HACK-066",
+    "member": "M3",
+    "name": "Mounashree A",
+    "file": "213_HACK-066-M3_Mounashree_A.jpg"
+  },
+  {
+    "num": "214",
+    "team": "HACK-066",
+    "member": "M4",
+    "name": "S Shiney Pearl",
+    "file": "214_HACK-066-M4_S_Shiney_Pearl.jpg"
+  },
+  {
+    "num": "215",
+    "team": "HACK-067",
+    "member": "M1",
+    "name": "Nithin A",
+    "file": "215_HACK-067-M1_Nithin_A.jpg"
+  },
+  {
+    "num": "216",
+    "team": "HACK-067",
+    "member": "M2",
+    "name": "Akash RJ",
+    "file": "216_HACK-067-M2_Akash_RJ.jpg"
+  },
+  {
+    "num": "217",
+    "team": "HACK-067",
+    "member": "M3",
+    "name": "Anush MN",
+    "file": "217_HACK-067-M3_Anush_MN.jpg"
+  },
+  {
+    "num": "218",
+    "team": "HACK-067",
+    "member": "M4",
+    "name": "Lakshmana",
+    "file": "218_HACK-067-M4_Lakshmana.jpg"
+  },
+  {
+    "num": "219",
+    "team": "HACK-068",
+    "member": "M1",
+    "name": "Yashaswini G P",
+    "file": "219_HACK-068-M1_Yashaswini_G_P.jpg"
+  },
+  {
+    "num": "220",
+    "team": "HACK-068",
+    "member": "M2",
+    "name": "Yogitha P",
+    "file": "220_HACK-068-M2_Yogitha_P.jpg"
+  },
+  {
+    "num": "221",
+    "team": "HACK-068",
+    "member": "M3",
+    "name": "Nayana B",
+    "file": "221_HACK-068-M3_Nayana_B.jpg"
+  },
+  {
+    "num": "222",
+    "team": "HACK-068",
+    "member": "M4",
+    "name": "Pallavi",
+    "file": "222_HACK-068-M4_Pallavi.jpg"
+  },
+  {
+    "num": "223",
+    "team": "HACK-069",
+    "member": "M1",
+    "name": "Mohammad umair",
+    "file": "223_HACK-069-M1_Mohammad_umair.jpg"
+  },
+  {
+    "num": "224",
+    "team": "HACK-069",
+    "member": "M2",
+    "name": "Manath BS",
+    "file": "224_HACK-069-M2_Manath_BS.jpg"
+  },
+  {
+    "num": "225",
+    "team": "HACK-069",
+    "member": "M3",
+    "name": "Darshan",
+    "file": "225_HACK-069-M3_Darshan.jpg"
+  },
+  {
+    "num": "226",
+    "team": "HACK-069",
+    "member": "M4",
+    "name": "GS Raziq",
+    "file": "226_HACK-069-M4_GS_Raziq.jpg"
+  },
+  {
+    "num": "227",
+    "team": "HACK-070",
+    "member": "M1",
+    "name": "Abhishek Biloria",
+    "file": "227_HACK-070-M1_Abhishek_Biloria.jpg"
+  },
+  {
+    "num": "228",
+    "team": "HACK-070",
+    "member": "M2",
+    "name": "Jayasham N D",
+    "file": "228_HACK-070-M2_Jayasham_N_D.jpg"
+  },
+  {
+    "num": "229",
+    "team": "HACK-071",
+    "member": "M1",
+    "name": "Sumanth Mohan",
+    "file": "229_HACK-071-M1_Sumanth_Mohan.jpg"
+  },
+  {
+    "num": "230",
+    "team": "HACK-071",
+    "member": "M2",
+    "name": "Tejaswi B N",
+    "file": "230_HACK-071-M2_Tejaswi_B_N.jpg"
+  },
+  {
+    "num": "231",
+    "team": "HACK-071",
+    "member": "M3",
+    "name": "Vikas K S",
+    "file": "231_HACK-071-M3_Vikas_K_S.jpg"
+  },
+  {
+    "num": "232",
+    "team": "HACK-072",
+    "member": "M1",
+    "name": "Anusha A",
+    "file": "232_HACK-072-M1_Anusha_A.jpg"
+  },
+  {
+    "num": "233",
+    "team": "HACK-072",
+    "member": "M2",
+    "name": "J Bhuvanesh",
+    "file": "233_HACK-072-M2_J_Bhuvanesh.jpg"
+  },
+  {
+    "num": "234",
+    "team": "HACK-072",
+    "member": "M3",
+    "name": "Nitin S",
+    "file": "234_HACK-072-M3_Nitin_S.jpg"
+  },
+  {
+    "num": "235",
+    "team": "HACK-072",
+    "member": "M4",
+    "name": "Nanditha S",
+    "file": "235_HACK-072-M4_Nanditha_S.jpg"
+  },
+  {
+    "num": "236",
+    "team": "HACK-073",
+    "member": "M1",
+    "name": "Maanvya T.R",
+    "file": "236_HACK-073-M1_Maanvya_T.R.jpg"
+  },
+  {
+    "num": "237",
+    "team": "HACK-073",
+    "member": "M2",
+    "name": "Abhilash SP",
+    "file": "237_HACK-073-M2_Abhilash_SP.jpg"
+  },
+  {
+    "num": "238",
+    "team": "HACK-073",
+    "member": "M3",
+    "name": "Rakshith YB",
+    "file": "238_HACK-073-M3_Rakshith_YB.jpg"
+  },
+  {
+    "num": "239",
+    "team": "HACK-073",
+    "member": "M4",
+    "name": "Sindhu B K",
+    "file": "239_HACK-073-M4_Sindhu_B_K.jpg"
+  },
+  {
+    "num": "240",
+    "team": "HACK-074",
+    "member": "M1",
+    "name": "Shraya S Gowda",
+    "file": "240_HACK-074-M1_Shraya_S_Gowda.jpg"
+  },
+  {
+    "num": "241",
+    "team": "HACK-074",
+    "member": "M2",
+    "name": "Nimra Mubarak",
+    "file": "241_HACK-074-M2_Nimra_Mubarak.jpg"
+  },
+  {
+    "num": "242",
+    "team": "HACK-074",
+    "member": "M3",
+    "name": "Eshwar Shetty",
+    "file": "242_HACK-074-M3_Eshwar_Shetty.jpg"
+  },
+  {
+    "num": "243",
+    "team": "HACK-074",
+    "member": "M4",
+    "name": "Yashwanth Gowda HK",
+    "file": "243_HACK-074-M4_Yashwanth_Gowda_HK.jpg"
+  },
+  {
+    "num": "244",
+    "team": "HACK-075",
+    "member": "M1",
+    "name": "INDU",
+    "file": "244_HACK-075-M1_INDU.jpg"
+  },
+  {
+    "num": "245",
+    "team": "HACK-075",
+    "member": "M2",
+    "name": "DIVYASHREE P S",
+    "file": "245_HACK-075-M2_DIVYASHREE_P_S.jpg"
+  },
+  {
+    "num": "246",
+    "team": "HACK-075",
+    "member": "M3",
+    "name": "JEEVITHA T.N",
+    "file": "246_HACK-075-M3_JEEVITHA_T.N.jpg"
+  },
+  {
+    "num": "247",
+    "team": "HACK-075",
+    "member": "M4",
+    "name": "THARUN M V",
+    "file": "247_HACK-075-M4_THARUN_M_V.jpg"
+  },
+  {
+    "num": "248",
+    "team": "HACK-076",
+    "member": "M1",
+    "name": "Prathyusha V Kumar",
+    "file": "248_HACK-076-M1_Prathyusha_V_Kumar.jpg"
+  },
+  {
+    "num": "249",
+    "team": "HACK-076",
+    "member": "M2",
+    "name": "Moksha R",
+    "file": "249_HACK-076-M2_Moksha_R.jpg"
+  },
+  {
+    "num": "250",
+    "team": "HACK-076",
+    "member": "M3",
+    "name": "Likitha V Kumar",
+    "file": "250_HACK-076-M3_Likitha_V_Kumar.jpg"
+  }
+]
