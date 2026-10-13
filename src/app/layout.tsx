@@ -15,17 +15,19 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CalmStacks",
+  title: "CalmStacks — Engineering Intelligent Systems",
   description:
-    "CalmStacks builds custom digital products, provides expert programming consultation, and develops cutting-edge robotics & automation solutions. Bring your ideas to life.",
+    "CalmStacks builds AI-powered applications and multi-agent software engineering systems that transform complex ideas into reliable digital products. Engineering intelligent systems. Building what comes next.",
   keywords: [
-    "software development",
-    "web apps",
-    "mobile apps",
-    "robotics",
-    "automation",
-    "programming consultation",
-    "custom software",
+    "AI software engineering",
+    "multi-agent systems",
+    "Agent Factory",
+    "autonomous software agents",
+    "custom software development",
+    "intelligent automation",
+    "AI applications",
+    "production engineering",
+    "LegalConnect",
     "CalmStacks",
   ],
   icons: {
@@ -33,10 +35,18 @@ export const metadata: Metadata = {
     apple: "/assets/calmstacks_memorable_logo.svg",
   },
   openGraph: {
-    title: "CalmStacks",
+    title: "CalmStacks — Engineering Intelligent Systems",
     description:
-      "Building custom digital products, programming solutions, and robotics systems.",
+      "CalmStacks builds AI-powered applications and multi-agent software engineering systems that transform complex ideas into reliable digital products.",
     type: "website",
+    url: "https://calmstacks.co.in",
+    siteName: "CalmStacks",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CalmStacks — Engineering Intelligent Systems",
+    description:
+      "CalmStacks builds AI-powered applications and multi-agent software engineering systems that transform complex ideas into reliable digital products.",
   },
 };
 

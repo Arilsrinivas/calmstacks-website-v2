@@ -133,13 +133,15 @@ export default function ContactSection() {
               inView ? "visible" : ""
             }`}
           >
+            <p className="text-xs font-semibold tracking-widest text-primary uppercase mb-3">
+              Let&apos;s Build Together
+            </p>
             <h2 className="text-4xl sm:text-5xl font-semibold tracking-tight text-text-primary mb-4">
-              CONTACT US
+              Have an idea worth engineering?
             </h2>
 
-            <p className="text-lg text-text-secondary">
-              Have a project in mind? Let&apos;s build something great
-              together.
+            <p className="text-lg text-text-secondary max-w-md mx-auto">
+              Let&apos;s discuss how CalmStacks can help turn your requirements into a practical, production-ready software solution.
             </p>
 
             <a

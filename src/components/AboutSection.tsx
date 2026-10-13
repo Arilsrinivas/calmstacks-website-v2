@@ -1,15 +1,23 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function AboutSection() {
   const ref = useRef<HTMLElement>(null);
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setInView(true); observer.disconnect(); }
-    }, { threshold: 0.1 });
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
@@ -23,26 +31,39 @@ export default function AboutSection() {
           {/* Left Text */}
           <div className={`reveal ${inView ? "visible" : ""}`}>
             <h2 className="text-sm font-semibold tracking-widest text-primary uppercase mb-4">
-              WHY US
+              ABOUT CALMSTACKS
             </h2>
             <h3 className="text-4xl sm:text-5xl font-semibold tracking-tight text-text-primary mb-6">
               A different approach, using a new method of production.
             </h3>
-            <p className="text-lg text-text-secondary leading-relaxed mb-8">
-              We build dynamic websites that adapt, perform, and grow with your business. Fast, secure, and scalable — crafted to deliver real results.
-            </p>
-            <a href="/about" className="text-sm text-primary font-medium flex items-center gap-2 w-fit">
-              Read More
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-            </a>
+            <div className="space-y-4 text-base sm:text-lg text-text-secondary leading-relaxed mb-8">
+              <p>
+                CalmStacks is a technology company building intelligent software products and AI-driven engineering systems. We combine software engineering, artificial intelligence, automation, and structured development workflows to solve practical problems and accelerate product development.
+              </p>
+              <p>
+                Our work spans multi-agent AI systems, full-stack applications, intelligent automation, and domain-specific digital platforms. We focus on building solutions that are technically sound, useful to their intended users, and designed to evolve as requirements grow.
+              </p>
+            </div>
+            <Link
+              href="#agent-factory"
+              className="text-sm text-primary font-medium flex items-center gap-2 w-fit group"
+            >
+              <span>Explore Agent Factory</span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </Link>
           </div>
 
-          {/* Right Image */}
-          <div className={`aspect-square w-full rounded-2xl overflow-hidden reveal ${inView ? "visible" : ""}`} style={{ transitionDelay: "100ms" }}>
-            <img 
-              src="/assets/ChatGPT%20Image%20Apr%2026,%202026,%2009_42_17%20AM.png" 
-              alt="About Calmstacks" 
-              className="w-full h-full object-cover"
+          {/* Right Architecture Illustration */}
+          <div
+            className={`aspect-square w-full rounded-2xl overflow-hidden border border-border-subtle bg-surface/50 p-2 shadow-2xl reveal ${
+              inView ? "visible" : ""
+            }`}
+            style={{ transitionDelay: "100ms" }}
+          >
+            <img
+              src="/assets/about_engineering_architecture.svg"
+              alt="CalmStacks AI Software Engineering Architecture"
+              className="w-full h-full object-contain rounded-xl"
             />
           </div>
         </div>

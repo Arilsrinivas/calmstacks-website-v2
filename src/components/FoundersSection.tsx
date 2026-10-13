@@ -16,7 +16,7 @@ const founders: Founder[] = [
   {
     name: "Aril Srinivas",
     role: "Founder & CEO",
-    bio: "Aril is a tech-focused software engineer specializing in building high-performance, scalable web systems and intelligent architectures. Passionate about bringing ideas to life with clean code and modern design, he steers the technical and strategic product vision at CalmStacks.",
+    bio: "Aril is an AI software engineer and systems architect specializing in autonomous multi-agent orchestration, high-performance distributed backends, and deterministic code synthesis pipelines. He directs the technical architecture, Agent Factory development, and core engineering standards at CalmStacks.",
     image: "/assets/founder_aril_v2.png",
     linkedin: "https://linkedin.com",
     github: "https://github.com/Arilsrinivas",
@@ -25,7 +25,7 @@ const founders: Founder[] = [
   {
     name: "Manya K M",
     role: "Co-Founder & COO",
-    bio: "Manya leads operational strategies and product management at CalmStacks, ensuring seamless execution from concept to deployment. With an eye for user experience and product lifecycle, she bridges technology with user needs to deliver real business impact.",
+    bio: "Manya leads product strategy, operational execution, and compliance frameworks at CalmStacks. She oversees lifecycle delivery from technical specification to production release, ensuring engineering rigor, user experience design, and seamless cross-functional product management.",
     image: "/assets/founder_manya.png",
     linkedin: "https://linkedin.com",
     github: "https://github.com",

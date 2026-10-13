@@ -1,0 +1,117 @@
+<svg width="800" height="460" viewBox="0 0 800 460" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="orchestratorGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stopColor="#2997ff" stopOpacity="0.35"/>
+      <stop offset="100%" stopColor="#2997ff" stopOpacity="0"/>
+    </radialGradient>
+    <linearGradient id="coreBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stopColor="#18181b"/>
+      <stop offset="100%" stopColor="#09090b"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Frame Background -->
+  <rect width="800" height="460" rx="20" fill="#0c0c0e" stroke="#27272a" stroke-width="1.5"/>
+
+  <!-- Terminal Header Bar -->
+  <path d="M0 20C0 8.95431 8.95431 0 20 0H780C791.046 0 800 8.95431 800 20V40H0V20Z" fill="#18181b" stroke="#27272a" stroke-width="1"/>
+  <circle cx="24" cy="20" r="4.5" fill="#ef4444"/>
+  <circle cx="40" cy="20" r="4.5" fill="#f59e0b"/>
+  <circle cx="56" cy="20" r="4.5" fill="#10b981"/>
+  <text x="80" y="24" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="11" font-weight="500">calmstacks-agent-factory // orchestrator-pipeline: active</text>
+  <rect x="680" y="10" width="100" height="20" rx="5" fill="#2997ff" fill-opacity="0.1" stroke="#2997ff" stroke-opacity="0.3"/>
+  <text x="730" y="24" fill="#2997ff" font-family="ui-monospace, monospace" font-size="9" font-weight="600" text-anchor="middle">LIVE WORKFLOW</text>
+
+  <!-- Subtle Background Grid -->
+  <g opacity="0.08">
+    <line x1="0" y1="100" x2="800" y2="100" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="0" y1="200" x2="800" y2="200" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="0" y1="300" x2="800" y2="300" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="0" y1="400" x2="800" y2="400" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="200" y1="40" x2="200" y2="460" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="400" y1="40" x2="400" y2="460" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 4"/>
+    <line x1="600" y1="40" x2="600" y2="460" stroke="#ffffff" stroke-width="1" stroke-dasharray="4 4"/>
+  </g>
+
+  <!-- Central Glow behind Orchestrator -->
+  <circle cx="400" cy="180" r="140" fill="url(#orchestratorGlow)"/>
+
+  <!-- STAGE 1: Planning (Left Top) -->
+  <g transform="translate(40, 90)">
+    <rect width="180" height="74" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="1.2"/>
+    <circle cx="24" cy="24" r="6" fill="#10b981"/>
+    <text x="38" y="22" fill="#f4f4f5" font-family="system-ui, sans-serif" font-size="12" font-weight="700">01. Requirements Agent</text>
+    <text x="38" y="38" fill="#71717a" font-family="system-ui, sans-serif" font-size="10">User stories &amp; PRD specs</text>
+    <rect x="18" y="50" width="144" height="16" rx="4" fill="#27272a"/>
+    <text x="90" y="62" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="8.5" text-anchor="middle">SPEC CONTRACT VALIDATED</text>
+  </g>
+
+  <!-- Flow 1 to Orchestrator -->
+  <path d="M220 127 C260 127, 280 150, 310 160" stroke="#2997ff" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- CENTRAL ORCHESTRATOR -->
+  <g transform="translate(310, 120)">
+    <rect width="180" height="110" rx="18" fill="#18181b" stroke="#2997ff" stroke-width="2"/>
+    <circle cx="90" cy="45" r="22" fill="#2997ff" fill-opacity="0.15" stroke="#2997ff" stroke-width="1.5"/>
+    <circle cx="90" cy="45" r="8" fill="#2997ff"/>
+    <text x="90" y="82" fill="#f4f4f5" font-family="system-ui, sans-serif" font-size="12" font-weight="700" text-anchor="middle" letter-spacing="0.05em">ORCHESTRATOR</text>
+    <text x="90" y="98" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="9" text-anchor="middle">Multi-Agent Dispatcher</text>
+  </g>
+
+  <!-- STAGE 2: Architecture (Right Top) -->
+  <g transform="translate(580, 90)">
+    <rect width="180" height="74" rx="14" fill="#18181b" stroke="#3f3f46" stroke-width="1.2"/>
+    <circle cx="24" cy="24" r="6" fill="#a855f7"/>
+    <text x="38" y="22" fill="#f4f4f5" font-family="system-ui, sans-serif" font-size="12" font-weight="700">02. Architecture Agent</text>
+    <text x="38" y="38" fill="#71717a" font-family="system-ui, sans-serif" font-size="10">System design &amp; DB schema</text>
+    <rect x="18" y="50" width="144" height="16" rx="4" fill="#27272a"/>
+    <text x="90" y="62" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="8.5" text-anchor="middle">API INTERFACES DEFINED</text>
+  </g>
+
+  <!-- Flow Orchestrator to Architecture -->
+  <path d="M490 160 C520 150, 540 127, 580 127" stroke="#2997ff" stroke-width="1.5" stroke-dasharray="4 4"/>
+
+  <!-- WORKTREE BRANCHES (PARALLEL EXECUTION) -->
+  <g transform="translate(60, 270)">
+    <rect width="680" height="95" rx="16" fill="#121215" stroke="#27272a" stroke-width="1.2"/>
+    <text x="24" y="24" fill="#a1a1aa" font-family="ui-monospace, monospace" font-size="10" font-weight="600">STAGE 03 // ISOLATED GIT WORKTREES (PARALLEL AGENT EXECUTION)</text>
+    
+    <!-- Sub-agent 1: Frontend -->
+    <rect x="24" y="36" width="195" height="46" rx="10" fill="#18181b" stroke="#3f3f46" stroke-width="1"/>
+    <circle cx="42" cy="59" r="5" fill="#2997ff"/>
+    <text x="56" y="54" fill="#f4f4f5" font-family="system-ui, sans-serif" font-size="10.5" font-weight="600">Frontend Agent</text>
+    <text x="56" y="69" fill="#71717a" font-family="ui-monospace, monospace" font-size="8.5">branch: agent/ui-v2</text>
+
+    <!-- Sub-agent 2: Backend & DB -->
+    <rect x="242" y="36" width="195" height="46" rx="10" fill="#18181b" stroke="#3f3f46" stroke-width="1"/>
+    <circle cx="260" cy="59" r="5" fill="#3b82f6"/>
+    <text x="274" y="54" fill="#f4f4f5" font-family="system-ui, sans-serif" font-size="10.5" font-weight="600">Backend &amp; DB Agent</text>
+    <text x="274" y="69" fill="#ui-monospace, monospace" font-size="8.5" fill="#71717a">branch: agent/api-v2</text>
+
+    <!-- Sub-agent 3: AI / Model -->
+    <rect x="460" y="36" width="195" height="46" rx="10" fill="#18181b" stroke="#3f3f46" stroke-width="1"/>
+    <circle cx="478" cy="59" r="5" fill="#06b6d4"/>
+    <text x="492" y="54" fill="#f4f4f5" font-family="system-ui, sans-serif" font-size="10.5" font-weight="600">AI / ML Agent</text>
+    <text x="492" y="69" fill="#71717a" font-family="ui-monospace, monospace" font-size="8.5">branch: agent/ml-v2</text>
+  </g>
+
+  <!-- Flow Lines from Orchestrator to Worktrees -->
+  <line x1="400" y1="230" x2="400" y2="270" stroke="#2997ff" stroke-width="1.5"/>
+
+  <!-- BOTTOM CHECKPOINTS -->
+  <g transform="translate(60, 385)">
+    <!-- Stage Gate QA -->
+    <rect width="325" height="52" rx="12" fill="#18181b" stroke="#f59e0b" stroke-opacity="0.4" stroke-width="1.2"/>
+    <circle cx="26" cy="26" r="6" fill="#f59e0b"/>
+    <text x="44" y="24" fill="#f4f4f5" font-family="system-ui, sans-serif" font-size="11" font-weight="600">04. Stage-Gate QA &amp; Security</text>
+    <text x="44" y="38" fill="#71717a" font-family="system-ui, sans-serif" font-size="9">Linting, unit tests, contract audits</text>
+
+    <!-- Deployment -->
+    <g transform="translate(355, 0)">
+      <rect width="325" height="52" rx="12" fill="#18181b" stroke="#10b981" stroke-opacity="0.4" stroke-width="1.2"/>
+      <circle cx="26" cy="26" r="6" fill="#10b981"/>
+      <text x="44" y="24" fill="#f4f4f5" font-family="system-ui, sans-serif" font-size="11" font-weight="600">05. DevOps &amp; Production Deploy</text>
+      <text x="44" y="38" fill="#71717a" font-family="system-ui, sans-serif" font-size="9">Continuous delivery &amp; cloud health verification</text>
+    </g>
+  </g>
+</svg>
