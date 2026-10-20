@@ -8,7 +8,6 @@ import {
   ShieldCheck,
   GitBranch,
   ArrowRight,
-  Sparkles,
   CheckCircle2
 } from "lucide-react";
 
@@ -78,11 +77,8 @@ export default function VisionSection() {
     <section ref={ref} id="vision" className="py-24 bg-[#FAF9F8] border-t border-[rgba(38,57,90,0.06)]">
       <div className="max-w-[1140px] mx-auto px-6">
         
-        {/* Section Header with Primefold Small Monospace Label */}
+        {/* Section Header */}
         <div className={`text-center max-w-[720px] mx-auto mb-16 reveal ${inView ? "visible" : ""}`}>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] text-xs font-mono text-[#54524E] mb-4">
-            <span>VISION &amp; DIFFERENTIATION</span>
-          </div>
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-normal text-[#1A1814] leading-[1.15] mb-5">
             Engineering discipline. <br />
             <span className="text-[#82807A] font-normal">
@@ -94,7 +90,7 @@ export default function VisionSection() {
           </p>
         </div>
 
-        {/* Dual Pillar: Mission & Vision Cards (Warm Off-White / Dark Split) */}
+        {/* Dual Pillar: Mission & Vision Cards */}
         <div className="grid md:grid-cols-2 gap-6 mb-16">
           {/* Mission Card */}
           <div
@@ -151,7 +147,7 @@ export default function VisionSection() {
           </div>
         </div>
 
-        {/* 5 Core Differentiators — Primefold Interactive Vertical / Tabbed List */}
+        {/* 5 Core Differentiators */}
         <div
           className={`pf-card-white p-6 sm:p-10 border border-[rgba(38,57,90,0.08)] reveal ${
             inView ? "visible" : ""
@@ -165,7 +161,6 @@ export default function VisionSection() {
                 HOW WE OPERATE DIFFERENTLY
               </div>
               {differentiators.map((diff, index) => {
-                const IconComponent = diff.icon;
                 const isActive = activeDiff === index;
                 return (
                   <button

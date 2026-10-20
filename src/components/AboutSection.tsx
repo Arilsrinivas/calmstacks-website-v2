@@ -28,9 +28,7 @@ export default function AboutSection() {
         
         {/* Section Header */}
         <div className={`text-center max-w-[720px] mx-auto mb-16 reveal ${inView ? "visible" : ""}`}>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] text-xs font-mono text-[#54524E] mb-4">
-            <span>ABOUT CALMSTACKS</span>
-          </div>
+          
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-normal text-[#1A1814] leading-[1.15] mb-5">
             Engineering what comes next. <br />
             <span className="text-[#82807A] font-normal">

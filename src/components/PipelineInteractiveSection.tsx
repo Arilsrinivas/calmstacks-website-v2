@@ -36,9 +36,7 @@ export default function PipelineInteractiveSection() {
         
         {/* Section Header */}
         <div className="text-center max-w-[800px] mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#EFECE6] text-xs font-mono text-[#54524E] mb-4">
-            <span>HOW A REQUIREMENT BECOMES A DELIVERABLE</span>
-          </div>
+          
           <h2 className="text-3xl sm:text-5xl font-semibold text-[#1A1814] leading-[1.15] tracking-normal mb-4">
             Ask. Orchestrate. Deliver. <br />
             <span className="text-[#82807A] font-normal">

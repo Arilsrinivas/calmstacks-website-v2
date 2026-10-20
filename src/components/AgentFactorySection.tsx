@@ -77,10 +77,7 @@ export default function AgentFactorySection() {
         
         {/* Section Pill Label */}
         <div className={`text-center max-w-[760px] mx-auto mb-16 reveal ${inView ? "visible" : ""}`}>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8F5F2] text-xs font-mono text-[#208374] border border-[#208374]/20 mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#208374] animate-pulse" />
-            <span>CORE TECHNOLOGY // PROPRIETARY ENGINE</span>
-          </div>
+          
           <h2 className="text-3xl sm:text-5xl font-semibold tracking-normal text-[#1A1814] leading-[1.12] mb-5">
             CalmStacks Agent Factory. <br />
             <span className="text-[#82807A] font-normal">
@@ -216,9 +213,7 @@ export default function AgentFactorySection() {
         {/* Technology Stack Grid (Primefold-Style Categorized Cards) */}
         <div>
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] text-xs font-mono text-[#54524E] mb-3">
-              <span>STACK &amp; INFRASTRUCTURE</span>
-            </div>
+            
             <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal">
               Production-Grade Tooling
             </h3>
