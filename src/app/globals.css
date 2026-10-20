@@ -1,157 +1,213 @@
 @import "tailwindcss";
 
-/* ===== Design Tokens — Apple-Inspired ===== */
+/* ===== Primefold Design System Tokens ===== */
 :root {
-  --background: #000000;
-  --foreground: #f5f5f7;
-  --surface: #1d1d1f;
-  --surface-elevated: #2d2d2f;
-  --border-subtle: rgba(255, 255, 255, 0.08);
+  /* Warm off-white background */
+  --background: #FAF9F8;
+  --foreground: #1A1814;
+  
+  /* Surfaces & Containers */
+  --surface: #FFFFFF;
+  --surface-warm: #F4F2EE;
+  --surface-subtle: #EFECE6;
+  --surface-dark: #1A1814;
+  --surface-dark-card: #24221D;
+  --surface-dark-elevated: #2D2B26;
 
-  /* Brand — One accent only */
-  --primary: #2997ff;
-  --primary-hover: #0071e3;
+  /* Accent Colors */
+  --accent-teal: #208374;
+  --accent-teal-light: #3FD1BC;
+  --accent-teal-subtle: #E8F5F2;
+  --accent-terracotta: #CA7B57;
+  --accent-blue: #2E68FF;
 
-  /* Typography */
-  --text-primary: #f5f5f7;
-  --text-secondary: #86868b;
-  --text-muted: #6e6e73;
+  /* Typography Colors */
+  --text-primary: #1A1814;
+  --text-secondary: #54524E;
+  --text-muted: #82807A;
+  --text-light-primary: #F4F2EE;
+  --text-light-secondary: #CBC7C0;
+  --text-light-muted: #8E8B85;
+
+  /* Borders & Dividers */
+  --border-light: rgba(38, 57, 90, 0.08);
+  --border-medium: rgba(38, 57, 90, 0.15);
+  --border-subtle: #E6E2DA;
+  --border-dark: rgba(255, 255, 255, 0.08);
+  --border-dark-hover: rgba(255, 255, 255, 0.16);
+
+  /* Shadows */
+  --shadow-sm: 0px 1px 2px rgba(26, 24, 20, 0.04), 0px 0px 0px 1px rgba(38, 57, 90, 0.06);
+  --shadow-md: 0px 4px 12px rgba(26, 24, 20, 0.05), 0px 0px 0px 1px rgba(38, 57, 90, 0.08);
+  --shadow-lg: 0px 12px 32px rgba(26, 24, 20, 0.08), 0px 2px 4px rgba(26, 24, 20, 0.04), 0px 0px 0px 1px rgba(38, 57, 90, 0.08);
+  --shadow-card-dark: 0px 20px 40px rgba(0, 0, 0, 0.4), 0px 0px 0px 1px rgba(255, 255, 255, 0.06);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
-  --color-surface-elevated: var(--surface-elevated);
-  --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
+  --color-surface-warm: var(--surface-warm);
+  --color-surface-dark: var(--surface-dark);
+  --color-accent-teal: var(--accent-teal);
+  --color-accent-teal-light: var(--accent-teal-light);
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
+  --color-border-light: var(--border-light);
   --color-border-subtle: var(--border-subtle);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }
 
-/* ===== Base ===== */
+/* ===== Base Styles ===== */
 * {
   scrollbar-width: thin;
-  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  scrollbar-color: rgba(26, 24, 20, 0.2) transparent;
 }
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--background);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: rgba(41, 151, 255, 0.3);
-  color: #fff;
+  background: rgba(32, 131, 116, 0.2);
+  color: #1A1814;
 }
 
-/* ===== Cards — Clean, Flat ===== */
-.card {
-  background: var(--surface);
-  border-radius: 20px;
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-
-.card:hover {
-  background: var(--surface-elevated);
-  transform: translateY(-2px);
-}
-
-/* ===== Buttons — Apple Style ===== */
-.btn-primary {
-  background: var(--primary);
-  color: #fff;
+/* ===== Buttons — Primefold Pill Style ===== */
+.pf-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #1A1814;
+  color: #FAF9F8;
+  font-size: 14px;
   font-weight: 500;
-  font-size: 1.0625rem;
-  padding: 12px 28px;
-  border-radius: 980px;
-  transition: background 0.2s ease;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.12), inset 0px 1px 0px rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid #1A1814;
+}
+
+.pf-btn-primary:hover {
+  background-color: #2D2B26;
+  border-color: #2D2B26;
+  transform: translateY(-1px);
+}
+
+.pf-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #FFFFFF;
+  color: #1A1814;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 9999px;
+  border: 1px solid var(--border-medium);
+  box-shadow: 0px 1px 2px rgba(38, 57, 90, 0.05);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pf-btn-secondary:hover {
+  background-color: #F8F7F5;
+  border-color: rgba(38, 57, 90, 0.25);
+  transform: translateY(-1px);
+}
+
+.pf-btn-pill-ghost {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  letter-spacing: -0.01em;
-}
-
-.btn-primary:hover {
-  background: var(--primary-hover);
-}
-
-.btn-secondary {
-  color: var(--primary);
+  background-color: transparent;
+  color: #54524E;
+  font-size: 14px;
   font-weight: 500;
-  font-size: 1.0625rem;
-  padding: 12px 28px;
-  border-radius: 980px;
-  border: 2px solid var(--primary);
-  background: transparent;
-  transition: all 0.2s ease;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+
+.pf-btn-pill-ghost:hover {
+  color: #1A1814;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* ===== Card Tokens ===== */
+.pf-card-white {
+  background: #FFFFFF;
+  border: 1px solid rgba(38, 57, 90, 0.08);
+  border-radius: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.pf-card-white:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(38, 57, 90, 0.14);
+}
+
+.pf-card-dark {
+  background: #1A1814;
+  color: #FAF9F8;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  box-shadow: var(--shadow-card-dark);
+}
+
+/* ===== Tags & Badges ===== */
+.pf-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  letter-spacing: -0.01em;
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: #EFECE6;
+  color: #54524E;
+  border: 1px solid rgba(38, 57, 90, 0.06);
 }
 
-.btn-secondary:hover {
-  background: var(--primary);
-  color: #fff;
+.pf-badge-teal {
+  background: rgba(32, 131, 116, 0.1);
+  color: #208374;
+  border: 1px solid rgba(32, 131, 116, 0.2);
 }
 
-/* ===== Link — Apple Blue ===== */
-.link-primary {
-  color: var(--primary);
-  font-size: 1.0625rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: opacity 0.2s ease;
+.pf-badge-dark {
+  background: rgba(255, 255, 255, 0.08);
+  color: #CBC7C0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
-.link-primary:hover {
-  text-decoration: underline;
-  opacity: 0.85;
-}
-
-/* ===== Animations — Subtle Only ===== */
-@keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Scroll-triggered */
+/* ===== Scroll Reveal Animations ===== */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
 .reveal.visible {
@@ -159,210 +215,13 @@ body {
   transform: translateY(0);
 }
 
-.animate-slide-up {
-  animation: slide-up 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+/* Subtle dot background for interactive demo */
+.bg-dot-pattern {
+  background-image: radial-gradient(rgba(26, 24, 20, 0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
 
-/* ===== Navigation — Thin Bar ===== */
-.nav-link {
-  color: var(--text-secondary);
-  font-weight: 400;
-  font-size: 0.75rem;
-  letter-spacing: 0.01em;
-  transition: color 0.2s ease;
-  padding: 4px 0;
+.bg-dot-pattern-dark {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
 }
-
-.nav-link:hover {
-  color: var(--text-primary);
-}
-
-/* ===== Dropdown ===== */
-.dropdown-menu {
-  background: rgba(29, 29, 31, 0.96);
-  backdrop-filter: blur(40px);
-  -webkit-backdrop-filter: blur(40px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
-  padding: 6px;
-  min-width: 200px;
-}
-
-.dropdown-item {
-  padding: 8px 12px;
-  border-radius: 8px;
-  color: var(--text-secondary);
-  font-size: 0.8125rem;
-  transition: all 0.15s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.dropdown-item:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--text-primary);
-}
-
-/* ===== Dividers — Hair-thin ===== */
-.section-divider {
-  height: 1px;
-  background: var(--border-subtle);
-  max-width: 980px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* ===== Stat Counter ===== */
-.stat-number {
-  font-size: 3.5rem;
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-primary);
-  letter-spacing: -0.04em;
-}
-
-/* ===== Form Inputs ===== */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-textarea {
-  font-family: inherit;
-}
-
-/* ===== Glass (kept minimal for navbar only) ===== */
-.glass {
-  background: rgba(0, 0, 0, 0.72);
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-}
-
-/* Legacy class compat — redirect to card */
-.glass-card {
-  background: var(--surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: 20px;
-  transition: transform 0.3s ease, background 0.3s ease;
-}
-
-.glass-card:hover {
-  background: var(--surface-elevated);
-  transform: translateY(-2px);
-}
-
-/* ===== Gradient text — now simple white */
-.gradient-text,
-.gradient-text-hero {
-  color: var(--primary);
-}
-
-/* ===== CalmStudio Premium Custom Styles ===== */
-.studio-glass {
-  background: rgba(10, 10, 12, 0.75);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.studio-glass-elevated {
-  background: rgba(22, 22, 26, 0.85);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
-}
-
-.cyber-grid {
-  background-image: 
-    linear-gradient(rgba(41, 151, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(41, 151, 255, 0.03) 1px, transparent 1px);
-  background-size: 30px 30px;
-  background-position: center center;
-}
-
-.neon-glow-primary {
-  box-shadow: 0 0 20px rgba(41, 151, 255, 0.15);
-}
-
-.neon-glow-cyan {
-  box-shadow: 0 0 25px rgba(6, 182, 212, 0.2);
-}
-
-.neon-glow-emerald {
-  box-shadow: 0 0 25px rgba(16, 185, 129, 0.2);
-}
-
-.glow-text-cyan {
-  text-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
-}
-
-/* Custom animations */
-@keyframes dash-flow {
-  to {
-    stroke-dashoffset: -20;
-  }
-}
-
-.animate-dash-flow {
-  stroke-dasharray: 5, 5;
-  animation: dash-flow 1s linear infinite;
-}
-
-@keyframes scanline {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
-  }
-}
-
-.animate-scanline {
-  animation: scanline 8s linear infinite;
-}
-
-@keyframes cursor-blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.animate-cursor-blink {
-  animation: cursor-blink 1s step-end infinite;
-}
-
-@keyframes pulse-soft {
-  0%, 100% { opacity: 0.2; }
-  50% { opacity: 0.6; }
-}
-
-.animate-pulse-soft {
-  animation: pulse-soft 3s ease-in-out infinite;
-}
-
-/* Scrollbar customization for studio console */
-.console-scrollbar::-webkit-scrollbar {
-  width: 4px;
-}
-.console-scrollbar::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-}
-.console-scrollbar::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-}
-.console-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
-}
-
-/* ===== Noise Overlays from excited-bohr ===== */
-.noise-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-}
-
-.bg-noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-}
-

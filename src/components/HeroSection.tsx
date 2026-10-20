@@ -1,107 +1,262 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Sparkles } from "lucide-react";
+import {
+  ArrowRight,
+  Sparkles,
+  Search,
+  CheckCircle2,
+  FileText,
+  Clock,
+  Layers,
+  ArrowUpRight,
+  GitBranch,
+  Terminal,
+  Activity,
+  ShieldCheck,
+  Cpu
+} from "lucide-react";
 
 export default function HeroSection() {
+  // Simulated Interactive Query Engine state (like primefold.ai's dynamic query terminal)
+  const [activeStep, setActiveStep] = useState(0);
+  const [isTyping, setIsTyping] = useState(false);
+  const [activeTab, setActiveTab] = useState<"architecture" | "agents" | "telemetry">("architecture");
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % 4);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
-    <section
-      id="hero"
-      className="relative min-h-screen flex flex-col items-center justify-center pt-11 px-6 overflow-hidden bg-black"
-    >
-      {/* Background Video */}
-      <video
-        src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover z-0 opacity-40"
-      />
-
-      {/* Cyber Grid & Architectural SVG Vector Layer */}
-      <div className="absolute inset-0 cyber-grid opacity-30 pointer-events-none z-0" />
-      <div className="absolute inset-0 pointer-events-none z-10 flex items-center justify-center opacity-25">
-        <svg
-          className="w-full h-full max-w-[1200px] max-h-[800px]"
-          viewBox="0 0 1000 700"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <radialGradient id="heroCenterGlow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#2997ff" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#2997ff" stopOpacity="0" />
-            </radialGradient>
-          </defs>
-          <circle cx="500" cy="350" r="280" fill="url(#heroCenterGlow)" />
-          {/* Concentric telemetry rings */}
-          <circle cx="500" cy="350" r="320" stroke="#2997ff" strokeOpacity="0.12" strokeWidth="1" strokeDasharray="4 8" />
-          <circle cx="500" cy="350" r="220" stroke="#2997ff" strokeOpacity="0.18" strokeWidth="1" />
-          <circle cx="500" cy="350" r="140" stroke="#ffffff" strokeOpacity="0.1" strokeWidth="1" strokeDasharray="6 6" />
-
-          {/* Connected agent workflow lines */}
-          <path d="M180 350 H820" stroke="#2997ff" strokeOpacity="0.15" strokeWidth="1.5" className="animate-dash-flow" />
-          <path d="M500 120 V580" stroke="#2997ff" strokeOpacity="0.15" strokeWidth="1.5" className="animate-dash-flow" />
-          <path d="M260 200 L740 500" stroke="#2997ff" strokeOpacity="0.12" strokeWidth="1" />
-          <path d="M260 500 L740 200" stroke="#2997ff" strokeOpacity="0.12" strokeWidth="1" />
-
-          {/* Agent nodes */}
-          <circle cx="500" cy="350" r="6" fill="#2997ff" className="animate-pulse" />
-          <circle cx="260" cy="200" r="4" fill="#86868b" />
-          <circle cx="740" cy="200" r="4" fill="#86868b" />
-          <circle cx="260" cy="500" r="4" fill="#86868b" />
-          <circle cx="740" cy="500" r="4" fill="#86868b" />
-          <circle cx="180" cy="350" r="4" fill="#2997ff" />
-          <circle cx="820" cy="350" r="4" fill="#2997ff" />
-        </svg>
+    <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
+      {/* Background radial gradient warmth */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none opacity-40">
+        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#EFEAE2] to-transparent rounded-full blur-3xl" />
       </div>
 
-      {/* Noise Overlay */}
-      <div className="absolute inset-0 noise-overlay opacity-[0.7] mix-blend-overlay pointer-events-none z-10" />
-
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black z-10" />
-
-      <div className="max-w-[980px] w-full text-center relative z-20">
-        {/* Subtle pill tag */}
-        <div
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-mono tracking-wider uppercase mb-6 animate-slide-up"
-          style={{ animationDelay: "0.04s" }}
-        >
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>AI-POWERED SOFTWARE ENGINEERING SYSTEMS</span>
+      <div className="max-w-[1140px] mx-auto px-6 relative z-10">
+        {/* Top pill badge */}
+        <div className="flex justify-center mb-6">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[rgba(38,57,90,0.08)] shadow-[0_1px_2px_rgba(26,24,20,0.04)] text-xs font-medium text-[#54524E]">
+            <span className="w-2 h-2 rounded-full bg-[#208374] animate-pulse" />
+            <span className="font-mono text-[#1A1814]">CALMSTACKS</span>
+            <span className="text-[#CBC7C0]">|</span>
+            <span>Autonomous Software Engineering</span>
+            <ArrowRight className="w-3 h-3 text-[#82807A]" />
+          </div>
         </div>
 
-        {/* Headline — massive, tight */}
-        <h1
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-[80px] font-semibold leading-[1.05] tracking-[-0.03em] text-text-primary animate-slide-up"
-          style={{ animationDelay: "0.08s" }}
-        >
-          Build Smarter. <br className="hidden sm:inline" />
-          Engineer Beyond.
-        </h1>
+        {/* Hero Main Headline */}
+        <div className="text-center max-w-[840px] mx-auto mb-6">
+          <h1 className="text-4xl sm:text-6xl md:text-[68px] font-semibold tracking-[-0.035em] text-[#1A1814] leading-[1.08]">
+            Engineering intelligent systems.{" "}
+            <span className="text-[#82807A] block sm:inline font-normal">
+              Building what comes next.
+            </span>
+          </h1>
+        </div>
 
-        {/* Subheadline */}
-        <p
-          className="mt-6 text-xl sm:text-2xl text-text-secondary font-normal leading-relaxed max-w-[720px] mx-auto animate-slide-up"
-          style={{ animationDelay: "0.16s" }}
-        >
-          From AI-powered applications to autonomous multi-agent development systems, CalmStacks turns complex ideas into intelligent, production-ready software.
+        {/* Hero Subtitle */}
+        <p className="text-center text-lg sm:text-xl text-[#54524E] max-w-[620px] mx-auto leading-relaxed mb-10">
+          CalmStacks builds AI-powered applications and multi-agent software engineering systems that transform complex ideas into reliable digital products.
         </p>
 
-        {/* CTAs */}
-        <div
-          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 animate-slide-up"
-          style={{ animationDelay: "0.24s" }}
-        >
-          <Link href="#projects" className="btn-primary">
+        {/* Call to Actions */}
+        <div className="flex flex-wrap items-center justify-center gap-3.5 mb-16">
+          <Link href="#contact" className="pf-btn-primary">
             <span>Explore Our Work</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
-          <Link href="#contact" className="btn-secondary">
-            <span>Get in Touch</span>
+          <Link href="#agent-factory" className="pf-btn-secondary">
+            <span>See how it works</span>
+            <Sparkles className="w-3.5 h-3.5 text-[#208374]" />
           </Link>
+        </div>
+
+        {/* PRIME-STYLE INTERACTIVE AGENT MOCKUP INTERFACE */}
+        <div id="platform" className="relative mx-auto max-w-[980px]">
+          {/* Main Card Container */}
+          <div className="pf-card-dark p-4 sm:p-7 md:p-8 relative overflow-hidden">
+            {/* Ambient Background Grid Pattern inside card */}
+            <div className="absolute inset-0 bg-dot-pattern-dark opacity-30 pointer-events-none" />
+
+            {/* Top Toolbar / Tabs */}
+            <div className="relative z-10 flex flex-wrap items-center justify-between pb-5 mb-6 border-b border-white/10 gap-3">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-[#FF5F56] opacity-80" />
+                <span className="w-3 h-3 rounded-full bg-[#FFBD2E] opacity-80" />
+                <span className="w-3 h-3 rounded-full bg-[#27C93F] opacity-80" />
+                <div className="h-4 w-px bg-white/10 mx-2" />
+                <span className="text-xs font-mono text-[#CBC7C0] flex items-center gap-1.5">
+                  <Terminal className="w-3.5 h-3.5 text-[#3FD1BC]" />
+                  calmstacks-agent-factory // orchestrator-v2.4
+                </span>
+              </div>
+
+              {/* View Switches */}
+              <div className="flex items-center gap-1 bg-white/[0.06] p-1 rounded-full border border-white/10">
+                <button
+                  onClick={() => setActiveTab("architecture")}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                    activeTab === "architecture"
+                      ? "bg-white/20 text-white shadow-sm"
+                      : "text-[#CBC7C0] hover:text-white"
+                  }`}
+                >
+                  SDLC Spec
+                </button>
+                <button
+                  onClick={() => setActiveTab("agents")}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                    activeTab === "agents"
+                      ? "bg-white/20 text-white shadow-sm"
+                      : "text-[#CBC7C0] hover:text-white"
+                  }`}
+                >
+                  Worktrees (3)
+                </button>
+                <button
+                  onClick={() => setActiveTab("telemetry")}
+                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors ${
+                    activeTab === "telemetry"
+                      ? "bg-white/20 text-white shadow-sm"
+                      : "text-[#CBC7C0] hover:text-white"
+                  }`}
+                >
+                  Gate QA
+                </button>
+              </div>
+            </div>
+
+            {/* Interactive Query / Prompt Bar (like Primefold's "Why are customers cancelling...") */}
+            <div className="relative z-10 mb-6">
+              <div className="bg-[#24221D] border border-white/15 rounded-2xl p-4 sm:p-5 flex flex-col gap-3 shadow-inner">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-xl bg-[#208374]/20 border border-[#208374]/30 flex items-center justify-center shrink-0 text-[#3FD1BC] mt-0.5">
+                    <Search className="w-4 h-4" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-[11px] font-mono text-[#CBC7C0] uppercase tracking-wider mb-1">
+                      SPECIFICATION PROMPT · ORCHESTRATION DISPATCH
+                    </div>
+                    <div className="text-white text-base sm:text-lg font-medium tracking-tight">
+                      &quot;Implement LegalConnect BCI-compliant advocate directory, case workspace, and stage-gate contract tests.&quot;
+                    </div>
+                  </div>
+                  <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#208374]/20 text-[#3FD1BC] text-[11px] font-mono border border-[#208374]/40 shrink-0">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#3FD1BC] animate-ping" />
+                    DISPATCHED
+                  </span>
+                </div>
+
+                {/* Progress Pipeline Pills */}
+                <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-white/[0.07] text-xs text-[#CBC7C0] font-mono">
+                  <span className="flex items-center gap-1 text-[#3FD1BC]">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Spec Parsed
+                  </span>
+                  <span className="text-white/20">/</span>
+                  <span className="flex items-center gap-1 text-[#3FD1BC]">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> 3 Isolated Worktrees
+                  </span>
+                  <span className="text-white/20">/</span>
+                  <span className="flex items-center gap-1 text-[#3FD1BC]">
+                    <CheckCircle2 className="w-3.5 h-3.5" /> Gate Checkpoints Pass (100%)
+                  </span>
+                  <span className="text-white/20">/</span>
+                  <span className="text-[#8E8B85] flex items-center gap-1">
+                    <Clock className="w-3 h-3" /> Synthesis & Merge
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Results Grid — Mimicking Primefold's Data Card Breakdown */}
+            <div className="relative z-10 grid sm:grid-cols-3 gap-4">
+              {/* Card 1: Orchestrator Status */}
+              <div className="bg-[#24221D] p-4 rounded-2xl border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#3FD1BC] bg-[#208374]/15 px-2 py-0.5 rounded border border-[#208374]/30">
+                      ORCHESTRATOR
+                    </span>
+                    <GitBranch className="w-3.5 h-3.5 text-[#CBC7C0]" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-white mb-1.5">
+                    Isolated Worktrees
+                  </h4>
+                  <p className="text-xs text-[#CBC7C0] leading-relaxed">
+                    Worker agents operate in clean git worktrees preventing code collision or state drift.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-[#8E8B85]">
+                  <span>worktree/feat-bci</span>
+                  <span className="text-[#3FD1BC]">Active</span>
+                </div>
+              </div>
+
+              {/* Card 2: Stage-Gate QA Check */}
+              <div className="bg-[#24221D] p-4 rounded-2xl border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#CA7B57] bg-[#CA7B57]/15 px-2 py-0.5 rounded border border-[#CA7B57]/30">
+                      QA GATES
+                    </span>
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#CBC7C0]" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-white mb-1.5">
+                    Engineering Contracts
+                  </h4>
+                  <p className="text-xs text-[#CBC7C0] leading-relaxed">
+                    Automated checkpoints verify unit suites, schema validation, and regulatory compliance.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-[#8E8B85]">
+                  <span>BCI Compliance</span>
+                  <span className="text-[#27C93F]">100% Passed</span>
+                </div>
+              </div>
+
+              {/* Card 3: Production Code Output */}
+              <div className="bg-[#24221D] p-4 rounded-2xl border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#2E68FF] bg-[#2E68FF]/15 px-2 py-0.5 rounded border border-[#2E68FF]/30">
+                      DELIVERY
+                    </span>
+                    <Cpu className="w-3.5 h-3.5 text-[#CBC7C0]" />
+                  </div>
+                  <h4 className="text-sm font-semibold text-white mb-1.5">
+                    Production Systems
+                  </h4>
+                  <p className="text-xs text-[#CBC7C0] leading-relaxed">
+                    Outputs idiomatic, hardened TypeScript and Python backends with deterministic deployment.
+                  </p>
+                </div>
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-[#8E8B85]">
+                  <span>Zero Tech Debt</span>
+                  <span className="text-white font-medium">Ready</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom Status Ticker */}
+            <div className="relative z-10 mt-6 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs text-[#8E8B85]">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#208374]" />
+                <span>Next-generation SDLC: Contract-driven milestone synthesis</span>
+              </div>
+              <div className="font-mono text-[11px] text-[#CBC7C0]">
+                calmstacks.co.in/systems
+              </div>
+            </div>
+          </div>
+
+          {/* Under-glow reflection effect */}
+          <div className="w-[85%] mx-auto h-5 bg-[#1A1814]/30 blur-xl rounded-full mt-[-10px]" />
         </div>
       </div>
     </section>

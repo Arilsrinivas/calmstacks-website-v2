@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import ParticleBackground from "@/components/ParticleBackground";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -58,12 +57,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${geistMono.variable} antialiased`}
-      suppressHydrationWarning
+      className={`${inter.variable} ${geistMono.variable}`}
     >
-      <body className="min-h-screen bg-background text-foreground">
-        <ParticleBackground />
-        <div className="relative z-10">{children}</div>
+      <body className="antialiased selection:bg-[#208374]/20 selection:text-[#1A1814] bg-[#FAF9F8] text-[#1A1814]">
+        {children}
       </body>
     </html>
   );

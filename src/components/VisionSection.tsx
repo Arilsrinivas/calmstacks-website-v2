@@ -1,112 +1,239 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { 
-  GitBranch, 
-  FileCheck2, 
-  ShieldCheck, 
-  Cpu, 
-  Layers 
+import { useEffect, useRef, useState } from "react";
+import {
+  Compass,
+  Cpu,
+  Layers,
+  ShieldCheck,
+  GitBranch,
+  ArrowRight,
+  Sparkles,
+  CheckCircle2
 } from "lucide-react";
 
 const differentiators = [
   {
-    icon: GitBranch,
-    title: "Multi-Agent Workflows",
-    desc: "Autonomous specialized agents coordinated through structured phases from requirements to production.",
-  },
-  {
-    icon: FileCheck2,
-    title: "Engineering Contracts",
-    desc: "Human-readable technical specifications and explicit handoffs connecting each development stage.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Stage-Gate Validation",
-    desc: "Rigorous automated checks for architecture compliance, test coverage, and security before merging.",
-  },
-  {
+    num: "01",
+    title: "Multi-Agent SDLC Orchestration",
+    tagline: "Autonomous parallel execution",
+    desc: "We don't use AI as a simple autocomplete. We deploy specialized agent teams that analyze specifications, plan architectures, implement code across isolated worktrees, and conduct automated code reviews in parallel.",
     icon: Cpu,
-    title: "Practical AI Integration",
-    desc: "Domain-tailored machine intelligence integrated directly into production software applications.",
+    tag: "Orchestration"
   },
   {
+    num: "02",
+    title: "Production-First Engineering",
+    tagline: "Built for resilience at scale",
+    desc: "Every system is engineered for stability, maintainability, and scale. We write clean, idiomatic code, enforce type safety, implement robust error handling, and deliver comprehensive automated test coverage.",
     icon: Layers,
-    title: "Reliable & Scalable",
-    desc: "Built on battle-tested engineering fundamentals, isolated worktrees, and long-term maintainability.",
+    tag: "Robustness"
+  },
+  {
+    num: "03",
+    title: "Contracts & Stage-Gate QA",
+    tagline: "Zero-drift development milestones",
+    desc: "Each stage of development is governed by clear architectural contracts and automated quality gates. Work moves forward only after tests pass, interfaces align, and implementation specs are validated.",
+    icon: ShieldCheck,
+    tag: "Validation"
+  },
+  {
+    num: "04",
+    title: "Isolated Git Worktrees",
+    tagline: "Conflict-free multi-agent branches",
+    desc: "Autonomous worker agents execute within isolated Git worktrees, allowing simultaneous feature implementation, rigorous static analysis, and zero collision across concurrent branches.",
+    icon: GitBranch,
+    tag: "Architecture"
+  },
+  {
+    num: "05",
+    title: "Modern Scalable Architecture",
+    tagline: "Modern frameworks & cloud primitives",
+    desc: "We build on modern stacks: Next.js, TypeScript, FastAPI, Python, PostgreSQL, and serverless/container architectures designed to minimize operational overhead and scale smoothly.",
+    icon: Compass,
+    tag: "Infrastructure"
   },
 ];
 
 export default function VisionSection() {
-  const sectionRef = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLElement>(null);
+  const [inView, setInView] = useState(false);
+  const [activeDiff, setActiveDiff] = useState(0);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-          }
-        });
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
       },
       { threshold: 0.1 }
     );
-
-    const reveals = sectionRef.current?.querySelectorAll(".reveal");
-    reveals?.forEach((el) => observer.observe(el));
-
+    if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section id="vision" ref={sectionRef} className="py-24 px-6 relative overflow-hidden bg-black">
-      {/* Subtle Engineering Grid Background */}
-      <div className="absolute inset-0 cyber-grid opacity-20 pointer-events-none z-0" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-primary/5 blur-[140px] rounded-full pointer-events-none z-0" />
+    <section ref={ref} id="vision" className="py-24 bg-[#FAF9F8] border-t border-[rgba(38,57,90,0.06)]">
+      <div className="max-w-[1140px] mx-auto px-6">
+        
+        {/* Section Header with Primefold Small Monospace Label */}
+        <div className={`text-center max-w-[720px] mx-auto mb-16 reveal ${inView ? "visible" : ""}`}>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] text-xs font-mono text-[#54524E] mb-4">
+            <span>VISION &amp; DIFFERENTIATION</span>
+          </div>
+          <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-[#1A1814] leading-[1.15] mb-5">
+            Engineering discipline. <br />
+            <span className="text-[#82807A] font-normal">
+              Autonomous execution.
+            </span>
+          </h2>
+          <p className="text-base sm:text-lg text-[#54524E] leading-relaxed">
+            We bridge deep software craftsmanship with bleeding-edge agentic workflows to deliver software that endures.
+          </p>
+        </div>
 
-      <div className="max-w-[980px] mx-auto text-center relative z-20">
-        <h2 className="text-sm font-semibold tracking-widest text-primary uppercase mb-4 reveal">
-          VISION & ENGINEERING PHILOSOPHY
-        </h2>
-        <h3
-          className="text-4xl md:text-5xl font-semibold text-text-primary tracking-tight mb-8 reveal"
-          style={{ transitionDelay: "100ms" }}
-        >
-          Engineering Intelligent Systems. <br className="hidden sm:inline" />
-          Building What Comes Next.
-        </h3>
-        <p
-          className="text-lg md:text-xl text-text-secondary leading-relaxed max-w-[820px] mx-auto mb-16 reveal"
-          style={{ transitionDelay: "200ms" }}
-        >
-          Our mission is to engineer useful, reliable software systems that combine human creativity with intelligent automation. We make sophisticated software development more accessible, systematic, and scalable through AI-powered engineering.
-        </p>
+        {/* Dual Pillar: Mission & Vision Cards (Warm Off-White / Dark Split) */}
+        <div className="grid md:grid-cols-2 gap-6 mb-16">
+          {/* Mission Card */}
+          <div
+            className={`pf-card-white p-8 sm:p-10 flex flex-col justify-between reveal ${
+              inView ? "visible" : ""
+            }`}
+            style={{ transitionDelay: "100ms" }}
+          >
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#208374] bg-[#208374]/10 px-2.5 py-1 rounded-full font-medium">
+                  OUR MISSION
+                </span>
+                <span className="text-xs font-mono text-[#82807A]">01 // PURPOSE</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-tight mb-4">
+                Accelerating human potential through intelligent software.
+              </h3>
+              <p className="text-base text-[#54524E] leading-relaxed">
+                To build intelligent software systems and agent-driven engineering platforms that solve real-world problems, eliminate operational friction, and empower businesses to scale with confidence.
+              </p>
+            </div>
+            <div className="mt-8 pt-5 border-t border-[rgba(38,57,90,0.08)] flex items-center gap-3 text-xs text-[#82807A] font-mono">
+              <CheckCircle2 className="w-4 h-4 text-[#208374]" />
+              <span>Real-world utility · Production-grade codebases</span>
+            </div>
+          </div>
 
-        {/* Differentiators Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-left">
-          {differentiators.map((item, idx) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.title}
-                className="card p-6 border border-border-subtle hover:border-primary/30 transition-all flex flex-col justify-between reveal"
-                style={{ transitionDelay: `${250 + idx * 80}ms` }}
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-4">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <h4 className="text-sm font-semibold text-text-primary mb-2">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs text-text-secondary leading-relaxed">
-                    {item.desc}
-                  </p>
+          {/* Vision Card */}
+          <div
+            className={`pf-card-white p-8 sm:p-10 flex flex-col justify-between reveal ${
+              inView ? "visible" : ""
+            }`}
+            style={{ transitionDelay: "200ms" }}
+          >
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <span className="text-xs font-mono uppercase tracking-wider text-[#CA7B57] bg-[#CA7B57]/10 px-2.5 py-1 rounded-full font-medium">
+                  OUR VISION
+                </span>
+                <span className="text-xs font-mono text-[#82807A]">02 // FUTURE</span>
+              </div>
+              <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-tight mb-4">
+                The standard for autonomous agent software engineering.
+              </h3>
+              <p className="text-base text-[#54524E] leading-relaxed">
+                To lead the shift toward autonomous, multi-agent development where complex products are engineered with speed, precision, and verified engineering standards — without sacrificing architectural craftsmanship.
+              </p>
+            </div>
+            <div className="mt-8 pt-5 border-t border-[rgba(38,57,90,0.08)] flex items-center gap-3 text-xs text-[#82807A] font-mono">
+              <CheckCircle2 className="w-4 h-4 text-[#CA7B57]" />
+              <span>Agentic SDLC · Verifiable quality gates</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 5 Core Differentiators — Primefold Interactive Vertical / Tabbed List */}
+        <div
+          className={`pf-card-white p-6 sm:p-10 border border-[rgba(38,57,90,0.08)] reveal ${
+            inView ? "visible" : ""
+          }`}
+          style={{ transitionDelay: "300ms" }}
+        >
+          <div className="flex flex-col md:flex-row gap-8 items-start">
+            {/* Left selector */}
+            <div className="w-full md:w-5/12 space-y-2">
+              <div className="text-xs font-mono uppercase tracking-wider text-[#82807A] mb-3">
+                HOW WE OPERATE DIFFERENTLY
+              </div>
+              {differentiators.map((diff, index) => {
+                const IconComponent = diff.icon;
+                const isActive = activeDiff === index;
+                return (
+                  <button
+                    key={diff.num}
+                    onClick={() => setActiveDiff(index)}
+                    className={`w-full text-left p-3.5 sm:p-4 rounded-2xl transition-all duration-200 flex items-center justify-between border ${
+                      isActive
+                        ? "bg-[#FAF9F8] border-[rgba(38,57,90,0.15)] shadow-sm text-[#1A1814]"
+                        : "border-transparent text-[#54524E] hover:bg-[#FAF9F8]/60"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-xs font-semibold text-[#82807A]">
+                        {diff.num}
+                      </span>
+                      <span className="text-sm font-semibold tracking-tight">
+                        {diff.title}
+                      </span>
+                    </div>
+                    <span
+                      className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${
+                        isActive
+                          ? "bg-[#1A1814] text-white"
+                          : "bg-[#EFECE6] text-[#82807A]"
+                      }`}
+                    >
+                      {diff.tag}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Right Detailed Preview Panel */}
+            <div className="w-full md:w-7/12 bg-[#FAF9F8] rounded-2xl p-6 sm:p-8 border border-[rgba(38,57,90,0.08)] flex flex-col justify-between min-h-[320px]">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-xs font-mono uppercase tracking-widest text-[#208374] font-semibold">
+                    PILLAR {differentiators[activeDiff].num} // {differentiators[activeDiff].tag}
+                  </span>
+                  <span className="text-xs font-mono text-[#82807A]">
+                    Deterministic SDLC
+                  </span>
+                </div>
+                <h4 className="text-2xl font-semibold text-[#1A1814] tracking-tight mb-2">
+                  {differentiators[activeDiff].title}
+                </h4>
+                <p className="text-xs font-mono text-[#CA7B57] font-medium mb-4">
+                  {differentiators[activeDiff].tagline}
+                </p>
+                <p className="text-base text-[#54524E] leading-relaxed">
+                  {differentiators[activeDiff].desc}
+                </p>
+              </div>
+
+              <div className="mt-8 pt-5 border-t border-[rgba(38,57,90,0.08)] flex items-center justify-between">
+                <div className="text-xs font-mono text-[#82807A]">
+                  Zero hallucination · Strict test gates
+                </div>
+                <div className="flex items-center gap-1.5 text-xs font-medium text-[#1A1814]">
+                  <span>Proven in production</span>
+                  <ArrowRight className="w-3.5 h-3.5 text-[#208374]" />
                 </div>
               </div>
-            );
-          })}
+            </div>
+          </div>
         </div>
+
       </div>
     </section>
   );
