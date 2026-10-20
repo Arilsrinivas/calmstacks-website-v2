@@ -7,21 +7,15 @@ import {
   Sparkles,
   Search,
   CheckCircle2,
-  FileText,
   Clock,
-  Layers,
-  ArrowUpRight,
   GitBranch,
   Terminal,
-  Activity,
   ShieldCheck,
   Cpu
 } from "lucide-react";
 
 export default function HeroSection() {
-  // Simulated Interactive Query Engine state (like primefold.ai's dynamic query terminal)
   const [activeStep, setActiveStep] = useState(0);
-  const [isTyping, setIsTyping] = useState(false);
   const [activeTab, setActiveTab] = useState<"architecture" | "agents" | "telemetry">("architecture");
 
   useEffect(() => {
@@ -39,20 +33,18 @@ export default function HeroSection() {
       </div>
 
       <div className="max-w-[1140px] mx-auto px-6 relative z-10">
-        {/* Top pill badge */}
-        <div className="flex justify-center mb-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[rgba(38,57,90,0.08)] shadow-[0_1px_2px_rgba(26,24,20,0.04)] text-xs font-medium text-[#54524E]">
+        {/* Top pill badge - Cleaned to remove CALMSTACKS|Autonomous Software Engineering */}
+        <div className="flex justify-center mb-8">
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-[rgba(38,57,90,0.08)] shadow-[0_1px_2px_rgba(26,24,20,0.04)] text-xs font-medium text-[#54524E]">
             <span className="w-2 h-2 rounded-full bg-[#208374] animate-pulse" />
-            <span className="font-mono text-[#1A1814]">CALMSTACKS</span>
-            <span className="text-[#CBC7C0]">|</span>
-            <span>Autonomous Software Engineering</span>
-            <ArrowRight className="w-3 h-3 text-[#82807A]" />
+            <span>Autonomous Multi-Agent Architecture</span>
+            <ArrowRight className="w-3.5 h-3.5 text-[#82807A]" />
           </div>
         </div>
 
-        {/* Hero Main Headline */}
-        <div className="text-center max-w-[840px] mx-auto mb-6">
-          <h1 className="text-4xl sm:text-6xl md:text-[68px] font-semibold tracking-[-0.035em] text-[#1A1814] leading-[1.08]">
+        {/* Hero Main Headline with normalized tracking and natural line-height */}
+        <div className="text-center max-w-[860px] mx-auto mb-6">
+          <h1 className="text-4xl sm:text-6xl md:text-[68px] font-semibold text-[#1A1814] leading-[1.12] tracking-tight">
             Engineering intelligent systems.{" "}
             <span className="text-[#82807A] block sm:inline font-normal">
               Building what comes next.
@@ -80,7 +72,7 @@ export default function HeroSection() {
         {/* PRIME-STYLE INTERACTIVE AGENT MOCKUP INTERFACE */}
         <div id="platform" className="relative mx-auto max-w-[980px]">
           {/* Main Card Container */}
-          <div className="pf-card-dark p-4 sm:p-7 md:p-8 relative overflow-hidden">
+          <div className="pf-card-dark p-5 sm:p-7 md:p-8 relative overflow-hidden">
             {/* Ambient Background Grid Pattern inside card */}
             <div className="absolute inset-0 bg-dot-pattern-dark opacity-30 pointer-events-none" />
 
@@ -132,7 +124,7 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Interactive Query / Prompt Bar (like Primefold's "Why are customers cancelling...") */}
+            {/* Interactive Query / Prompt Bar */}
             <div className="relative z-10 mb-6">
               <div className="bg-[#24221D] border border-white/15 rounded-2xl p-4 sm:p-5 flex flex-col gap-3 shadow-inner">
                 <div className="flex items-start gap-3">
@@ -168,13 +160,13 @@ export default function HeroSection() {
                   </span>
                   <span className="text-white/20">/</span>
                   <span className="text-[#8E8B85] flex items-center gap-1">
-                    <Clock className="w-3 h-3" /> Synthesis & Merge
+                    <Clock className="w-3 h-3" /> Synthesis &amp; Merge
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Results Grid — Mimicking Primefold's Data Card Breakdown */}
+            {/* Results Grid */}
             <div className="relative z-10 grid sm:grid-cols-3 gap-4">
               {/* Card 1: Orchestrator Status */}
               <div className="bg-[#24221D] p-4 rounded-2xl border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between">
@@ -254,9 +246,6 @@ export default function HeroSection() {
               </div>
             </div>
           </div>
-
-          {/* Under-glow reflection effect */}
-          <div className="w-[85%] mx-auto h-5 bg-[#1A1814]/30 blur-xl rounded-full mt-[-10px]" />
         </div>
       </div>
     </section>

@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, Menu, X, ChevronDown } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -21,26 +22,18 @@ export default function Navbar() {
       <nav
         className={`w-full max-w-[1140px] flex items-center justify-between px-4 sm:px-6 py-2.5 sm:py-3 rounded-full transition-all duration-300 ${
           scrolled
-            ? "bg-[#FAF9F8]/85 backdrop-blur-md shadow-[0_4px_20px_rgba(26,24,20,0.06),0_0_0_1px_rgba(38,57,90,0.08)]"
-            : "bg-white/70 backdrop-blur-sm shadow-[0_1px_3px_rgba(26,24,20,0.04),0_0_0_1px_rgba(38,57,90,0.06)]"
+            ? "bg-[#FAF9F8]/90 backdrop-blur-md shadow-[0_4px_20px_rgba(26,24,20,0.06),0_0_0_1px_rgba(38,57,90,0.08)]"
+            : "bg-white/80 backdrop-blur-sm shadow-[0_1px_3px_rgba(26,24,20,0.04),0_0_0_1px_rgba(38,57,90,0.06)]"
         }`}
       >
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-7 h-7 rounded-lg bg-[#1A1814] flex items-center justify-center text-white shadow-sm transition-transform duration-200 group-hover:scale-105">
-            <svg
-              className="w-4 h-4 text-[#3FD1BC]"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
+        {/* Brand Logo from Assets */}
+        <Link href="/" className="flex items-center gap-3 group">
+          <div className="w-8 h-8 rounded-lg bg-[#1A1814] p-1 flex items-center justify-center transition-transform duration-200 group-hover:scale-105 shadow-sm overflow-hidden">
+            <img
+              src="/assets/favicon.svg"
+              alt="CalmStacks Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
           <span className="font-semibold text-base tracking-tight text-[#1A1814]">
             CalmStacks
