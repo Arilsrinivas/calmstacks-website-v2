@@ -23,7 +23,10 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-3">
-            <Link href="#contact" className="pf-btn-primary">
+            <Link href="/careers" className="pf-btn-secondary !text-xs !py-2 !px-3.5">
+              <span>Join our team</span>
+            </Link>
+            <Link href="/#contact" className="pf-btn-primary">
               <span>Start a project</span>
               <ArrowUpRight className="w-4 h-4" />
             </Link>
@@ -38,22 +41,22 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs text-[#54524E]">
               <li>
-                <Link href="#agent-factory" className="hover:text-[#1A1814] transition-colors">
+                <Link href="/#agent-factory" className="hover:text-[#1A1814] transition-colors">
                   Agent Factory
                 </Link>
               </li>
               <li>
-                <Link href="#platform" className="hover:text-[#1A1814] transition-colors">
+                <Link href="/#platform" className="hover:text-[#1A1814] transition-colors">
                   Orchestrator Architecture
                 </Link>
               </li>
               <li>
-                <Link href="#how-it-works" className="hover:text-[#1A1814] transition-colors">
+                <Link href="/#how-it-works" className="hover:text-[#1A1814] transition-colors">
                   Interactive Pipeline
                 </Link>
               </li>
               <li>
-                <Link href="#agent-factory" className="hover:text-[#1A1814] transition-colors">
+                <Link href="/#agent-factory" className="hover:text-[#1A1814] transition-colors">
                   Git Worktree Pipelines
                 </Link>
               </li>
@@ -66,23 +69,23 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs text-[#54524E]">
               <li>
-                <Link href="#projects" className="hover:text-[#1A1814] transition-colors flex items-center gap-1.5">
+                <Link href="/#projects" className="hover:text-[#1A1814] transition-colors flex items-center gap-1.5">
                   <span>LegalConnect</span>
                   <span className="text-[10px] font-sans px-1.5 py-0.2 rounded bg-[#EFECE6] text-[#1A1814]">Production</span>
                 </Link>
               </li>
               <li>
-                <Link href="#projects" className="hover:text-[#1A1814] transition-colors">
+                <Link href="/#projects" className="hover:text-[#1A1814] transition-colors">
                   AI Forensics &amp; Recovery
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="hover:text-[#1A1814] transition-colors">
+                <Link href="/#services" className="hover:text-[#1A1814] transition-colors">
                   Custom AI Applications
                 </Link>
               </li>
               <li>
-                <Link href="#services" className="hover:text-[#1A1814] transition-colors">
+                <Link href="/#services" className="hover:text-[#1A1814] transition-colors">
                   Workflow Automations
                 </Link>
               </li>
@@ -95,17 +98,23 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs text-[#54524E]">
               <li>
-                <Link href="#about" className="hover:text-[#1A1814] transition-colors">
+                <Link href="/#about" className="hover:text-[#1A1814] transition-colors">
                   About CalmStacks
                 </Link>
               </li>
               <li>
-                <Link href="#founders" className="hover:text-[#1A1814] transition-colors">
+                <Link href="/#founders" className="hover:text-[#1A1814] transition-colors">
                   Founders &amp; Leadership
                 </Link>
               </li>
               <li>
-                <Link href="#contact" className="hover:text-[#1A1814] transition-colors">
+                <Link href="/careers" className="hover:text-[#1A1814] transition-colors flex items-center gap-1.5 font-medium">
+                  <span>Careers &amp; Internships</span>
+                  <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#1A1814] text-white">We&apos;re hiring</span>
+                </Link>
+              </li>
+              <li>
+                <Link href="/#contact" className="hover:text-[#1A1814] transition-colors">
                   Contact
                 </Link>
               </li>
@@ -128,7 +137,7 @@ export default function Footer() {
           </div>
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#208374]" />
+              <span className="w-2 h-2 rounded-full bg-[#1A1814]" />
               Systems Operational
             </span>
             <span>·</span>

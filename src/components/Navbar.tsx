@@ -42,32 +42,38 @@ export default function Navbar() {
         {/* Center Nav Links (Desktop) */}
         <div className="hidden md:flex items-center gap-1 text-[13.5px] font-medium text-[#54524E]">
           <Link
-            href="#platform"
+            href="/#platform"
             className="px-3.5 py-1.5 rounded-full hover:text-[#1A1814] hover:bg-black/[0.04] transition-colors"
           >
             Platform
           </Link>
           <Link
-            href="#agent-factory"
+            href="/#agent-factory"
             className="px-3.5 py-1.5 rounded-full hover:text-[#1A1814] hover:bg-black/[0.04] transition-colors flex items-center gap-1.5"
           >
             <span>Agent Factory</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-[#208374]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#1A1814]" />
           </Link>
           <Link
-            href="#services"
+            href="/#services"
             className="px-3.5 py-1.5 rounded-full hover:text-[#1A1814] hover:bg-black/[0.04] transition-colors"
           >
             Capabilities
           </Link>
           <Link
-            href="#projects"
+            href="/#projects"
             className="px-3.5 py-1.5 rounded-full hover:text-[#1A1814] hover:bg-black/[0.04] transition-colors"
           >
             Implementations
           </Link>
           <Link
-            href="#about"
+            href="/careers"
+            className="px-3.5 py-1.5 rounded-full hover:text-[#1A1814] hover:bg-black/[0.04] transition-colors"
+          >
+            Careers
+          </Link>
+          <Link
+            href="/#about"
             className="px-3.5 py-1.5 rounded-full hover:text-[#1A1814] hover:bg-black/[0.04] transition-colors"
           >
             About
@@ -77,7 +83,7 @@ export default function Navbar() {
         {/* Right Action Buttons */}
         <div className="flex items-center gap-2.5">
           <Link
-            href="#contact"
+            href="/#contact"
             className="pf-btn-primary !text-[13px] !py-2 !px-4"
           >
             <span>Start a project</span>
@@ -99,14 +105,14 @@ export default function Navbar() {
       {mobileMenuOpen && (
         <div className="md:hidden absolute top-16 left-4 right-4 bg-[#FAF9F8] border border-[rgba(38,57,90,0.1)] rounded-2xl p-5 shadow-xl flex flex-col gap-3">
           <Link
-            href="#platform"
+            href="/#platform"
             onClick={() => setMobileMenuOpen(false)}
             className="text-sm font-medium text-[#1A1814] py-1.5 px-2 rounded-lg hover:bg-black/[0.04]"
           >
             Platform
           </Link>
           <Link
-            href="#agent-factory"
+            href="/#agent-factory"
             onClick={() => setMobileMenuOpen(false)}
             className="text-sm font-medium text-[#1A1814] py-1.5 px-2 rounded-lg hover:bg-black/[0.04] flex items-center justify-between"
           >
@@ -114,21 +120,28 @@ export default function Navbar() {
             <span className="text-[10px] font-sans px-2 py-0.5 rounded-full bg-[#EFECE6] text-[#1A1814]">Autonomous</span>
           </Link>
           <Link
-            href="#services"
+            href="/#services"
             onClick={() => setMobileMenuOpen(false)}
             className="text-sm font-medium text-[#1A1814] py-1.5 px-2 rounded-lg hover:bg-black/[0.04]"
           >
             Capabilities
           </Link>
           <Link
-            href="#projects"
+            href="/#projects"
             onClick={() => setMobileMenuOpen(false)}
             className="text-sm font-medium text-[#1A1814] py-1.5 px-2 rounded-lg hover:bg-black/[0.04]"
           >
             Implementations
           </Link>
           <Link
-            href="#about"
+            href="/careers"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-sm font-medium text-[#1A1814] py-1.5 px-2 rounded-lg hover:bg-black/[0.04]"
+          >
+            Careers &amp; Internships
+          </Link>
+          <Link
+            href="/#about"
             onClick={() => setMobileMenuOpen(false)}
             className="text-sm font-medium text-[#1A1814] py-1.5 px-2 rounded-lg hover:bg-black/[0.04]"
           >
@@ -136,7 +149,7 @@ export default function Navbar() {
           </Link>
           <div className="pt-2 border-t border-[rgba(38,57,90,0.08)]">
             <Link
-              href="#contact"
+              href="/#contact"
               onClick={() => setMobileMenuOpen(false)}
               className="pf-btn-primary w-full justify-center !text-sm"
             >
