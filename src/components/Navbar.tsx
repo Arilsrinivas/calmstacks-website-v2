@@ -78,12 +78,6 @@ export default function Navbar() {
         <div className="flex items-center gap-2.5">
           <Link
             href="#contact"
-            className="hidden sm:inline-flex items-center text-[13.5px] font-medium text-[#54524E] hover:text-[#1A1814] px-3 py-1.5 transition-colors"
-          >
-            Get in touch
-          </Link>
-          <Link
-            href="#contact"
             className="pf-btn-primary !text-[13px] !py-2 !px-4"
           >
             <span>Start a project</span>
