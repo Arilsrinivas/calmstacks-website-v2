@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowRight, Menu, X } from "lucide-react";
 
 export default function Navbar() {
@@ -73,12 +72,6 @@ export default function Navbar() {
           >
             About
           </Link>
-          <Link
-            href="/hackathon"
-            className="px-3 py-1 rounded-full text-xs font-mono text-[#208374] bg-[#208374]/10 hover:bg-[#208374]/15 transition-colors ml-1"
-          >
-            Hackathon &apos;26
-          </Link>
         </div>
 
         {/* Right Action Buttons */}
@@ -145,14 +138,7 @@ export default function Navbar() {
             onClick={() => setMobileMenuOpen(false)}
             className="text-sm font-medium text-[#1A1814] py-1.5 px-2 rounded-lg hover:bg-black/[0.04]"
           >
-            About & Leadership
-          </Link>
-          <Link
-            href="/hackathon"
-            onClick={() => setMobileMenuOpen(false)}
-            className="text-sm font-medium text-[#208374] py-1.5 px-2 rounded-lg bg-[#208374]/10"
-          >
-            Hackathon 2026 Archive
+            About &amp; Leadership
           </Link>
           <div className="pt-2 border-t border-[rgba(38,57,90,0.08)]">
             <Link
