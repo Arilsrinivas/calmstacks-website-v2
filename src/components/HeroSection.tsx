@@ -27,9 +27,19 @@ export default function HeroSection() {
 
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-      {/* Background radial gradient warmth */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none opacity-40">
-        <div className="absolute top-10 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-gradient-to-b from-[#EFEAE2] to-transparent rounded-full blur-3xl" />
+      {/* Background Video Loop with 80% Transparent White Element Overlay */}
+      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source src="/assets/Robot_Gazing_At_Sunset_Sky.mp4" type="video/mp4" />
+        </video>
+        {/* 80% transparent white overlay */}
+        <div className="absolute inset-0 bg-[#FAF9F8]/80 backdrop-blur-[2px]" />
       </div>
 
       <div className="max-w-[1140px] mx-auto px-6 relative z-10">
@@ -63,7 +73,7 @@ export default function HeroSection() {
         {/* PRIME-STYLE INTERACTIVE AGENT MOCKUP INTERFACE */}
         <div id="platform" className="relative mx-auto max-w-[980px]">
           {/* Main Card Container */}
-          <div className="pf-card-dark p-5 sm:p-7 md:p-8 relative overflow-hidden">
+          <div className="pf-card-dark p-5 sm:p-7 md:p-8 relative overflow-hidden backdrop-blur-md">
             {/* Ambient Background Grid Pattern inside card */}
             <div className="absolute inset-0 bg-dot-pattern-dark opacity-30 pointer-events-none" />
 
