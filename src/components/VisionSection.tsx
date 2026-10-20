@@ -83,7 +83,7 @@ export default function VisionSection() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] text-xs font-mono text-[#54524E] mb-4">
             <span>VISION &amp; DIFFERENTIATION</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-[#1A1814] leading-[1.15] mb-5">
+          <h2 className="text-3xl sm:text-5xl font-semibold tracking-normal text-[#1A1814] leading-[1.15] mb-5">
             Engineering discipline. <br />
             <span className="text-[#82807A] font-normal">
               Autonomous execution.
@@ -110,7 +110,7 @@ export default function VisionSection() {
                 </span>
                 <span className="text-xs font-mono text-[#82807A]">01 // PURPOSE</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-tight mb-4">
+              <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal mb-4">
                 Accelerating human potential through intelligent software.
               </h3>
               <p className="text-base text-[#54524E] leading-relaxed">
@@ -137,7 +137,7 @@ export default function VisionSection() {
                 </span>
                 <span className="text-xs font-mono text-[#82807A]">02 // FUTURE</span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-tight mb-4">
+              <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal mb-4">
                 The standard for autonomous agent software engineering.
               </h3>
               <p className="text-base text-[#54524E] leading-relaxed">
@@ -181,7 +181,7 @@ export default function VisionSection() {
                       <span className="font-mono text-xs font-semibold text-[#82807A]">
                         {diff.num}
                       </span>
-                      <span className="text-sm font-semibold tracking-tight">
+                      <span className="text-sm font-semibold tracking-normal">
                         {diff.title}
                       </span>
                     </div>
@@ -210,7 +210,7 @@ export default function VisionSection() {
                     Deterministic SDLC
                   </span>
                 </div>
-                <h4 className="text-2xl font-semibold text-[#1A1814] tracking-tight mb-2">
+                <h4 className="text-2xl font-semibold text-[#1A1814] tracking-normal mb-2">
                   {differentiators[activeDiff].title}
                 </h4>
                 <p className="text-xs font-mono text-[#CA7B57] font-medium mb-4">

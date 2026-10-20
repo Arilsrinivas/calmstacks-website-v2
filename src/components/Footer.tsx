@@ -11,7 +11,7 @@ export default function Footer() {
         {/* Top Callout Strip (Primefold Style: "One intelligence. Built for every field.") */}
         <div className="pb-12 mb-12 border-b border-[rgba(38,57,90,0.08)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div>
-            <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal">
               CalmStacks. <br className="hidden sm:inline" />
               <span className="text-[#82807A] font-normal">
                 Engineering intelligent systems. Building what comes next.

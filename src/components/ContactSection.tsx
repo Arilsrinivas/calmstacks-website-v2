@@ -118,7 +118,7 @@ export default function ContactSection() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8F5F2] text-xs font-mono text-[#208374] border border-[#208374]/20 mb-4">
               <span>START A CONVERSATION</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-[#1A1814] mb-4">
+            <h2 className="text-3xl sm:text-5xl font-semibold tracking-normal text-[#1A1814] mb-4">
               Have an idea worth engineering?
             </h2>
             <p className="text-base sm:text-lg text-[#54524E] max-w-lg mx-auto leading-relaxed">

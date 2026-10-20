@@ -35,7 +35,7 @@ export default function Navbar() {
               className="w-full h-full object-contain"
             />
           </div>
-          <span className="font-semibold text-base tracking-tight text-[#1A1814]">
+          <span className="font-semibold text-base tracking-normal text-[#1A1814]">
             CalmStacks
           </span>
         </Link>

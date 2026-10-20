@@ -71,7 +71,7 @@ export default function ProjectsSection() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] text-xs font-mono text-[#54524E] mb-4">
             <span>DELIVERED &amp; OPERATIONAL PRODUCTS</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-[#1A1814] leading-[1.15] mb-5">
+          <h2 className="text-3xl sm:text-5xl font-semibold tracking-normal text-[#1A1814] leading-[1.15] mb-5">
             Featured work. <br />
             <span className="text-[#82807A] font-normal">
               Practical AI applications built for impact.
@@ -105,7 +105,7 @@ export default function ProjectsSection() {
                       </span>
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-tight mb-2">
+                    <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal mb-2">
                       {project.title}
                     </h3>
                     <p className="text-xs font-mono text-[#208374] font-medium mb-4">

@@ -81,7 +81,7 @@ export default function AgentFactorySection() {
             <span className="w-2 h-2 rounded-full bg-[#208374] animate-pulse" />
             <span>CORE TECHNOLOGY // PROPRIETARY ENGINE</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-[#1A1814] leading-[1.12] mb-5">
+          <h2 className="text-3xl sm:text-5xl font-semibold tracking-normal text-[#1A1814] leading-[1.12] mb-5">
             CalmStacks Agent Factory. <br />
             <span className="text-[#82807A] font-normal">
               Autonomous multi-agent development.
@@ -109,7 +109,7 @@ export default function AgentFactorySection() {
                 <Workflow className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white tracking-tight">
+                <h3 className="text-lg font-semibold text-white tracking-normal">
                   Orchestrator-Worker Architecture
                 </h3>
                 <p className="text-xs font-mono text-[#CBC7C0]">
@@ -160,7 +160,7 @@ export default function AgentFactorySection() {
                     <span className="text-[11px] font-mono uppercase tracking-wider text-[#3FD1BC] block mb-1">
                       {stage.role}
                     </span>
-                    <h4 className="text-sm font-semibold text-white mb-2 tracking-tight">
+                    <h4 className="text-sm font-semibold text-white mb-2 tracking-normal">
                       {stage.title}
                     </h4>
                     <p className="text-xs text-[#CBC7C0] leading-relaxed">
@@ -219,7 +219,7 @@ export default function AgentFactorySection() {
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] text-xs font-mono text-[#54524E] mb-3">
               <span>STACK &amp; INFRASTRUCTURE</span>
             </div>
-            <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-tight">
+            <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal">
               Production-Grade Tooling
             </h3>
           </div>

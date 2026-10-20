@@ -64,7 +64,7 @@ export default function FoundersSection() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] text-xs font-mono text-[#54524E] mb-4">
             <span>LEADERSHIP &amp; ARCHITECTS</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-[#1A1814] leading-[1.15] mb-5">
+          <h2 className="text-3xl sm:text-5xl font-semibold tracking-normal text-[#1A1814] leading-[1.15] mb-5">
             Meet the founders. <br />
             <span className="text-[#82807A] font-normal">
               Engineers at the helm.
@@ -99,7 +99,7 @@ export default function FoundersSection() {
                     <span className="text-xs font-mono uppercase tracking-wider text-[#208374] block mb-1">
                       {founder.role}
                     </span>
-                    <h3 className="text-xl sm:text-2xl font-semibold text-[#1A1814] tracking-tight">
+                    <h3 className="text-xl sm:text-2xl font-semibold text-[#1A1814] tracking-normal">
                       {founder.name}
                     </h3>
                     <p className="text-xs font-mono text-[#82807A] mt-0.5">

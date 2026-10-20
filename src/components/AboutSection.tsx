@@ -31,7 +31,7 @@ export default function AboutSection() {
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EFECE6] text-xs font-mono text-[#54524E] mb-4">
             <span>ABOUT CALMSTACKS</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-semibold tracking-[-0.03em] text-[#1A1814] leading-[1.15] mb-5">
+          <h2 className="text-3xl sm:text-5xl font-semibold tracking-normal text-[#1A1814] leading-[1.15] mb-5">
             Engineering what comes next. <br />
             <span className="text-[#82807A] font-normal">
               Autonomous systems. Reliable outcomes.
@@ -55,7 +55,7 @@ export default function AboutSection() {
               <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#208374]/10 text-[#208374] text-[11px] font-mono font-medium">
                 ENGINEERING FOUNDATIONS
               </div>
-              <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-tight">
+              <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal">
                 From raw ideas to deterministic, production-ready software.
               </h3>
               <p className="text-sm sm:text-base text-[#54524E] leading-relaxed">
@@ -106,7 +106,7 @@ export default function AboutSection() {
             <span className="text-xs font-mono uppercase tracking-wider text-[#208374] block mb-2 font-medium">
               01 // CRAFTSMANSHIP
             </span>
-            <h4 className="text-lg font-semibold text-[#1A1814] mb-2 tracking-tight">
+            <h4 className="text-lg font-semibold text-[#1A1814] mb-2 tracking-normal">
               Disciplined Architecture
             </h4>
             <p className="text-xs sm:text-sm text-[#54524E] leading-relaxed">
@@ -118,7 +118,7 @@ export default function AboutSection() {
             <span className="text-xs font-mono uppercase tracking-wider text-[#CA7B57] block mb-2 font-medium">
               02 // AUTONOMY
             </span>
-            <h4 className="text-lg font-semibold text-[#1A1814] mb-2 tracking-tight">
+            <h4 className="text-lg font-semibold text-[#1A1814] mb-2 tracking-normal">
               Multi-Agent Orchestration
             </h4>
             <p className="text-xs sm:text-sm text-[#54524E] leading-relaxed">
@@ -130,7 +130,7 @@ export default function AboutSection() {
             <span className="text-xs font-mono uppercase tracking-wider text-[#2E68FF] block mb-2 font-medium">
               03 // RELIABILITY
             </span>
-            <h4 className="text-lg font-semibold text-[#1A1814] mb-2 tracking-tight">
+            <h4 className="text-lg font-semibold text-[#1A1814] mb-2 tracking-normal">
               Stage-Gate Quality QA
             </h4>
             <p className="text-xs sm:text-sm text-[#54524E] leading-relaxed">

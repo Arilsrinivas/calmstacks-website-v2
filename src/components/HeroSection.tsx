@@ -33,18 +33,9 @@ export default function HeroSection() {
       </div>
 
       <div className="max-w-[1140px] mx-auto px-6 relative z-10">
-        {/* Top pill badge - Cleaned to remove CALMSTACKS|Autonomous Software Engineering */}
-        <div className="flex justify-center mb-8">
-          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-[rgba(38,57,90,0.08)] shadow-[0_1px_2px_rgba(26,24,20,0.04)] text-xs font-medium text-[#54524E]">
-            <span className="w-2 h-2 rounded-full bg-[#208374] animate-pulse" />
-            <span>Autonomous Multi-Agent Architecture</span>
-            <ArrowRight className="w-3.5 h-3.5 text-[#82807A]" />
-          </div>
-        </div>
-
-        {/* Hero Main Headline with normalized tracking and natural line-height */}
-        <div className="text-center max-w-[860px] mx-auto mb-6">
-          <h1 className="text-4xl sm:text-6xl md:text-[68px] font-semibold text-[#1A1814] leading-[1.12] tracking-tight">
+        {/* Hero Main Headline with clean open letter-spacing and balanced line-height */}
+        <div className="text-center max-w-[880px] mx-auto mb-6">
+          <h1 className="text-4xl sm:text-6xl md:text-[68px] font-semibold text-[#1A1814] leading-[1.15] tracking-normal">
             Engineering intelligent systems.{" "}
             <span className="text-[#82807A] block sm:inline font-normal">
               Building what comes next.
@@ -135,7 +126,7 @@ export default function HeroSection() {
                     <div className="text-[11px] font-mono text-[#CBC7C0] uppercase tracking-wider mb-1">
                       SPECIFICATION PROMPT · ORCHESTRATION DISPATCH
                     </div>
-                    <div className="text-white text-base sm:text-lg font-medium tracking-tight">
+                    <div className="text-white text-base sm:text-lg font-medium">
                       &quot;Implement LegalConnect BCI-compliant advocate directory, case workspace, and stage-gate contract tests.&quot;
                     </div>
                   </div>
