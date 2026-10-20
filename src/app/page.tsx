@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import PipelineInteractiveSection from "@/components/PipelineInteractiveSection";
@@ -15,23 +15,31 @@ import Footer from "@/components/Footer";
 
 export default function Home() {
   const [heroScale, setHeroScale] = useState(1);
-  const [heroOpacity, setHeroOpacity] = useState(1);
+  const secondPageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
+      if (!secondPageRef.current) return;
+
+      const rect = secondPageRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight || 800;
 
-      // As user scrolls past the hero (0 to windowHeight), zoom in the landing page by up to 10% (scale 1.0 -> 1.10)
-      const progress = Math.min(Math.max(scrollY / windowHeight, 0), 1);
-      const scale = 1 + progress * 0.10; // Exactly 10% zoom in
-      const opacity = 1 - progress * 0.25; // Subtle fade so the second page cleanly takes focus
+      // The second page starts to rise when its top edge enters from the bottom of the viewport (rect.top <= windowHeight)
+      // It completely covers the hero when rect.top reaches ~0.
+      const riseDistance = windowHeight;
+      const currentProgress = (windowHeight - rect.top) / riseDistance;
+
+      // Clamp between 0 (not started rising yet) and 1 (fully risen covering landing page)
+      const progress = Math.min(Math.max(currentProgress, 0), 1);
+
+      // Exactly 10% zoom-in synced directly to the rise (1.0 -> 1.10)
+      const scale = 1 + progress * 0.10;
 
       setHeroScale(scale);
-      setHeroOpacity(opacity);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial check
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -40,25 +48,27 @@ export default function Home() {
       <Navbar />
       <main className="relative bg-[#FAF9F8]">
         {/* 
-          1. Landing Page Container:
-          Fixed sticky viewport with 10% zoom-in transform on scroll
+          1. Landing Page (Sticky):
+          Zooms in by exactly 10% precisely as the second page begins to rise and cover it.
         */}
         <div
-          className="sticky top-0 left-0 right-0 z-0 will-change-transform transition-transform ease-out duration-100"
+          className="sticky top-0 left-0 right-0 z-0 will-change-transform"
           style={{
             transform: `scale(${heroScale})`,
-            opacity: heroOpacity,
-            transformOrigin: "center 40%",
+            transformOrigin: "center 45%",
           }}
         >
           <HeroSection />
         </div>
 
         {/* 
-          2. Second Page & Content:
-          Slides up covering the landing page with z-index, rounded top, and shadow
+          2. Second Page Container:
+          Starts immediately after the landing section, sliding up and covering the landing page.
         */}
-        <div className="relative z-10 bg-[#FAF9F8] rounded-t-[36px] sm:rounded-t-[44px] shadow-[0_-25px_60px_rgba(26,24,20,0.12)] border-t border-[rgba(38,57,90,0.08)] -mt-10 overflow-hidden">
+        <div
+          ref={secondPageRef}
+          className="relative z-10 bg-[#FAF9F8] rounded-t-[36px] sm:rounded-t-[48px] shadow-[0_-30px_70px_rgba(26,24,20,0.18)] border-t border-[rgba(38,57,90,0.1)] overflow-hidden"
+        >
           <PipelineInteractiveSection />
           <VisionSection />
           <ServicesSection />
