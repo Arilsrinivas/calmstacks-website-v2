@@ -27,19 +27,23 @@ export default function HeroSection() {
 
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-      {/* Background Video Loop with 80% Transparent White Element Overlay */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden pointer-events-none z-0">
+      {/* 
+        Background Video Loop fitted specifically to the upper hero landing area 
+        (fades smoothly into the warm page background before the interactive terminal)
+      */}
+      <div className="absolute top-0 left-0 right-0 h-[680px] sm:h-[740px] md:h-[800px] overflow-hidden pointer-events-none z-0">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
         >
           <source src="/assets/Robot_Gazing_At_Sunset_Sky.mp4" type="video/mp4" />
         </video>
-        {/* 80% transparent white overlay */}
-        <div className="absolute inset-0 bg-[#FAF9F8]/80 backdrop-blur-[2px]" />
+        {/* 70% transparent white element overlay with smooth bottom gradient fade */}
+        <div className="absolute inset-0 bg-[#FAF9F8]/70" />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-[#FAF9F8]" />
       </div>
 
       <div className="max-w-[1140px] mx-auto px-6 relative z-10">
@@ -47,14 +51,14 @@ export default function HeroSection() {
         <div className="text-center max-w-[880px] mx-auto mb-6">
           <h1 className="text-4xl sm:text-6xl md:text-[68px] font-semibold text-[#1A1814] leading-[1.15] tracking-normal">
             Engineering intelligent systems.{" "}
-            <span className="text-[#82807A] block sm:inline font-normal">
+            <span className="text-[#6E6C66] block sm:inline font-normal">
               Building what comes next.
             </span>
           </h1>
         </div>
 
         {/* Hero Subtitle */}
-        <p className="text-center text-lg sm:text-xl text-[#54524E] max-w-[620px] mx-auto leading-relaxed mb-10">
+        <p className="text-center text-lg sm:text-xl text-[#35332E] max-w-[620px] mx-auto leading-relaxed mb-10 font-normal">
           CalmStacks builds AI-powered applications and multi-agent software engineering systems that transform complex ideas into reliable digital products.
         </p>
 
