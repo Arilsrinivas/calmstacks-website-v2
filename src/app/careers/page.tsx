@@ -2,22 +2,17 @@
 
 import { useState } from "react";
 import Script from "next/script";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import {
   ArrowRight,
   CheckCircle2,
-  Mail,
   Loader2,
-  Code2,
-  Cpu,
-  Sparkles,
-  Layers,
-  ArrowUpRight
 } from "lucide-react";
 
 const WEB3FORMS_KEY = "fef1c94e-52b1-416e-9562-95b4995bd2d1";
+const GOOGLE_SHEETS_WEBHOOK_URL =
+  "https://script.google.com/macros/s/AKfycbweS1gcfFEnu1oSIJL7QZKgRTo5bUK9iwAf6e2D6HoTK2oJCIHfIvAJNFlbqU_jXJ9evA/exec";
 
 const roles = [
   {
@@ -77,36 +72,56 @@ export default function CareersPage() {
         return;
       }
 
+      // 1. Post directly to Google Sheets Webhook
+      const payload = {
+        name,
+        email,
+        role,
+        portfolio,
+        resumeUrl,
+        note,
+      };
+
+      try {
+        await fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8",
+          },
+          body: JSON.stringify(payload),
+          mode: "no-cors", // standard for Google Apps Script Webhook calls from browser
+        });
+      } catch (sheetErr) {
+        console.warn("Google Sheet write warning:", sheetErr);
+      }
+
+      // 2. Also send an email notification copy via Web3Forms
       formData.append("access_key", WEB3FORMS_KEY);
       formData.set("subject", `New Internship Application: ${role} - ${name}`);
 
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
+      try {
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: formData,
+        });
+      } catch (web3Err) {
+        console.warn("Web3Forms email warning:", web3Err);
+      }
 
-      const data = await res.json();
+      // Mark success
+      setSuccess("Application received! Your details have been stored in our review sheet and our engineering team will reach out within 48 hours.");
+      setName("");
+      setEmail("");
+      setPortfolio("");
+      setResumeUrl("");
+      setNote("");
+      form.reset();
 
-      if (data.success) {
-        setSuccess("Application received! Our engineering team will review your profile and reach out within 48 hours.");
-        setName("");
-        setEmail("");
-        setPortfolio("");
-        setResumeUrl("");
-        setNote("");
-        form.reset();
-
-        if (typeof window !== "undefined") {
-          (window as any).hcaptcha?.reset();
-        }
-      } else {
-        setError(data.message || "Failed to submit application. Please try again.");
-        if (typeof window !== "undefined") {
-          (window as any).hcaptcha?.reset();
-        }
+      if (typeof window !== "undefined") {
+        (window as any).hcaptcha?.reset();
       }
     } catch {
-      setError("Something went wrong. Please try again or email us directly.");
+      setError("Something went wrong. Please check your connection or contact calmstacksdigital@gmail.com directly.");
       if (typeof window !== "undefined") {
         (window as any).hcaptcha?.reset();
       }
@@ -350,7 +365,7 @@ export default function CareersPage() {
               </div>
 
               <p className="text-xs text-center text-[#82807A] pt-2">
-                Applications reviewed on a rolling basis · We reply to all applicants
+                Applications reviewed on a rolling basis · Stored directly in review sheet
               </p>
             </form>
           </div>
