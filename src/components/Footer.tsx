@@ -48,8 +48,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#vision" className="hover:text-[#1A1814] transition-colors">
-                  Stage-Gate Validation
+                <Link href="#how-it-works" className="hover:text-[#1A1814] transition-colors">
+                  Interactive Pipeline
                 </Link>
               </li>
               <li>

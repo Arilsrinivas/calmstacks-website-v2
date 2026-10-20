@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import PipelineInteractiveSection from "@/components/PipelineInteractiveSection";
-import VisionSection from "@/components/VisionSection";
 import ServicesSection from "@/components/ServicesSection";
 import AgentFactorySection from "@/components/AgentFactorySection";
 import AboutSection from "@/components/AboutSection";
@@ -63,14 +62,13 @@ export default function Home() {
 
         {/* 
           2. Second Page Container:
-          Starts immediately after the landing section, sliding up and covering the landing page.
+          Slides up covering the landing page.
         */}
         <div
           ref={secondPageRef}
           className="relative z-10 bg-[#FAF9F8] rounded-t-[36px] sm:rounded-t-[48px] shadow-[0_-30px_70px_rgba(26,24,20,0.18)] border-t border-[rgba(38,57,90,0.1)] overflow-hidden"
         >
           <PipelineInteractiveSection />
-          <VisionSection />
           <ServicesSection />
           <AgentFactorySection />
           <AboutSection />
