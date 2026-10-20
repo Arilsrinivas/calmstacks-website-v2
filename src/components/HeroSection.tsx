@@ -70,7 +70,7 @@ export default function HeroSection() {
           </Link>
           <Link href="#agent-factory" className="pf-btn-secondary">
             <span>See how it works</span>
-            <Sparkles className="w-3.5 h-3.5 text-[#208374]" />
+            <Sparkles className="w-3.5 h-3.5 text-[#1A1814]" />
           </Link>
         </div>
 
@@ -88,8 +88,8 @@ export default function HeroSection() {
                 <span className="w-3 h-3 rounded-full bg-[#FFBD2E] opacity-80" />
                 <span className="w-3 h-3 rounded-full bg-[#27C93F] opacity-80" />
                 <div className="h-4 w-px bg-white/10 mx-2" />
-                <span className="text-xs font-mono text-[#CBC7C0] flex items-center gap-1.5">
-                  <Terminal className="w-3.5 h-3.5 text-[#3FD1BC]" />
+                <span className="text-xs font-sans text-[#CBC7C0] flex items-center gap-1.5">
+                  <Terminal className="w-3.5 h-3.5 text-[#1A1814]" />
                   calmstacks-agent-factory // orchestrator-v2.4
                 </span>
               </div>
@@ -133,34 +133,34 @@ export default function HeroSection() {
             <div className="relative z-10 mb-6">
               <div className="bg-[#24221D] border border-white/15 rounded-2xl p-4 sm:p-5 flex flex-col gap-3 shadow-inner">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-[#208374]/20 border border-[#208374]/30 flex items-center justify-center shrink-0 text-[#3FD1BC] mt-0.5">
+                  <div className="w-8 h-8 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center shrink-0 text-[#1A1814] mt-0.5">
                     <Search className="w-4 h-4" />
                   </div>
                   <div className="flex-1">
-                    <div className="text-[11px] font-mono text-[#CBC7C0] uppercase tracking-wider mb-1">
+                    <div className="text-[11px] font-sans text-[#CBC7C0] uppercase tracking-wider mb-1">
                       SPECIFICATION PROMPT · ORCHESTRATION DISPATCH
                     </div>
                     <div className="text-white text-base sm:text-lg font-medium">
                       &quot;Implement LegalConnect BCI-compliant advocate directory, case workspace, and stage-gate contract tests.&quot;
                     </div>
                   </div>
-                  <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#208374]/20 text-[#3FD1BC] text-[11px] font-mono border border-[#208374]/40 shrink-0">
+                  <span className="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/10 text-[#1A1814] text-[11px] font-sans border border-white/10 shrink-0">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#3FD1BC] animate-ping" />
                     DISPATCHED
                   </span>
                 </div>
 
                 {/* Progress Pipeline Pills */}
-                <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-white/[0.07] text-xs text-[#CBC7C0] font-mono">
-                  <span className="flex items-center gap-1 text-[#3FD1BC]">
+                <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-white/[0.07] text-xs text-[#CBC7C0] font-sans">
+                  <span className="flex items-center gap-1 text-[#1A1814]">
                     <CheckCircle2 className="w-3.5 h-3.5" /> Spec Parsed
                   </span>
                   <span className="text-white/20">/</span>
-                  <span className="flex items-center gap-1 text-[#3FD1BC]">
+                  <span className="flex items-center gap-1 text-[#1A1814]">
                     <CheckCircle2 className="w-3.5 h-3.5" /> 3 Isolated Worktrees
                   </span>
                   <span className="text-white/20">/</span>
-                  <span className="flex items-center gap-1 text-[#3FD1BC]">
+                  <span className="flex items-center gap-1 text-[#1A1814]">
                     <CheckCircle2 className="w-3.5 h-3.5" /> Gate Checkpoints Pass (100%)
                   </span>
                   <span className="text-white/20">/</span>
@@ -177,7 +177,7 @@ export default function HeroSection() {
               <div className="bg-[#24221D] p-4 rounded-2xl border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#3FD1BC] bg-[#208374]/15 px-2 py-0.5 rounded border border-[#208374]/30">
+                    <span className="text-[10px] font-sans uppercase tracking-wider text-[#1A1814] bg-white/10 px-2 py-0.5 rounded border border-white/10">
                       ORCHESTRATOR
                     </span>
                     <GitBranch className="w-3.5 h-3.5 text-[#CBC7C0]" />
@@ -189,9 +189,9 @@ export default function HeroSection() {
                     Worker agents operate in clean git worktrees preventing code collision or state drift.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-[#8E8B85]">
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-sans text-[#8E8B85]">
                   <span>worktree/feat-bci</span>
-                  <span className="text-[#3FD1BC]">Active</span>
+                  <span className="text-[#1A1814]">Active</span>
                 </div>
               </div>
 
@@ -199,7 +199,7 @@ export default function HeroSection() {
               <div className="bg-[#24221D] p-4 rounded-2xl border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#CA7B57] bg-[#CA7B57]/15 px-2 py-0.5 rounded border border-[#CA7B57]/30">
+                    <span className="text-[10px] font-sans uppercase tracking-wider text-[#1A1814] bg-white/10 px-2 py-0.5 rounded border border-white/10">
                       QA GATES
                     </span>
                     <ShieldCheck className="w-3.5 h-3.5 text-[#CBC7C0]" />
@@ -211,7 +211,7 @@ export default function HeroSection() {
                     Automated checkpoints verify unit suites, schema validation, and regulatory compliance.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-[#8E8B85]">
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-sans text-[#8E8B85]">
                   <span>BCI Compliance</span>
                   <span className="text-[#27C93F]">100% Passed</span>
                 </div>
@@ -221,7 +221,7 @@ export default function HeroSection() {
               <div className="bg-[#24221D] p-4 rounded-2xl border border-white/10 hover:border-white/20 transition-all flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-mono uppercase tracking-wider text-[#2E68FF] bg-[#2E68FF]/15 px-2 py-0.5 rounded border border-[#2E68FF]/30">
+                    <span className="text-[10px] font-sans uppercase tracking-wider text-[#1A1814] bg-white/10 px-2 py-0.5 rounded border border-white/10">
                       DELIVERY
                     </span>
                     <Cpu className="w-3.5 h-3.5 text-[#CBC7C0]" />
@@ -233,7 +233,7 @@ export default function HeroSection() {
                     Outputs idiomatic, hardened TypeScript and Python backends with deterministic deployment.
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-mono text-[#8E8B85]">
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-between text-[11px] font-sans text-[#8E8B85]">
                   <span>Zero Tech Debt</span>
                   <span className="text-white font-medium">Ready</span>
                 </div>
@@ -246,7 +246,7 @@ export default function HeroSection() {
                 <span className="w-2 h-2 rounded-full bg-[#208374]" />
                 <span>Next-generation SDLC: Contract-driven milestone synthesis</span>
               </div>
-              <div className="font-mono text-[11px] text-[#CBC7C0]">
+              <div className="font-sans text-[11px] text-[#CBC7C0]">
                 calmstacks.co.in/systems
               </div>
             </div>

@@ -102,24 +102,24 @@ export default function AgentFactorySection() {
           {/* Top Header of the Factory Box */}
           <div className="relative z-10 flex flex-wrap items-center justify-between pb-6 mb-8 border-b border-white/10 gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#208374]/20 border border-[#208374]/30 flex items-center justify-center text-[#3FD1BC]">
+              <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center text-[#1A1814]">
                 <Workflow className="w-5 h-5" />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white tracking-normal">
                   Orchestrator-Worker Architecture
                 </h3>
-                <p className="text-xs font-mono text-[#CBC7C0]">
+                <p className="text-xs font-sans text-[#CBC7C0]">
                   stage_gate_enforcement: strict · git_worktrees: isolated
                 </p>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 rounded-full text-xs font-mono bg-white/10 text-white border border-white/15">
+              <span className="px-3 py-1 rounded-full text-xs font-sans bg-white/10 text-white border border-white/15">
                 4-Stage Pipeline
               </span>
-              <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#208374]/20 text-[#3FD1BC] border border-[#208374]/30">
+              <span className="px-3 py-1 rounded-full text-xs font-sans bg-white/10 text-[#1A1814] border border-white/10">
                 100% Deterministic
               </span>
             </div>
@@ -141,11 +141,11 @@ export default function AgentFactorySection() {
                 >
                   <div>
                     <div className="flex items-center justify-between mb-3">
-                      <span className="font-mono text-xs text-[#CBC7C0]">
+                      <span className="font-sans text-xs text-[#CBC7C0]">
                         {stage.step}
                       </span>
                       <span
-                        className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${
+                        className={`text-[10px] font-sans px-2 py-0.5 rounded-full ${
                           isSelected
                             ? "bg-[#208374] text-white"
                             : "bg-white/10 text-[#8E8B85]"
@@ -154,7 +154,7 @@ export default function AgentFactorySection() {
                         {stage.badge}
                       </span>
                     </div>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-[#3FD1BC] block mb-1">
+                    <span className="text-[11px] font-sans uppercase tracking-wider text-[#1A1814] block mb-1">
                       {stage.role}
                     </span>
                     <h4 className="text-sm font-semibold text-white mb-2 tracking-normal">
@@ -171,12 +171,12 @@ export default function AgentFactorySection() {
 
           {/* Live Diagram Illustration: High-resolution architecture visual */}
           <div className="relative z-10 bg-[#161512] rounded-2xl p-5 sm:p-6 border border-white/10 overflow-hidden">
-            <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10 text-xs font-mono text-[#CBC7C0]">
+            <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10 text-xs font-sans text-[#CBC7C0]">
               <div className="flex items-center gap-2">
-                <Terminal className="w-3.5 h-3.5 text-[#3FD1BC]" />
+                <Terminal className="w-3.5 h-3.5 text-[#1A1814]" />
                 <span>active_worktree_execution_graph.svg</span>
               </div>
-              <span className="text-[#3FD1BC]">Deterministic Handoffs Active</span>
+              <span className="text-[#1A1814]">Deterministic Handoffs Active</span>
             </div>
             <div className="w-full flex justify-center py-2">
               <img
@@ -196,7 +196,7 @@ export default function AgentFactorySection() {
               </p>
             </div>
             <div>
-              <div className="text-2xl font-semibold text-[#3FD1BC] mb-1">Isolated Worktrees</div>
+              <div className="text-2xl font-semibold text-[#1A1814] mb-1">Isolated Worktrees</div>
               <p className="text-xs text-[#CBC7C0] leading-relaxed">
                 Parallel agents write code on dedicated git worktree branches, eliminating branch collisions.
               </p>
@@ -221,7 +221,7 @@ export default function AgentFactorySection() {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
             <div className="pf-card-white p-5">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#208374] font-semibold block mb-3">
+              <span className="text-[11px] font-sans uppercase tracking-wider text-[#1A1814] font-semibold block mb-3">
                 AI &amp; Agents
               </span>
               <ul className="space-y-2 text-xs text-[#54524E]">
@@ -233,7 +233,7 @@ export default function AgentFactorySection() {
             </div>
 
             <div className="pf-card-white p-5">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#CA7B57] font-semibold block mb-3">
+              <span className="text-[11px] font-sans uppercase tracking-wider text-[#1A1814] font-semibold block mb-3">
                 Languages
               </span>
               <ul className="space-y-2 text-xs text-[#54524E]">
@@ -245,7 +245,7 @@ export default function AgentFactorySection() {
             </div>
 
             <div className="pf-card-white p-5">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#2E68FF] font-semibold block mb-3">
+              <span className="text-[11px] font-sans uppercase tracking-wider text-[#1A1814] font-semibold block mb-3">
                 Frontend &amp; UI
               </span>
               <ul className="space-y-2 text-xs text-[#54524E]">
@@ -257,7 +257,7 @@ export default function AgentFactorySection() {
             </div>
 
             <div className="pf-card-white p-5">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#1A1814] font-semibold block mb-3">
+              <span className="text-[11px] font-sans uppercase tracking-wider text-[#1A1814] font-semibold block mb-3">
                 Backend &amp; APIs
               </span>
               <ul className="space-y-2 text-xs text-[#54524E]">
@@ -269,7 +269,7 @@ export default function AgentFactorySection() {
             </div>
 
             <div className="pf-card-white p-5">
-              <span className="text-[11px] font-mono uppercase tracking-wider text-[#208374] font-semibold block mb-3">
+              <span className="text-[11px] font-sans uppercase tracking-wider text-[#1A1814] font-semibold block mb-3">
                 Data &amp; Infra
               </span>
               <ul className="space-y-2 text-xs text-[#54524E]">

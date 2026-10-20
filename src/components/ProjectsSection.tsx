@@ -13,7 +13,7 @@ const projects = [
       "A centralized legal services ecosystem combining advocate discovery, multi-party case management, consultation scheduling, and AI-assisted workflow support. Architected with strict adherence to Bar Council of India ethics regulations, ensuring zero advertisements, sponsored placements, or commercial advocate rankings.",
     tech: ["Next.js", "AI Workflows", "Case Workspaces", "PostgreSQL", "BCI Compliant"],
     badge: "Production Platform",
-    badgeColor: "bg-[#208374]/10 text-[#208374] border-[#208374]/20",
+    badgeColor: "bg-[#EFECE6] text-[#1A1814] border-white/10",
     image: "/assets/project_legalconnect_mockup.svg",
     complianceNote:
       "Bar Council of India (BCI) Compliant: No star ratings, paid promotions, or solicitation. AI outputs are strictly informational and do not substitute for formal legal counsel."
@@ -26,7 +26,7 @@ const projects = [
       "Specialized orchestration framework deploying dedicated worker agents across isolated Git worktrees. Features strict contract-driven milestones, dynamic automated stage-gate test suites, and unified code quality synthesis for zero-drift production features.",
     tech: ["Multi-Agent Orchestration", "Git Worktrees", "FastAPI", "TypeScript", "Stage-Gate QA"],
     badge: "Proprietary Engine",
-    badgeColor: "bg-[#2E68FF]/10 text-[#2E68FF] border-[#2E68FF]/20",
+    badgeColor: "bg-[#EFECE6] text-[#1A1814] border-white/10",
     image: "/assets/project_agentfactory_mockup.svg",
     complianceNote: "Stage-Gate Verification: 100% deterministic milestone checkpoints."
   },
@@ -38,7 +38,7 @@ const projects = [
       "AI-assisted deep data recovery and evidence reconstruction engine. Analyzes corrupted sector dumps, detects fractured file signatures, maps fragmented relations, and validates digital integrity for forensic inspection and incident response.",
     tech: ["Python", "Machine Learning", "Storage Forensics", "Data Integrity", "File Reconstruction"],
     badge: "Security & Forensics",
-    badgeColor: "bg-[#CA7B57]/10 text-[#CA7B57] border-[#CA7B57]/20",
+    badgeColor: "bg-[#EFECE6] text-[#1A1814] border-white/10",
     image: "/assets/project_forensics_mockup.svg",
     complianceNote: "Forensic Integrity: Strict cryptographic hash preservation and chain-of-custody logging."
   }
@@ -95,10 +95,10 @@ export default function ProjectsSection() {
                 <div className="lg:col-span-6 flex flex-col justify-between">
                   <div>
                     <div className="flex items-center gap-2.5 mb-4">
-                      <span className={`text-[11px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full font-medium border ${project.badgeColor}`}>
+                      <span className={`text-[11px] font-sans uppercase tracking-wider px-2.5 py-0.5 rounded-full font-medium border ${project.badgeColor}`}>
                         {project.badge}
                       </span>
-                      <span className="text-xs font-mono text-[#82807A]">
+                      <span className="text-xs font-sans text-[#82807A]">
                         {project.category}
                       </span>
                     </div>
@@ -106,7 +106,7 @@ export default function ProjectsSection() {
                     <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal mb-2">
                       {project.title}
                     </h3>
-                    <p className="text-xs font-mono text-[#208374] font-medium mb-4">
+                    <p className="text-xs font-sans text-[#1A1814] font-medium mb-4">
                       {project.tagline}
                     </p>
 
@@ -117,7 +117,7 @@ export default function ProjectsSection() {
                     {/* Regulatory / Architectural Note Card */}
                     {project.complianceNote && (
                       <div className="mb-6 p-3.5 rounded-xl bg-[#FAF9F8] border border-[rgba(38,57,90,0.08)] flex items-start gap-2.5">
-                        <ShieldCheck className="w-4 h-4 text-[#208374] shrink-0 mt-0.5" />
+                        <ShieldCheck className="w-4 h-4 text-[#1A1814] shrink-0 mt-0.5" />
                         <div className="text-xs text-[#54524E] leading-relaxed">
                           <span className="font-semibold text-[#1A1814] block mb-0.5">Standards &amp; Compliance</span>
                           {project.complianceNote}
@@ -132,7 +132,7 @@ export default function ProjectsSection() {
                       {project.tech.map((t) => (
                         <span
                           key={t}
-                          className="px-2.5 py-1 text-[11px] font-mono text-[#54524E] bg-[#FAF9F8] border border-[rgba(38,57,90,0.08)] rounded-full"
+                          className="px-2.5 py-1 text-[11px] font-sans text-[#54524E] bg-[#FAF9F8] border border-[rgba(38,57,90,0.08)] rounded-full"
                         >
                           {t}
                         </span>
@@ -141,7 +141,7 @@ export default function ProjectsSection() {
 
                     <Link
                       href="#contact"
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A1814] hover:text-[#208374] transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#1A1814] hover:text-[#1A1814] transition-colors"
                     >
                       <span>Inquire about this architecture</span>
                       <ArrowUpRight className="w-4 h-4" />

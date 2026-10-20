@@ -94,13 +94,13 @@ export default function FoundersSection() {
                     />
                   </div>
                   <div>
-                    <span className="text-xs font-mono uppercase tracking-wider text-[#208374] block mb-1">
+                    <span className="text-xs font-sans uppercase tracking-wider text-[#1A1814] block mb-1">
                       {founder.role}
                     </span>
                     <h3 className="text-xl sm:text-2xl font-semibold text-[#1A1814] tracking-normal">
                       {founder.name}
                     </h3>
-                    <p className="text-xs font-mono text-[#82807A] mt-0.5">
+                    <p className="text-xs font-sans text-[#82807A] mt-0.5">
                       {founder.tag}
                     </p>
                   </div>
@@ -152,7 +152,7 @@ export default function FoundersSection() {
 
                 <a
                   href={founder.email}
-                  className="inline-flex items-center gap-1 text-xs font-medium text-[#1A1814] hover:text-[#208374] transition-colors"
+                  className="inline-flex items-center gap-1 text-xs font-medium text-[#1A1814] hover:text-[#1A1814] transition-colors"
                 >
                   <span>Connect</span>
                   <ArrowUpRight className="w-3.5 h-3.5" />

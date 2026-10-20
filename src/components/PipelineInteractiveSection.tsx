@@ -54,8 +54,8 @@ export default function PipelineInteractiveSection() {
         <div className="rounded-[32px] bg-gradient-to-br from-[#1C1A16] via-[#161512] to-[#12110E] border border-white/10 p-6 sm:p-10 shadow-[0_24px_60px_rgba(0,0,0,0.45)] relative overflow-hidden">
           
           {/* Ambient Glows */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#CA7B57]/10 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#208374]/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#EFECE6] rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#EFECE6] rounded-full blur-3xl pointer-events-none" />
 
           {/* 
             Desktop Connecting Cables Layer (SVG with Animated Dash & Pulsing Dots)
@@ -167,10 +167,10 @@ export default function PipelineInteractiveSection() {
             {/* COLUMN 1: Inputs & Sources (Pills) */}
             <div className="lg:col-span-3 flex flex-col gap-3 relative z-10">
               <div className="flex items-center justify-between mb-2 px-1">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-[#CBC7C0]">
+                <span className="text-[11px] font-sans uppercase tracking-wider text-[#CBC7C0]">
                   1. Ingested Sources (6)
                 </span>
-                <span className="text-[10px] font-mono text-[#3FD1BC] flex items-center gap-1">
+                <span className="text-[10px] font-sans text-[#1A1814] flex items-center gap-1">
                   <span className="w-1.5 h-1.5 rounded-full bg-[#3FD1BC] animate-ping" />
                   Streaming
                 </span>
@@ -190,14 +190,14 @@ export default function PipelineInteractiveSection() {
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <div className={`p-1.5 rounded-lg ${isSelected ? "bg-[#CA7B57]/20 text-[#CA7B57]" : "bg-white/5 text-[#8E8B85]"}`}>
+                      <div className={`p-1.5 rounded-lg ${isSelected ? "bg-[#CA7B57]/20 text-[#1A1814]" : "bg-white/5 text-[#8E8B85]"}`}>
                         <Icon className="w-4 h-4" />
                       </div>
                       <span className="text-xs font-medium">{src.label}</span>
                     </div>
 
                     <div className="flex items-center gap-1.5">
-                      <CheckCircle2 className={`w-4 h-4 ${isSelected ? "text-[#CA7B57]" : "text-[#3FD1BC]"}`} />
+                      <CheckCircle2 className={`w-4 h-4 ${isSelected ? "text-[#1A1814]" : "text-[#1A1814]"}`} />
                     </div>
                   </button>
                 );
@@ -216,7 +216,7 @@ export default function PipelineInteractiveSection() {
                     CalmStacks Orchestrator
                   </span>
                 </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#208374]/20 text-[#3FD1BC] border border-[#208374]/30">
+                <span className="text-[10px] font-sans px-2 py-0.5 rounded-full bg-white/10 text-[#1A1814] border border-white/10">
                   orchestrator_v2.4
                 </span>
               </div>
@@ -227,7 +227,7 @@ export default function PipelineInteractiveSection() {
               </div>
 
               {/* Orchestrator Status Breakdown */}
-              <div className="bg-[#191815] border border-white/10 rounded-xl p-3.5 space-y-2 text-xs font-mono">
+              <div className="bg-[#191815] border border-white/10 rounded-xl p-3.5 space-y-2 text-xs font-sans">
                 <div className="text-[11px] text-[#CBC7C0] flex items-center justify-between">
                   <span className="flex items-center gap-2 text-white">
                     <span className="w-2 h-2 rounded-full bg-[#3FD1BC] animate-pulse" />
@@ -239,7 +239,7 @@ export default function PipelineInteractiveSection() {
                 <div className="pt-2 border-t border-white/5 space-y-1.5 text-[11px] text-[#CBC7C0]">
                   <div className="flex items-center justify-between hover:text-white transition-colors cursor-pointer">
                     <span className="flex items-center gap-2">
-                      <FileText className="w-3.5 h-3.5 text-[#3FD1BC]" />
+                      <FileText className="w-3.5 h-3.5 text-[#1A1814]" />
                       Reading 6 source contracts &amp; specifications
                     </span>
                     <ChevronRight className="w-3.5 h-3.5 text-[#8E8B85]" />
@@ -247,7 +247,7 @@ export default function PipelineInteractiveSection() {
 
                   <div className="flex items-center justify-between hover:text-white transition-colors cursor-pointer">
                     <span className="flex items-center gap-2">
-                      <Cpu className="w-3.5 h-3.5 text-[#3FD1BC]" />
+                      <Cpu className="w-3.5 h-3.5 text-[#1A1814]" />
                       Spawned 3 isolated Git worktrees
                     </span>
                     <ChevronRight className="w-3.5 h-3.5 text-[#8E8B85]" />
@@ -259,7 +259,7 @@ export default function PipelineInteractiveSection() {
 
                   <div className="flex items-center justify-between hover:text-white transition-colors cursor-pointer pt-1">
                     <span className="flex items-center gap-2">
-                      <ShieldAlert className="w-3.5 h-3.5 text-[#CA7B57]" />
+                      <ShieldAlert className="w-3.5 h-3.5 text-[#1A1814]" />
                       Checked BCI ethics rulebook §36 &amp; §44
                     </span>
                     <ChevronRight className="w-3.5 h-3.5 text-[#8E8B85]" />
@@ -267,7 +267,7 @@ export default function PipelineInteractiveSection() {
 
                   <div className="flex items-center justify-between hover:text-white transition-colors cursor-pointer">
                     <span className="flex items-center gap-2">
-                      <BarChart3 className="w-3.5 h-3.5 text-[#3FD1BC]" />
+                      <BarChart3 className="w-3.5 h-3.5 text-[#1A1814]" />
                       Passing 14/14 automated gate suites
                     </span>
                     <ChevronRight className="w-3.5 h-3.5 text-[#8E8B85]" />
@@ -291,14 +291,14 @@ export default function PipelineInteractiveSection() {
                   <span className="text-xs font-semibold text-white">
                     3. Output &amp; Traceability
                   </span>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#208374]/20 text-[#3FD1BC]">
+                  <span className="text-[10px] font-sans px-2 py-0.5 rounded bg-white/10 text-[#1A1814]">
                     Verified
                   </span>
                 </div>
 
                 {/* Progress Metric Chart Box */}
                 <div className="bg-[#191815] border border-white/10 rounded-xl p-4 mb-4">
-                  <div className="text-[11px] font-mono text-[#CBC7C0] mb-3">
+                  <div className="text-[11px] font-sans text-[#CBC7C0] mb-3">
                     Stage-Gate Readiness Score
                   </div>
 
@@ -306,7 +306,7 @@ export default function PipelineInteractiveSection() {
                     <div>
                       <div className="flex justify-between text-xs mb-1 text-white">
                         <span>Architecture Contracts</span>
-                        <span className="text-[#3FD1BC] font-mono">100%</span>
+                        <span className="text-[#1A1814] font-sans">100%</span>
                       </div>
                       <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
                         <div className="w-full h-full bg-[#3FD1BC] rounded-full" />
@@ -316,7 +316,7 @@ export default function PipelineInteractiveSection() {
                     <div>
                       <div className="flex justify-between text-xs mb-1 text-white">
                         <span>BCI Ethics Compliance</span>
-                        <span className="text-[#3FD1BC] font-mono">100%</span>
+                        <span className="text-[#1A1814] font-sans">100%</span>
                       </div>
                       <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
                         <div className="w-full h-full bg-[#3FD1BC] rounded-full" />
@@ -326,7 +326,7 @@ export default function PipelineInteractiveSection() {
                     <div>
                       <div className="flex justify-between text-xs mb-1 text-white">
                         <span>Worktree Synthesis</span>
-                        <span className="text-[#CA7B57] font-mono">Ready</span>
+                        <span className="text-[#1A1814] font-sans">Ready</span>
                       </div>
                       <div className="w-full h-1.5 rounded-full bg-white/10 overflow-hidden">
                         <div className="w-[85%] h-full bg-[#CA7B57] rounded-full" />
@@ -336,8 +336,8 @@ export default function PipelineInteractiveSection() {
                 </div>
 
                 {/* Evidence Citation Callout */}
-                <div className="p-3 rounded-xl bg-[#2B2924] border border-[#CA7B57]/30 text-xs text-[#FAF9F8] mb-4">
-                  <div className="font-mono text-[10px] text-[#CA7B57] uppercase mb-1">
+                <div className="p-3 rounded-xl bg-[#2B2924] border border-white/10 text-xs text-[#FAF9F8] mb-4">
+                  <div className="font-sans text-[10px] text-[#1A1814] uppercase mb-1">
                     BCI_Standards_Rule36.pdf · p.12
                   </div>
                   <p className="text-[11px] text-[#CBC7C0] leading-relaxed">
@@ -345,9 +345,9 @@ export default function PipelineInteractiveSection() {
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-1.5 text-[10px] font-mono text-[#CBC7C0] mb-4">
+                <div className="flex flex-wrap gap-1.5 text-[10px] font-sans text-[#CBC7C0] mb-4">
                   <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">PRD Spec §2.1</span>
-                  <span className="px-2 py-0.5 rounded bg-[#CA7B57]/15 border border-[#CA7B57]/30 text-[#CA7B57]">BCI Rule §36</span>
+                  <span className="px-2 py-0.5 rounded bg-white/10 border border-white/10 text-[#1A1814]">BCI Rule §36</span>
                   <span className="px-2 py-0.5 rounded bg-white/5 border border-white/10">worktree/feat-bci</span>
                 </div>
               </div>
@@ -355,7 +355,7 @@ export default function PipelineInteractiveSection() {
               {/* Action Button */}
               <button className="w-full py-2.5 px-4 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] border border-white/15 text-xs font-medium text-white flex items-center justify-center gap-2 transition-colors">
                 <span>View Generated Pull Request</span>
-                <ArrowRight className="w-3.5 h-3.5 text-[#3FD1BC]" />
+                <ArrowRight className="w-3.5 h-3.5 text-[#1A1814]" />
               </button>
             </div>
 

@@ -17,7 +17,7 @@ export default function Footer() {
                 Engineering intelligent systems. Building what comes next.
               </span>
             </h3>
-            <p className="text-xs font-mono text-[#82807A] mt-2">
+            <p className="text-xs font-sans text-[#82807A] mt-2">
               Autonomous software engineering · Stage-gate QA · Custom AI platforms
             </p>
           </div>
@@ -33,7 +33,7 @@ export default function Footer() {
         {/* 3-Column Clean Footer Navigation */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 mb-16 text-sm">
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#1A1814] font-semibold mb-4">
+            <h4 className="text-xs font-sans uppercase tracking-wider text-[#1A1814] font-semibold mb-4">
               Platform &amp; Core
             </h4>
             <ul className="space-y-2.5 text-xs text-[#54524E]">
@@ -61,14 +61,14 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#1A1814] font-semibold mb-4">
+            <h4 className="text-xs font-sans uppercase tracking-wider text-[#1A1814] font-semibold mb-4">
               Products &amp; Capabilities
             </h4>
             <ul className="space-y-2.5 text-xs text-[#54524E]">
               <li>
                 <Link href="#projects" className="hover:text-[#1A1814] transition-colors flex items-center gap-1.5">
                   <span>LegalConnect</span>
-                  <span className="text-[10px] font-mono px-1.5 py-0.2 rounded bg-[#208374]/10 text-[#208374]">Production</span>
+                  <span className="text-[10px] font-sans px-1.5 py-0.2 rounded bg-[#EFECE6] text-[#1A1814]">Production</span>
                 </Link>
               </li>
               <li>
@@ -90,7 +90,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-mono uppercase tracking-wider text-[#1A1814] font-semibold mb-4">
+            <h4 className="text-xs font-sans uppercase tracking-wider text-[#1A1814] font-semibold mb-4">
               Company
             </h4>
             <ul className="space-y-2.5 text-xs text-[#54524E]">
@@ -112,7 +112,7 @@ export default function Footer() {
               <li>
                 <a
                   href="mailto:calmstacksdigital@gmail.com"
-                  className="hover:text-[#1A1814] transition-colors font-mono text-[11px]"
+                  className="hover:text-[#1A1814] transition-colors font-sans text-[11px]"
                 >
                   calmstacksdigital@gmail.com
                 </a>
@@ -122,7 +122,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Copyright & Status */}
-        <div className="pt-8 border-t border-[rgba(38,57,90,0.08)] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#82807A]">
+        <div className="pt-8 border-t border-[rgba(38,57,90,0.08)] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-sans text-[#82807A]">
           <div>
             &copy; {new Date().getFullYear()} CalmStacks Technologies. All rights reserved.
           </div>

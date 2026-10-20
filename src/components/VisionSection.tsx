@@ -100,11 +100,11 @@ export default function VisionSection() {
             style={{ transitionDelay: "100ms" }}
           >
             <div>
-              <div className="flex items-center justify-between mb-6">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#208374] bg-[#208374]/10 px-2.5 py-1 rounded-full font-medium">
-                  OUR MISSION
+              <div className="flex items-center justify-between mb-6 text-xs text-[#82807A] font-medium">
+                <span className="uppercase tracking-wider">
+                  Our Mission
                 </span>
-                <span className="text-xs font-mono text-[#82807A]">01 // PURPOSE</span>
+                <span>01 // Purpose</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal mb-4">
                 Accelerating human potential through intelligent software.
@@ -113,8 +113,8 @@ export default function VisionSection() {
                 To build intelligent software systems and agent-driven engineering platforms that solve real-world problems, eliminate operational friction, and empower businesses to scale with confidence.
               </p>
             </div>
-            <div className="mt-8 pt-5 border-t border-[rgba(38,57,90,0.08)] flex items-center gap-3 text-xs text-[#82807A] font-mono">
-              <CheckCircle2 className="w-4 h-4 text-[#208374]" />
+            <div className="mt-8 pt-5 border-t border-[rgba(38,57,90,0.08)] flex items-center gap-3 text-xs text-[#54524E]">
+              <CheckCircle2 className="w-4 h-4 text-[#1A1814]" />
               <span>Real-world utility · Production-grade codebases</span>
             </div>
           </div>
@@ -127,11 +127,11 @@ export default function VisionSection() {
             style={{ transitionDelay: "200ms" }}
           >
             <div>
-              <div className="flex items-center justify-between mb-6">
-                <span className="text-xs font-mono uppercase tracking-wider text-[#CA7B57] bg-[#CA7B57]/10 px-2.5 py-1 rounded-full font-medium">
-                  OUR VISION
+              <div className="flex items-center justify-between mb-6 text-xs text-[#82807A] font-medium">
+                <span className="uppercase tracking-wider">
+                  Our Vision
                 </span>
-                <span className="text-xs font-mono text-[#82807A]">02 // FUTURE</span>
+                <span>02 // Future</span>
               </div>
               <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal mb-4">
                 The standard for autonomous agent software engineering.
@@ -140,8 +140,8 @@ export default function VisionSection() {
                 To lead the shift toward autonomous, multi-agent development where complex products are engineered with speed, precision, and verified engineering standards — without sacrificing architectural craftsmanship.
               </p>
             </div>
-            <div className="mt-8 pt-5 border-t border-[rgba(38,57,90,0.08)] flex items-center gap-3 text-xs text-[#82807A] font-mono">
-              <CheckCircle2 className="w-4 h-4 text-[#CA7B57]" />
+            <div className="mt-8 pt-5 border-t border-[rgba(38,57,90,0.08)] flex items-center gap-3 text-xs text-[#54524E]">
+              <CheckCircle2 className="w-4 h-4 text-[#1A1814]" />
               <span>Agentic SDLC · Verifiable quality gates</span>
             </div>
           </div>
@@ -157,8 +157,8 @@ export default function VisionSection() {
           <div className="flex flex-col md:flex-row gap-8 items-start">
             {/* Left selector */}
             <div className="w-full md:w-5/12 space-y-2">
-              <div className="text-xs font-mono uppercase tracking-wider text-[#82807A] mb-3">
-                HOW WE OPERATE DIFFERENTLY
+              <div className="text-xs uppercase tracking-wider text-[#82807A] font-medium mb-3">
+                How We Operate Differently
               </div>
               {differentiators.map((diff, index) => {
                 const isActive = activeDiff === index;
@@ -173,7 +173,7 @@ export default function VisionSection() {
                     }`}
                   >
                     <div className="flex items-center gap-3">
-                      <span className="font-mono text-xs font-semibold text-[#82807A]">
+                      <span className="text-xs font-semibold text-[#82807A]">
                         {diff.num}
                       </span>
                       <span className="text-sm font-semibold tracking-normal">
@@ -181,10 +181,10 @@ export default function VisionSection() {
                       </span>
                     </div>
                     <span
-                      className={`text-[10px] font-mono px-2 py-0.5 rounded-full ${
+                      className={`text-[11px] px-2.5 py-0.5 rounded-full ${
                         isActive
                           ? "bg-[#1A1814] text-white"
-                          : "bg-[#EFECE6] text-[#82807A]"
+                          : "bg-[#EFECE6] text-[#54524E]"
                       }`}
                     >
                       {diff.tag}
@@ -197,18 +197,18 @@ export default function VisionSection() {
             {/* Right Detailed Preview Panel */}
             <div className="w-full md:w-7/12 bg-[#FAF9F8] rounded-2xl p-6 sm:p-8 border border-[rgba(38,57,90,0.08)] flex flex-col justify-between min-h-[320px]">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-mono uppercase tracking-widest text-[#208374] font-semibold">
-                    PILLAR {differentiators[activeDiff].num} // {differentiators[activeDiff].tag}
+                <div className="flex items-center justify-between mb-4 text-xs font-medium text-[#82807A]">
+                  <span className="uppercase tracking-wider">
+                    Pillar {differentiators[activeDiff].num} // {differentiators[activeDiff].tag}
                   </span>
-                  <span className="text-xs font-mono text-[#82807A]">
+                  <span>
                     Deterministic SDLC
                   </span>
                 </div>
                 <h4 className="text-2xl font-semibold text-[#1A1814] tracking-normal mb-2">
                   {differentiators[activeDiff].title}
                 </h4>
-                <p className="text-xs font-mono text-[#CA7B57] font-medium mb-4">
+                <p className="text-xs text-[#54524E] font-medium mb-4">
                   {differentiators[activeDiff].tagline}
                 </p>
                 <p className="text-base text-[#54524E] leading-relaxed">
@@ -217,12 +217,12 @@ export default function VisionSection() {
               </div>
 
               <div className="mt-8 pt-5 border-t border-[rgba(38,57,90,0.08)] flex items-center justify-between">
-                <div className="text-xs font-mono text-[#82807A]">
+                <div className="text-xs text-[#82807A]">
                   Zero hallucination · Strict test gates
                 </div>
                 <div className="flex items-center gap-1.5 text-xs font-medium text-[#1A1814]">
                   <span>Proven in production</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-[#208374]" />
+                  <ArrowRight className="w-3.5 h-3.5 text-[#1A1814]" />
                 </div>
               </div>
             </div>

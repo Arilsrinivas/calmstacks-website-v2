@@ -126,9 +126,9 @@ export default function ContactSection() {
             <div className="mt-5">
               <a
                 href="mailto:calmstacksdigital@gmail.com"
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[rgba(38,57,90,0.08)] shadow-sm text-xs font-mono text-[#1A1814] hover:border-[rgba(38,57,90,0.2)] transition-colors"
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white border border-[rgba(38,57,90,0.08)] shadow-sm text-xs font-sans text-[#1A1814] hover:border-[rgba(38,57,90,0.2)] transition-colors"
               >
-                <Mail className="w-3.5 h-3.5 text-[#208374]" />
+                <Mail className="w-3.5 h-3.5 text-[#1A1814]" />
                 calmstacksdigital@gmail.com
               </a>
             </div>
@@ -142,14 +142,14 @@ export default function ContactSection() {
             style={{ transitionDelay: "100ms" }}
           >
             {success && (
-              <div className="mb-6 p-4 rounded-2xl bg-[#E8F5F2] border border-[#208374]/20 text-center flex items-center justify-center gap-2 text-[#208374] text-sm">
-                <CheckCircle2 className="w-4 h-4 text-[#208374]" />
+              <div className="mb-6 p-4 rounded-2xl bg-[#E8F5F2] border border-white/10 text-center flex items-center justify-center gap-2 text-[#1A1814] text-sm">
+                <CheckCircle2 className="w-4 h-4 text-[#1A1814]" />
                 <span>{success}</span>
               </div>
             )}
 
             {error && (
-              <div className="mb-6 p-4 rounded-2xl bg-[#CA7B57]/10 border border-[#CA7B57]/20 text-center text-xs text-[#CA7B57]">
+              <div className="mb-6 p-4 rounded-2xl bg-[#EFECE6] border border-white/10 text-center text-xs text-[#1A1814]">
                 {error}
               </div>
             )}
@@ -166,7 +166,7 @@ export default function ContactSection() {
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-xs font-mono uppercase tracking-wider text-[#54524E] mb-1.5"
+                    className="block text-xs font-sans uppercase tracking-wider text-[#54524E] mb-1.5"
                   >
                     Your Name
                   </label>
@@ -185,7 +185,7 @@ export default function ContactSection() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-xs font-mono uppercase tracking-wider text-[#54524E] mb-1.5"
+                    className="block text-xs font-sans uppercase tracking-wider text-[#54524E] mb-1.5"
                   >
                     Work Email
                   </label>
@@ -205,7 +205,7 @@ export default function ContactSection() {
               <div>
                 <label
                   htmlFor="subject"
-                  className="block text-xs font-mono uppercase tracking-wider text-[#54524E] mb-1.5"
+                  className="block text-xs font-sans uppercase tracking-wider text-[#54524E] mb-1.5"
                 >
                   Project Focus / Capability Needed
                 </label>
@@ -223,7 +223,7 @@ export default function ContactSection() {
               <div>
                 <label
                   htmlFor="message"
-                  className="block text-xs font-mono uppercase tracking-wider text-[#54524E] mb-1.5"
+                  className="block text-xs font-sans uppercase tracking-wider text-[#54524E] mb-1.5"
                 >
                   Project Details
                 </label>
@@ -268,7 +268,7 @@ export default function ContactSection() {
                 </button>
               </div>
 
-              <p className="text-[11px] font-mono text-center text-[#82807A] pt-2">
+              <p className="text-[11px] font-sans text-center text-[#82807A] pt-2">
                 Encrypted submission · Directly routed to founders · Response within 24h
               </p>
             </form>

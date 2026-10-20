@@ -111,7 +111,7 @@ export default function Navbar() {
             className="text-sm font-medium text-[#1A1814] py-1.5 px-2 rounded-lg hover:bg-black/[0.04] flex items-center justify-between"
           >
             <span>Agent Factory</span>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#208374]/10 text-[#208374]">Autonomous</span>
+            <span className="text-[10px] font-sans px-2 py-0.5 rounded-full bg-[#EFECE6] text-[#1A1814]">Autonomous</span>
           </Link>
           <Link
             href="#services"

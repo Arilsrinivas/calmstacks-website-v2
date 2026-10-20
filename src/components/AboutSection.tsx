@@ -50,7 +50,7 @@ export default function AboutSection() {
           <div className="grid lg:grid-cols-12 gap-8 items-center">
             {/* Left Content */}
             <div className="lg:col-span-6 space-y-5">
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#208374]/10 text-[#208374] text-[11px] font-mono font-medium">
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#EFECE6] text-[#1A1814] text-[11px] font-sans font-medium">
                 ENGINEERING FOUNDATIONS
               </div>
               <h3 className="text-2xl sm:text-3xl font-semibold text-[#1A1814] tracking-normal">
@@ -63,21 +63,21 @@ export default function AboutSection() {
                 Rather than treating AI as a casual autocomplete, our proprietary Agent Factory enforces contract-driven handoffs, isolated Git worktree execution, and stage-gate quality verification to eliminate technical debt before it starts.
               </p>
 
-              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[rgba(38,57,90,0.08)] text-xs text-[#54524E] font-mono">
+              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-[rgba(38,57,90,0.08)] text-xs text-[#54524E] font-sans">
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#208374]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#1A1814]" />
                   <span>Zero-Drift Architecture</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#208374]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#1A1814]" />
                   <span>Isolated Worktrees</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#208374]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#1A1814]" />
                   <span>Stage-Gate Verification</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-4 h-4 text-[#208374]" />
+                  <CheckCircle2 className="w-4 h-4 text-[#1A1814]" />
                   <span>Production-First</span>
                 </div>
               </div>
@@ -85,9 +85,9 @@ export default function AboutSection() {
 
             {/* Right SDLC Architecture Diagram */}
             <div className="lg:col-span-6 bg-[#FAF9F8] rounded-2xl p-4 sm:p-6 border border-[rgba(38,57,90,0.08)] flex flex-col items-center justify-center">
-              <div className="w-full flex items-center justify-between pb-3 mb-3 border-b border-[rgba(38,57,90,0.08)] text-xs font-mono text-[#82807A]">
+              <div className="w-full flex items-center justify-between pb-3 mb-3 border-b border-[rgba(38,57,90,0.08)] text-xs font-sans text-[#82807A]">
                 <span>ARCHITECTURE DIAGRAM</span>
-                <span className="text-[#208374]">1:1 SDLC CONTRACT</span>
+                <span className="text-[#1A1814]">1:1 SDLC CONTRACT</span>
               </div>
               <img
                 src="/assets/about_engineering_architecture.svg"
@@ -101,7 +101,7 @@ export default function AboutSection() {
         {/* 3 Core Trust & Execution Pillars (Primefold Trust Style) */}
         <div className="grid sm:grid-cols-3 gap-6">
           <div className="pf-card-white p-6 sm:p-7 border border-[rgba(38,57,90,0.08)]">
-            <span className="text-xs font-mono uppercase tracking-wider text-[#208374] block mb-2 font-medium">
+            <span className="text-xs font-sans uppercase tracking-wider text-[#1A1814] block mb-2 font-medium">
               01 // CRAFTSMANSHIP
             </span>
             <h4 className="text-lg font-semibold text-[#1A1814] mb-2 tracking-normal">
@@ -113,7 +113,7 @@ export default function AboutSection() {
           </div>
 
           <div className="pf-card-white p-6 sm:p-7 border border-[rgba(38,57,90,0.08)]">
-            <span className="text-xs font-mono uppercase tracking-wider text-[#CA7B57] block mb-2 font-medium">
+            <span className="text-xs font-sans uppercase tracking-wider text-[#1A1814] block mb-2 font-medium">
               02 // AUTONOMY
             </span>
             <h4 className="text-lg font-semibold text-[#1A1814] mb-2 tracking-normal">
@@ -125,7 +125,7 @@ export default function AboutSection() {
           </div>
 
           <div className="pf-card-white p-6 sm:p-7 border border-[rgba(38,57,90,0.08)]">
-            <span className="text-xs font-mono uppercase tracking-wider text-[#2E68FF] block mb-2 font-medium">
+            <span className="text-xs font-sans uppercase tracking-wider text-[#1A1814] block mb-2 font-medium">
               03 // RELIABILITY
             </span>
             <h4 className="text-lg font-semibold text-[#1A1814] mb-2 tracking-normal">
