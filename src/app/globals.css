@@ -225,3 +225,14 @@ body {
   background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
   background-size: 20px 20px;
 }
+
+/* ===== SVG Animated Impulses ===== */
+@keyframes dashFlow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animate-flow {
+  animation: dashFlow 1.2s linear infinite;
+}
